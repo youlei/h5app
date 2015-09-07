@@ -46,13 +46,18 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					self.PageViewMgr.mapping[name].show();
 					self.PageViewMgr.mapping[name].onShow();
 					this.PageViewMgr.getCurrentShow().$el.animate({
-						left:screenWidth+'px'
+						left:screenWidth+'px',
+						opacity:0
+						
 					},UC.animate.duration,'linear',function(){ 
 						currentPageView.status=false;
 						self.PageViewMgr.mapping[name].status=true;
 						currentPageView.hide();
 					});
 				}else{
+					this.PageViewMgr.mapping[name].$el.css({
+						opacity:1
+					});
 					this.PageViewMgr.mapping[name].show();
 					self.PageViewMgr.mapping[name].onShow();
 					this.PageViewMgr.mapping[name].$el.animate({
@@ -100,7 +105,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		},
 		animate:{
 			anim:true,
-			duration:100,
+			duration:300,
 			easing:'linear'
 		}
 			
