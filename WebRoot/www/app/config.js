@@ -8,6 +8,8 @@ require.config({
 		'index':'app/ctrl/index',
 		'login':'app/ctrl/login',
 		'lib':'app/lib',
+		'alert':'app/alert',
+		'toast':'app/toast',
 		'boot':'app/boot',
 		'userModel':'app/model/userModel',
 		'register1':'app/ctrl/register1',
@@ -22,7 +24,9 @@ require.config({
 		'TemplateRegister2':'app/view/register2.html',
 		'TemplateRegister3':'app/view/register3.html',
 		'TemplateLogin':'app/view/login.html',
-		'TemplateIndex':'app/view/index.html'
+		'TemplateIndex':'app/view/index.html',
+		'TemplateIndex':'app/view/alert.html',
+		'TemplateIndex':'app/view/toast.html'
 	}
 });
  

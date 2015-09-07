@@ -1,4 +1,4 @@
-define(['lib','jquery','underscore','backbone','text!TemplateHeader'],function(lib,$,_,Backbone,TemplateHeader){
+define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert','toast'],function(lib,$,_,Backbone,TemplateHeader,alert,toast){
 	var Header=function(param){
 		this.title=param.title||"";
 		this.back=param.back||false;
@@ -50,7 +50,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader'],function(l
 		events:{},
 		status:true,
 		header:null, 
-		 
+		alert:null,
 		//eventNameArr:"blur change click dblclick error focus focusin focusout keydown keypress keyup mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup resize scroll submit unload ready hover".split(","),
 		initialize:function(){
 			var self=this,
@@ -59,13 +59,15 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader'],function(l
 				id=new Date().getTime();
 			self.name=name;
 			self.timestap=id;
-			
+			self.alert=new alert();
 			if(!UC.PageViewMgr.mapping[name]){ 
 				var left= $(document).width();
 				$el= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;left:"+left+"px;height: 100%; background-color: #999;'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
 				self.$el=$el;
+				var header=new Header({pageView:self,title:'',back:false,home:false,view:false});
+				self.header=header;
+				self.onCreate();
 				
-				self.onCreate(); 
 				//UC.PageViewMgr.mapping[name]=self;
 				//self._handleBindEvent(self.events);
 			}else{
@@ -74,8 +76,6 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader'],function(l
 			}
 			//UC.PageViewMgr.mapping[name].show();
 			UC.PageViewMgr.add(self);
-			var header=new Header({pageView:self,title:'',back:false,home:false,view:false});
-			self.header=header;
 			self.onShow();
 			
 		},
@@ -93,7 +93,26 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader'],function(l
 		},
 		onShow:function(){
 			console.log("show...............");
+		},
+		
+		showAlert:function(param){
+			this.alert.alert(param);
+		},
+		
+		showConfirm:function(param){
+			
+			this.alert.confirm(param);
+		},
+		
+		showToast:function(param){
+			
+			this.alert.toast(param);
+		},
+		showLoading:function(param){
+			
+			this.alert.loading(param);
 		}
+		
 	});
 	return BasePageView;
 });

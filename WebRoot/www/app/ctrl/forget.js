@@ -20,24 +20,25 @@ define(['jquery','underscore','backbone','text!TemplateForget','basePageView','u
         onCreate:function(){
         
        	   this.render();
+	       	this.header.set({
+	   			title:'找回密码',
+	   			view:true,
+	   			back:true,
+	   			home:true,
+	   			events:{
+	   				returnHandler:function(){
+	   					UC.go('login');
+	   				},
+	   				homeHandler:function(){
+	   					
+	   					
+	   				}
+	   			}
+	   		});
         },
         onShow:function(){
        	
-        	this.header.set({
-       			title:'找回密码',
-       			view:true,
-       			back:true,
-       			home:true,
-       			events:{
-       				returnHandler:function(){
-       					UC.go('login');
-       				},
-       				homeHandler:function(){
-       					
-       					
-       				}
-       			}
-       		});
+        	
         }
 	});
 	return loginView;

@@ -13,8 +13,6 @@ define(['jquery','underscore','backbone','text!TemplateRegister3','basePageView'
        onCreate:function(){
         
        		this.render();
-       },
-       onShow:function(){
        		this.header.set({
        			title:'用户注册',
        			view:true,
@@ -30,6 +28,9 @@ define(['jquery','underscore','backbone','text!TemplateRegister3','basePageView'
        				}
        			}
        		});
+       },
+       onShow:function(){
+       		
        	 
        }
 	});

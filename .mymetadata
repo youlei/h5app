@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="UCAPPService"
+  name="h5app"
   id="myeclipse.1440146425833"
   context-root="/UCAPPService"
   j2ee-spec="5.0"
-  archive="UCAPPService.war">
+  archive="h5app.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>

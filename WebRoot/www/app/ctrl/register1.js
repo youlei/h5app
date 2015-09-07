@@ -20,24 +20,25 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
         onCreate:function(){
         
        	   this.render();
+	       	this.header.set({
+	   			title:'用户注册',
+	   			view:true,
+	   			back:true,
+	   			home:true,
+	   			events:{
+	   				returnHandler:function(){
+	   					UC.go('login');
+	   				},
+	   				homeHandler:function(){
+	   					
+	   					
+	   				}
+	   			}
+	   			
+	   		});
         },
         onShow:function(){
-        	this.header.set({
-       			title:'用户注册',
-       			view:true,
-       			back:true,
-       			home:true,
-       			events:{
-       				returnHandler:function(){
-       					UC.go('login');
-       				},
-       				homeHandler:function(){
-       					
-       					
-       				}
-       			}
-       			
-       		});
+        	
        	  
         }
 	});
