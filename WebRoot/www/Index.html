@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UC 货运系统</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<link rel="stylesheet" href="res/jquery.mobile-1.4.5.css" type="text/css"></link>
+	<script type="text/javascript" src="lib/sea.js"></script>
+    <script type="text/javascript" src="lib/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="lib/jquery.mobile-1.4.5.js">
+    </script><script type="text/javascript" src="lib/underscore.js"></script>	 
+  	<script type="text/javascript"> 
+  		 
+  		$(document).ready(function(){ 
+  			/**
+  			 $("#bt").on("click",function(){ 
+  			 	alert(window.UC.getOS());
+  			 });
+  			 */
+  			 $("#QRScan").on("click",function(){
+  			 	window.UC.startQRScan();
+  			 });
+  			 $("#openImages").on("click",function(){
+  			 	window.UC.getImageFromAlbum();
+  			 });
+  			 $("#openCamera").on("click",function(){
+  			 	window.UC.getImageFromCamera();
+  			 });
+  		});;
+  	 	 
+  	 	seajs.config({
+			base:'./',
+			paths:{
+				lib:'lib',
+				app:'app'
+				
+			}
+			
+
+		});
+		function showImg(url){
+			$("#preImg").attr("src",url);
+		}
+		seajs.use('app/ctrl/index',function(index){
+			 //alert('ready..........');
+		});
+  	</script>
+  </head>
+  
+  <body>
+  	
+    <div data-role="page">
+    	<div data-role="header">
+    		联创运输系统
+    	</div>
+    	<div data-role="content">
+    		<input type="button" value="QRScan" id="QRScan"/>
+    			<input type="button" value="打开相册" id="openImages"/>
+    			<input type="button" value="打开相机" id="openCamera"/>
+    			<img alt="" id="preImg" src="" style="height:40%;width:100%">
+    	</div>
+    	<div data-role="footer" > 
+			<ul>
+				<li><a href="#" id="chat">Chat</a></li>
+				<li><a href="#" id="email" >Email</a></li>
+				<li><a href="#" id="skull">Danger</a></li>
+				<li><a href="#" id="beer" >Beer</a></li>
+				<li><a href="#" id="coffee">Coffee</a></li>
+			</ul>
+	 
+		</div>
+    </div>
+  </body>
+</html>

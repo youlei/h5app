@@ -1,0 +1,203 @@
+body{background:#e9ecf1;font:normal 14px/1.5 Tahoma,"Lucida Grande",Verdana,"Microsoft Yahei",STXihei,hei;font-size:100%;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,button,p,blockquote,th,td,img,section,a{margin:0;padding:0; border:0;color: #999;}
+.ui-body-a, .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a {
+background-color:none;border-color: #ddd;color: #333;text-shadow: 0 1px 0 #ebebeb;}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, iframe {display: block}
+h1, h2, h3, h4, h5, h6 {font-weight: 500}
+ul, ol {list-style: none}
+a {color: #999;text-decoration: none}
+a:focus { -moz-outline-style: none; }
+fieldset, img, button, input {border: 0}
+button, input, select, textarea {font-size: 100%}
+table {border-collapse: collapse;border-spacing: 0}
+:focus {outline: 0}
+.clearfix:after {clear: both;content: '.';display: block;height: 0;visibility: hidden;line-height: 0}
+.clearfix {*zoom: 1}
+.fl {float: left}
+.fr {float: right}
+.clear {clear: both}
+.overflow {overflow: hidden}
+input {width: 100%border: 0;padding: 0;background:transparent;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;outline: 0;font:normal 14px/1.5 Tahoma,"Lucida Grande",Verdana,"Microsoft Yahei",STXihei,hei;font-size:100%;}
+.basefix, .layoutfix {*zoom: 1;}
+.basefix:after, .layoutfix:after {clear: both;content: '.'; display: block;height: 0;overflow: hidden;}
+.txt_lt{ text-align:left;}
+.txt_lr{ text-align:right;}
+.padlr{ padding:10px;}
+.marlr{ margin:10px;}
+
+/**/
+.app_box,
+.app_btn_a,
+.fm_app_list,
+.user_box,
+.pwd_box{border-radius:5px;background:#fff;box-shadow:0 1px 1px #d7d8dd;border:1px solid #d7d8dd;}
+
+/*按钮链接*/
+.app_btn_a{display:block;height:55px;color:#676767}
+.app_out_btn{display:block;margin:15px;background:#ffb001;text-align:center;font-size:16px;color:#fff;line-height:45px;font-size:16px;border-radius:5px; letter-spacing:2px;}
+.app_btn_a span{ line-height:55px; display:inline-block; margin-left:10px;}
+.app_btn_a .icon_next{margin:15px 10px 0;}
+
+/*底部按钮*/
+.nav_btn{bottom:0px;height:50px;width:100%;}
+.nav_btn a{ display:inline-block; width:50%;text-align:center;line-height:50px;color:#fff;font-size:18px;background:#ffb001;float:left}
+.nav_btn a.bc{background:#a9a9a9}
+
+/*三角箭头*/
+.icon_next,.icon_top{width:15px;float:right;}
+.icon_next::before,
+.icon_top::before{content: "";display: inline-block;width:10px;height:10px;vertical-align: middle;border-right: 2px solid #d5d5d5;border-top: 2px solid #d5d5d5;-webkit-box-sizing: border-box;box-sizing: border-box;}
+/*向右箭头*/
+.icon_next::before{-webkit-transform: rotate(45deg);transform: rotate(45deg);}
+
+.fm_app_list li span,.fm_app_list li em{display:inline-block;height:55px;line-height:55px;}
+/*用户*/
+.user_app_wap{ background:#4f5f6f; text-align:center; width:100%; padding:20px 0;}
+.user_app_name,.company_app_name{ font-size:18px; color:#fefefe; padding:8px 0 0;}
+.company_app_name{ color:#b5bac0;}
+.user_app_wap  img.icobg{ width:80px; height:80px; border:5px solid #5d6a7a; border-radius:80px;vertical-align:top;}
+
+ /*表单列表*/
+.fm_app_list{ margin:0 10px;}
+.fm_app_list li{height:55px;border-top:1px solid #d7d8dd;padding:0 10px;}
+.fm_app_list li:nth-child(1){border-top:0;}
+.fm_app_list li .icon_next{ margin-top:15px;}
+.fm_app_list li span{float:left;}
+.fm_app_list li span.lab{width:32%;text-align:left;color:#676767;color:#666;}
+.fm_app_list li span.txt_box{width:60%;color:#000;}
+.fm_app_list li em{width:40px;background:#d4d4d4;height:25px;line-height:25px;float:right;border-radius:40px;color:#fafafa;text-align:center;font-style:normal;font-size:12px; margin:12px 15px 0 0;}
+.fm_app_list li em.cur{ background:#299be4; color:#fff;}
+
+/*系统介绍--账号更换*/
+.app_user_bg{ background:url(images/indexbg.jpg) no-repeat;background-size: 100%;}
+.app_bg_none{ background:none;}
+.app_bg_none .user_app_name{ margin-top:10px;}
+.app_bg_none a{color:#0049b3; text-decoration:underline;}
+.app_user_btn2 a{ margin:20px 15px;}
+.hwt_s_logo{ margin:70px 30px 30px;}
+.hwt_s_logo img{ width:100%; vertical-align:auto;}
+.hwt_m_top{ margin-top:120px;}
+.hwt_sys{ padding:0 10px 10px; }
+.hwt_sys_tt{height:45px;background:#299be4;border:1px solid #299be4;border-top-left-radius:5px;border-top-right-radius:5px;color:#fff;font-size:16px;text-indent:10px;line-height:45px;}
+.hwt_list{background:#fff; padding-top:20px;border-bottom-left-radius:5px;border-bottom-right-radius:5px;border:1px solid #fff;}
+.hwt_list li{padding: 0 0 20px;}
+.hwt_list span{display:inline-block;vertical-align:top;width:70%;color:#999;}
+.hwt_list span.row{width:25%;text-indent:15px;color:#151515}
+
+/*数据列表*/
+.order_box{position:relative; overflow:hidden; margin-bottom:15px;}
+.order_box li,.order_box li span{height:45px;line-height:45px;}
+.order_box li:nth-child(1){padding-top:10px;}
+.order_box .list_num{position:absolute;right:10px;width:50px;height:50px; top:0; background:url(images/list_num.png) no-repeat; background-size:50px 50px; text-align:center; line-height:40px;}
+.order_box .list_num i{ color:#fff; font-style:normal;  font-size:20px; display:block; width:25px; height:35px; line-height:35px; padding-left:22px; text-align:center}
+.order_box .more_btn span{color:#fff; width:200px; position:absolute; left:0;top:0}
+.order_box .more_btn{ height:44px;line-height:44px;background:#299be4;display:block; width:100%;color:#fff; position:relative;}
+.order_box ul.fm_app_list{border-bottom:1px solid #299be4;}
+.order_box ul.fm_app_list li{border:0;}
+.order_box ul.fm_app_list .icon_next{margin:0;}
+.order_box ul.fm_app_list .icon_next::before{border-color:#fff;}
+.order_box ul.fm_app_list li span.txt_box{width:65%;}
+
+/*详情切换*/
+.app_order_tab{margin:10px; text-align:center;}
+.app_order_tab div{display:inline-block;line-height:40px; height:40px; width:33%; color:#999; text-align:center;}
+.app_order_tab div:nth-child(1){ float:left;}
+.app_order_tab div:nth-child(2){}
+.app_order_tab div:nth-child(3){ float:right;}
+.app_order_tab div.cur{background:#299be4; color:#fff;}
+.app_order_tab div.cur:nth-child(1){border-top-left-radius:5px;border-bottom-left-radius:5px;}
+.app_order_tab div.cur:nth-child(3){border-top-right-radius:5px;border-bottom-right-radius:5px; }
+/**/
+.fm_app_list2{margin:0 10px;padding:10px}
+.fm_app_list2 article{height:40px;}
+.fm_app_list2 article.box_sg div{box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;-icab-box-sizing:border-box;-khtml-box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box; width:50%; height:40px;  float:left;}
+.fm_app_list2 article.box_sg div{float:left;width:50%;height:40px;}
+.fm_app_list2 div span{ display:inline-block;line-height:40px;font-size:16px;float:left}
+.fm_app_list2 div span:nth-child(1){width:40%;color:#666;padding-right:10px;text-align:right;}
+.fm_app_list2 div span:nth-child(2){color:#1b1b1b;text-align:left;}
+.fm_app_list2 div.ab_line{position:relative;width:50%}
+.fm_app_list2 div.ab_line span.pos_span{position:absolute;left:40%;width:100%;padding-left:5px;}
+.app_order_list{ margin:0 10px;}
+.app_order_list dt{ background:#fff; height:40px;}
+.app_order_list .icon_next{ margin-left:30px;}
+.app_order_list .icon_next::before{content: "";display: inline-block;width:10px;height:10px;vertical-align: middle;border-right: 2px solid #d5d5d5;border-top: 2px solid #d5d5d5;-webkit-box-sizing: border-box;box-sizing: border-box; float:right; margin:20px 20px;-webkit-transform: rotate(135deg);transform: rotate(135deg);}
+.app_order_list dt{ line-height:50px; height:50px; color:#666; font-size:16px; padding-left:20px; border-bottom:1px solid #e9ecf1}
+.app_order_list dt.down,.app_order_list dl dd div{background:#f7f7f7; border-bottom:none}
+.app_order_list dt.down .icon_next::before{-webkit-transform: rotate(315deg);transform: rotate(315deg); margin-top:20px;}
+.app_order_list dt:nth-child(1){border-top-left-radius:5px;border-top-right-radius:5px;}
+.app_order_list dl dd{ padding:0 20px; display:none;background:#f7f7f7; }
+.app_order_list dl dd div span{ display:inline-block; height:40px; line-height:40px; color:#333; font-size:15px;}
+.app_order_list dl dd div span:nth-child(1){ width:28%; text-align:left;}
+.app_order_list dl dd div span:nth-child(2){ width:34%;text-align:center;}
+.app_order_list dl dd div span:nth-child(3){ width:34%; text-align:right}
+.app_order_total{background:#299be4;border-bottom-left-radius:5px;border-bottom-right-radius:5px; padding-right:20px; height:82px;}
+.app_order_total p {color:#fff; height:40px; line-height:40px; width:100% ; text-align:right;}
+.app_order_total p span{ display:inline-block; height:40px; line-height:40px; font-size:18px;}
+.app_order_total p.dot span{ border-bottom:1px dotted #81bdec; font-size:16px;}
+.tips{ height:20px; line-height:20px; font-size:14px; padding-left:25px; padding-bottom:5px;}
+.tips_ico{ background:url(images/tips_ico.png) left top no-repeat; background-size:20px 20px;}
+
+/*绑定*/
+.user_box,.pwd_box{ margin:20px 15px 0; height:35px; padding:5px 0 0;box-shadow:0 1px 1px #669ad1; }
+.user_box{margin-top:40px; background:url(images/user_box_ico.png) 15px center no-repeat;background-size:20px 18px;background-color:#fff;}
+.pwd_box{ background:url(images/pwd_box_ico.png) 15px center no-repeat;background-size:16px 20px;background-color:#fff;}
+.user_box span,.pwd_box span{ height:30px; line-height:30px; margin-left:48px; border-left:1px solid #cacfd4; padding-left:30px;}
+.user_box span,.pwd_box span input{}
+.msg{border:1px solid #fffcd8;color:#e4a11b;height:27px;line-height:27px;padding:0 0 0 20px; background:url(images/log_msg.png) #fffcd8  5px 8px no-repeat; margin:15px 15px 0 15px;border-radius:5px;}
+/*订单附件上传*/
+.txt_box .ud_pic{background:#b9b9b9; width:55px; height:55px; float:left; margin-right:2px;}
+.txt_box .ud_pic img{width:100%;}
+.up_load .up_load_li,.up_load .up_load_li span{height:auto;}
+.up_load .up_load_li span.txt_box{ padding:20px 0; width:68%}
+.up_load .up_load_li .ud_pic_btn{ float:left; border:2px dotted #d2d2d2;}
+.up_load .up_load_li .ud_pic_btn a{ display:block; width:51px; height:51px; text-align:center; line-height:45px; font-size:30px;}
+
+/*iphone4*/
+@media only screen and (device-height :480px) and (-webkit-device-pixel-ratio:2){
+.hwt_m_top{ margin-top:50px;} 
+.hwt_s_logo{margin:20px 30px}
+.hwt_sys_tt{height:40px;line-height:40px;font-size:14px;}
+.hwt_list span{font-size:14px;}
+.hwt_m_top{ margin-top:80px;}
+.fm_list span{line-height:50px;}
+.fm_app_list li span,.fm_app_list li .icon_next,.app_more_btn .icon_next{height:50px;line-height:50px;}
+.fm_app_list li{ height:50px;}
+.fm_app_list2 article span{ font-size:14px;}
+.fm_app_list2{ padding:10px 0 10px 4px;}
+.fm_app_list2 div span:nth-child(1){padding-right:5px; width:40%}
+.fm_app_list2 div.ab_line span.pos_span{left:40%}
+.app_order_list dl dd div span:nth-child(1){width:25%;}
+.app_order_list dl dd div span:nth-child(2){width:42%}
+.app_order_list dl dd div span:nth-child(3){width:28%;}
+.tips{font-size:13px; background-size:15px 15px; background-position:2px 2px; line-height:20px; padding-left:20px;}
+.txt_box .ud_pic{ width:45px; height:45px;}
+.up_load .up_load_li .ud_pic_btn a{ display:block; width:41px; height:41px; }
+}
+
+/*iphone5*/
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2) {
+.hwt_s_logo{margin:20px 30px}
+.hwt_sys_tt{height:40px;line-height:40px;font-size:14px;}
+.hwt_list span{font-size:14px;}
+.hwt_m_top{ margin-top:80px;}
+.fm_list span{line-height:50px;}
+.fm_app_list li span,.fm_app_list li .icon_next,.app_more_btn .icon_next{height:50px;line-height:50px;}
+.fm_app_list li{ height:50px;}
+.fm_app_list2 article span{ font-size:14px;}
+.fm_app_list2{ padding:10px 0 10px 4px;}
+.fm_app_list2 div span:nth-child(1){padding-right:5px; width:40%}
+.fm_app_list2 div.ab_line span.pos_span{left:40%}
+.app_order_list dl dd div span:nth-child(1){width:25%;}
+.app_order_list dl dd div span:nth-child(2){width:42%}
+.app_order_list dl dd div span:nth-child(3){width:28%;}
+.tips{font-size:13px; background-size:15px 15px; background-position:2px 2px; line-height:20px; padding-left:20px;}
+.txt_box .ud_pic{ width:45px; height:45px;}
+.up_load .up_load_li .ud_pic_btn a{ display:block; width:41px; height:41px; }
+}
+
+/*iphone6+*/
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+.txt_box .ud_pic{margin-right:10px;}
+ }
+
+

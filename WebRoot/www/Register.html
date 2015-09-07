@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Index.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+	<link rel="stylesheet" href="res/jquery.mobile-1.4.5.css" type="text/css"></link>
+	<script type="text/javascript" src="lib/sea.js"></script>
+  	<script type="text/javascript" src="lib/jquery-1.7.1.js"></script>
+  	<script type="text/javascript" src="lib/jquery.mobile-1.4.5.js"></script>
+  	<script type="text/javascript"> 
+  		$(document).ready(function(){ 
+  			 $("#bt").on("click",function(){ 
+  			 	alert(window.UC.getOS());
+  			 });
+  		});;
+  	</script>
+  </head>
+  
+  <body>
+  	<input type="button" value="click" id='bt'/>
+    <div data-role="page">
+    	
+    	
+    </div>
+  </body>
+</html>
