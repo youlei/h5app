@@ -13,6 +13,23 @@ define(['jquery','underscore','backbone','text!TemplateIndex','basePageView'],fu
          },
          onCreate:function(){
         	 this.render();
+        	 this.header.set({
+        		title:'duleinfo sys',
+ 	   			view:true,
+ 	   			back:true,
+ 	   			home:true,
+ 	   			events:{
+ 	   				returnHandler:function(){
+ 	   					UC.go('login');
+ 	   				},
+ 	   				homeHandler:function(){
+ 	   					
+ 	   					
+ 	   				}
+ 	   			}
+        		 
+        	 });
+        	
          },
          onShow:function(){
          	

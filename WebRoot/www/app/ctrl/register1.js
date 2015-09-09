@@ -21,7 +21,7 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
         
        	   this.render();
 	       	this.header.set({
-	   			title:'用户注册',
+	   			title:'dulei info sys',
 	   			view:true,
 	   			back:true,
 	   			home:true,

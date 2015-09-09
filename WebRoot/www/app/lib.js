@@ -37,6 +37,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			
 		},
 		
+		showByParam:function(){
+			
+		},
+		
 		show:function(name){
 			var self=this;
 			if(this.PageViewMgr.mapping[name]){
@@ -93,9 +97,19 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				 });
 			});
 		},
-		go:function(name){
+		// 单页模式下页面跳转
+		/**
+		 * param.anmi
+		 * */
+		go:function(name,param){
+			this.param=param||{};
 			window.location.hash="#"+name; 
 			//this.show(name);
+		},
+		//
+		jump:function(){
+			
+			
 		},
 		back:function(){
 			
@@ -103,6 +117,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		forward:function(){
 			
 		},
+		goParam:{},
 		animate:{
 			anim:true,
 			duration:300,
@@ -129,7 +144,12 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		   if(name=="login"){
 			   window.location.hash=name;
 		   }
-		   UC.show(name);
+		   if($.isEmpty(UC.goParam)){
+			   UC.show(name);
+		   }else{
+			   
+		   }
+		   
 
 		}
 	});

@@ -21,11 +21,9 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   						
   					}
   				});
-  			//UC.go("index");
-  			//this.showAlert({title:'请稍等',content:'.......'});
-  			//	this.showConfirm({title:'确认'});
-  			//this.showToast({content:'xxxxx'});
-  			this.showLoading();
+  			UC.go("yulu");
+  			
+  			//this.showLoading();
   		},
   		forget:function(){
   			UC.go("forget");

@@ -143,7 +143,7 @@ input, textarea {
 }
 
 
-/*鎸夐挳閾炬帴*/
+/*閹稿鎸抽柧鐐复*/
 .app_btn_a {
     display: block;
     height: 55px;
@@ -173,7 +173,7 @@ input, textarea {
     margin: 15px 10px 0;
 }
 
-/*搴曢儴鎸夐挳*/
+/*鎼存洟鍎撮幐澶愭尦*/
 .nav_btn {
     position: fixed;
     bottom: 0px;
@@ -197,7 +197,7 @@ input, textarea {
             background: #a9a9a9;
         }
 
-/*涓夎绠ご*/
+/*娑撳顬戠粻顓炪仈*/
 .icon_next, .icon_top {
     width: 15px;
     float: right;
@@ -215,7 +215,7 @@ input, textarea {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
-    /*鍚戝彸绠ご*/
+    /*閸氭垵褰哥粻顓炪仈*/
     .icon_next::before {
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
@@ -226,7 +226,7 @@ input, textarea {
     vertical-align: middle
    
 }
-/*鐢ㄦ埛*/
+/*閻劍鍩�/
 .user_app_wap {
     background: #4f5f6f;
     text-align: center;
@@ -252,7 +252,7 @@ input, textarea {
     vertical-align: top;
 }
 
-/*琛ㄥ崟鍒楄〃*/
+/*鐞涖劌宕熼崚妤勩�*/
 .fm_app_list {
     margin: 0 10px;
 }
@@ -314,7 +314,7 @@ input, textarea {
     box-shadow: 0;
     border: 0;
 }
-/*绯荤粺浠嬬粛--璐﹀彿鏇存崲*/
+/*缁崵绮烘禒瀣矝--鐠愶箑褰块弴瀛樺床*/
 .app_user_bg {
     background: url(images/indexbg.jpg) #1e2730 no-repeat;
     background-size: 100% 100%;
@@ -391,7 +391,7 @@ input, textarea {
             color: #151515;
         }
 
-/*鏁版嵁鍒楄〃*/
+/*閺佺増宓侀崚妤勩�*/
 .order_box {
     position: relative;
     overflow: hidden;
@@ -471,7 +471,7 @@ input, textarea {
             width: 65%;
         }
 
-/*璇︽儏鍒囨崲*/
+/*鐠囷附鍎忛崚鍥ㄥ床*/
 .app_order_tab {
     margin: 10px;
     text-align: center;
@@ -732,7 +732,7 @@ input, textarea {
     .app_order_list dl dd li:last-child span {
         height: auto;
     }
-/*缁戝畾*/
+/*缂佹垵鐣�/
 .user_box, .pwd_box {
     margin: 20px 15px 0;
     height: 35px;
@@ -776,7 +776,7 @@ input, textarea {
     margin: 15px 15px 0 15px;
     border-radius: 5px;
 }
-/*璁㈠崟闄勪欢涓婁紶*/
+/*鐠併垹宕熼梽鍕娑撳﹣绱�/
 .txt_box .ud_pic {
     background: #b9b9b9;
     width: 55px;
@@ -812,7 +812,7 @@ input, textarea {
             font-size: 30px;
         }
 
-/*鎼滅储鏍�/
+/*閹兼粎鍌ㄩ弽锟�
 .app_order_tab2{ margin:10px}
 .app_order_tab2 div{float:left;width:25%; text-align:center; height:40px; line-height:40px;}
 .app_order_tab2 div.cur{ background:#299be4; color:#fff;}
@@ -826,7 +826,7 @@ input, textarea {
 
 
 
-/*涓夎*/
+/*娑撳顬�/
 .i_arr {
     display: inline-block;
     *zoom: 1;
@@ -909,7 +909,7 @@ input, textarea {
 .btn_claim_me {
     color: #0065bb;
 }
-/*placeholder棰滆壊*/
+/*placeholder妫版粏澹�/
 :-moz-placeholder {
     color: #999;
 }
@@ -932,10 +932,10 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 .order_box .more_btn{ background:none; line-height:30px; height:30px; }
 .order_box ul.fm_app_list .icon_next{ display:none;}
 
-/*搴曢儴鑿滃崟*/
+/*鎼存洟鍎撮懣婊冨礋*/
 .nav_bottom{ height:30px; width:100%; background:#272727; padding:10px 0; position:fixed; bottom:0; z-index: 999}
 
-.nav_bottom span{ float:left; display:inline-block; width:25%; text-align:center;color:#fff; }
+.nav_bottom span{ float:left; display:inline-block; width:33%; text-align:center;color:#fff; }
 .nav_bottom p{ height:23px; width:23px; margin:0 auto; background:url(images/nav_b_1.png)  no-repeat;}
 .nav_bottom p.n_b_1{ background-position:8px top; background-size:}
 .nav_bottom span:hover p.n_b_1{ background-position:-19px top}
@@ -952,7 +952,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 .nav_bottom span:hover{color:#299be4}
 .nav_bottom b{ font-size:12px; font-weight:normal; vertical-align:top;}
 .cm-header{ background: #4f5f6f;}
-/*搴曢儴鎸夐挳榛勮竟鍘绘帀*/
+/*鎼存洟鍎撮幐澶愭尦姒涘嫯绔熼崢缁樺竴*/
 .m_bt_g{ margin-bottom: 95px;}
 
 .fm_app_list_xq li span{ height: 40px;line-height: 40px;}
@@ -1142,7 +1142,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 }
 
 
-/*鐩殑鍦板叧闂寜閽�/
+/*閻╊喚娈戦崷鏉垮彠闂傤厽瀵滈柦锟�
 .x-ico {
         position: relative;
         float: right;
