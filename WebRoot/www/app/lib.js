@@ -37,6 +37,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			
 		},
 		
+		showByParam:function(){
+			
+		},
+		
 		show:function(name){
 			var self=this;
 			if(this.PageViewMgr.mapping[name]){
@@ -46,13 +50,18 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					self.PageViewMgr.mapping[name].show();
 					self.PageViewMgr.mapping[name].onShow();
 					this.PageViewMgr.getCurrentShow().$el.animate({
-						left:screenWidth+'px'
+						left:screenWidth+'px',
+						opacity:0
+						
 					},UC.animate.duration,'linear',function(){ 
 						currentPageView.status=false;
 						self.PageViewMgr.mapping[name].status=true;
 						currentPageView.hide();
 					});
 				}else{
+					this.PageViewMgr.mapping[name].$el.css({
+						opacity:1
+					});
 					this.PageViewMgr.mapping[name].show();
 					self.PageViewMgr.mapping[name].onShow();
 					this.PageViewMgr.mapping[name].$el.animate({
@@ -88,9 +97,19 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				 });
 			});
 		},
-		go:function(name){
+		// 单页模式下页面跳转
+		/**
+		 * param.anmi
+		 * */
+		go:function(name,param){
+			this.param=param||{};
 			window.location.hash="#"+name; 
 			//this.show(name);
+		},
+		//
+		jump:function(){
+			
+			
 		},
 		back:function(){
 			
@@ -98,9 +117,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		forward:function(){
 			
 		},
+		goParam:{},
 		animate:{
 			anim:true,
-			duration:100,
+			duration:300,
 			easing:'linear'
 		}
 			
@@ -124,7 +144,12 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		   if(name=="login"){
 			   window.location.hash=name;
 		   }
-		   UC.show(name);
+		   if($.isEmpty(UC.goParam)){
+			   UC.show(name);
+		   }else{
+			   
+		   }
+		   
 
 		}
 	});

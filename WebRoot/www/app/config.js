@@ -8,14 +8,15 @@ require.config({
 		'index':'app/ctrl/index',
 		'login':'app/ctrl/login',
 		'lib':'app/lib',
-		'alert':'app/alert',
-		'toast':'app/toast',
+		'alert':'app/alert', 
 		'boot':'app/boot',
 		'userModel':'app/model/userModel',
 		'register1':'app/ctrl/register1',
 		'register2':'app/ctrl/register2',
 		'register3':'app/ctrl/register3',
 		'forget':'app/ctrl/forget',
+		'yulu':'app/ctrl/yulu',
+		'my':'app/ctrl/my',
 		
 		
 		'TemplateHeader':'app/view/header.html',
@@ -25,8 +26,9 @@ require.config({
 		'TemplateRegister3':'app/view/register3.html',
 		'TemplateLogin':'app/view/login.html',
 		'TemplateIndex':'app/view/index.html',
-		'TemplateIndex':'app/view/alert.html',
-		'TemplateIndex':'app/view/toast.html'
+		'TemplateBottomNav':'app/view/bottomNav.html',
+		'TemplateYulu':'app/view/yulu.html',
+		'TemplateMy':'app/view/my.html'
 	}
 });
  

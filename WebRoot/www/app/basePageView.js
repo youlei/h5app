@@ -1,4 +1,4 @@
-define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert','toast'],function(lib,$,_,Backbone,TemplateHeader,alert,toast){
+define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],function(lib,$,_,Backbone,TemplateHeader,alert){
 	var Header=function(param){
 		this.title=param.title||"";
 		this.back=param.back||false;
