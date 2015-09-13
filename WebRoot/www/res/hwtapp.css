@@ -86,7 +86,7 @@ input {width: 100%border: 0;padding: 0;background:transparent;-moz-box-sizing:bo
 
 /*数据列表*/
 .order_box{position:relative; overflow:hidden; margin-bottom:15px;}
-.order_box li,.order_box li span{height:45px;line-height:45px;}
+.order_box li,.order_box li span{height:14px;line-height:45px;}
 .order_box li:nth-child(1){padding-top:10px;}
 .order_box .list_num{position:absolute;right:10px;width:50px;height:50px; top:0; background:url(images/list_num.png) no-repeat; background-size:50px 50px; text-align:center; line-height:40px;}
 .order_box .list_num i{ color:#fff; font-style:normal;  font-size:20px; display:block; width:25px; height:35px; line-height:35px; padding-left:22px; text-align:center}

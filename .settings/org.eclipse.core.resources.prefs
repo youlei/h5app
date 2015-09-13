@@ -1,4 +1,4 @@
-#Wed Sep 09 22:09:15 CST 2015
+#Sat Sep 12 18:27:07 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/alert.js=utf-8
 encoding//WebRoot/www/app/ctrl/bottomNav.js=utf-8
@@ -6,6 +6,9 @@ encoding//WebRoot/www/app/ctrl/find.js=utf-8
 encoding//WebRoot/www/app/ctrl/index.js=utf-8
 encoding//WebRoot/www/app/ctrl/login.js=UTF-8
 encoding//WebRoot/www/app/ctrl/my.js=utf-8
+encoding//WebRoot/www/app/ctrl/telDetailList.js=UTF-8
+encoding//WebRoot/www/app/ctrl/telList.js=UTF-8
+encoding//WebRoot/www/app/ctrl/violations.js=UTF-8
 encoding//WebRoot/www/app/ctrl/yulu.js=utf-8
 encoding//WebRoot/www/app/toast.js=utf-8
 encoding//WebRoot/www/app/view/bottomNav.html=utf-8
@@ -13,5 +16,8 @@ encoding//WebRoot/www/app/view/find.html=utf-8
 encoding//WebRoot/www/app/view/index.html=utf-8
 encoding//WebRoot/www/app/view/login.html=UTF-8
 encoding//WebRoot/www/app/view/my.html=utf-8
+encoding//WebRoot/www/app/view/telDetail.html=UTF-8
+encoding//WebRoot/www/app/view/telDetailList.html=UTF-8
+encoding//WebRoot/www/app/view/telList.html=UTF-8
 encoding//WebRoot/www/app/view/yulu.html=utf-8
 encoding//WebRoot/www/res/mbooking.css=UTF-8

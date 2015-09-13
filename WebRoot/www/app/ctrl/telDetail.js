@@ -1,29 +1,22 @@
-define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateMy','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateMy,basePageView,userModel){
+define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateTelDetail','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateTelDetail,basePageView,userModel){
 	
 	var myView=basePageView.extend({
 		events:{
-			"click [name='tab']":"switchTab",
-			
-			
+			 'click #duichang':'gotoTelDetailList'
 		},
 		
-	 
+		gotoTelDetailList:function(){
+			
+			UC.go('telDetailList');
+		},
 		initTemplate: function (template) {
             return _.template(template);
         },
         render: function (data) {
-            var tplYulu = this.initTemplate(TemplateMy),
+            var tplYulu = this.initTemplate(TemplateTelDetail),
             	tplBottomNav=this.initTemplate(TemplateBottomNav);
            	self=this;  
-       		self.$el.html(tplYulu()); 
-       		$(tplBottomNav()).appendTo(self.$el);
-       		self.$el.find(".n_b_3").css({
-       			"background-position":"-129px top"
-       		});
-       		self.$el.find("#navbottom").find("span").eq(2).css({
-       			color:"#299be4"
-       		});
-       		
+       		self.$el.html(tplYulu());  
         },
         onCreate:function(){
         
@@ -35,7 +28,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('login');
+	   					UC.go('telDetailList');
 	   				},
 	   				homeHandler:function(){
 	   					

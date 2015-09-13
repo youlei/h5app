@@ -37,36 +37,52 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			
 		},
 		
-		showByParam:function(){
-			
+		showAnim:function(name,param){
+			//if(param.anim){}
 		},
 		
 		show:function(name){
-			var self=this;
+			var self=this,
+				duration=UC.animate.duration,
+				easing='linear';
+			if(!$.isEmptyObject(self.goParam)){
+				
+				if(self.goParam.anim){
+					duration=self.goParam.duration;
+				}else{
+					duration=0;
+				}
+				easing=self.goParam.easing||"linear";
+			}
 			if(this.PageViewMgr.mapping[name]){
 				var screenWidth=$(document).width(),
 					currentPageView=this.PageViewMgr.getCurrentShow();
 				if(self.PageViewMgr.isFront(currentPageView,this.PageViewMgr.mapping[name])){
+					self.PageViewMgr.mapping[name].$el.css({
+						left:"0px",
+						opacity:1
+						
+					});
 					self.PageViewMgr.mapping[name].show();
 					self.PageViewMgr.mapping[name].onShow();
 					this.PageViewMgr.getCurrentShow().$el.animate({
 						left:screenWidth+'px',
 						opacity:0
 						
-					},UC.animate.duration,'linear',function(){ 
+					},duration,easing,function(){ 
 						currentPageView.status=false;
 						self.PageViewMgr.mapping[name].status=true;
 						currentPageView.hide();
 					});
 				}else{
 					this.PageViewMgr.mapping[name].$el.css({
-						opacity:1
+						opacity:1,
 					});
 					this.PageViewMgr.mapping[name].show();
 					self.PageViewMgr.mapping[name].onShow();
 					this.PageViewMgr.mapping[name].$el.animate({
 						left:'0px'
-					},UC.animate.duration,'linear',function(){ 
+					},duration,easing,function(){ 
 						currentPageView.status=false;
 						self.PageViewMgr.mapping[name].status=true;
 						for(var p in self.PageViewMgr.mapping){
@@ -76,7 +92,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 						}
 					});
 				}
-				
+				//this.PageViewMgr.mapping[name].goParam=goParam;
 				
 				return;
 			}
@@ -84,7 +100,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				 var pv=new pageView();
 				 self.PageViewMgr.mapping[name].$el.animate({
 						left:'0px'
-				 },UC.animate.duration,'linear',function(){
+				 },duration,easing,function(){
 					//console.log(this);
 					 for(var p in self.PageViewMgr.mapping){
 						 if(pv.name!=p){
@@ -102,7 +118,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		 * param.anmi
 		 * */
 		go:function(name,param){
-			this.param=param||{};
+			this.goParam=param||{};
 			window.location.hash="#"+name; 
 			//this.show(name);
 		},
@@ -117,12 +133,16 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		forward:function(){
 			
 		},
-		goParam:{},
+		// Ìø×ª²ÎÊý
+		goParam:{
+			
+		},
 		animate:{
 			anim:true,
 			duration:300,
 			easing:'linear'
-		}
+		},
+		actionUrl:'http://192.168.1.106:8090/'
 			
 	};
 	
@@ -144,11 +164,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		   if(name=="login"){
 			   window.location.hash=name;
 		   }
-		   if($.isEmpty(UC.goParam)){
-			   UC.show(name);
-		   }else{
-			   
-		   }
+		   UC.show(name);
 		   
 
 		}

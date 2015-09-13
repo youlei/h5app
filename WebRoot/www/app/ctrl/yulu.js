@@ -3,11 +3,21 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	var yuluView=basePageView.extend({
 		events:{
 			"click [name='tab']":"switchTab",
+			'click #selectYuluByCamear':'getImageFormCamera',
+			'click #selectYuluByAlbum':'getImageFormAlbum',
+			'click #subYulu':''
 			
 			
 		},
+		getImageFormCamera:function(){ 
+			window.Native.getImageFromCamera();
+		},
+		getImageFormAlbum:function(){
+			window.Native.getImageFromAlbum();
+			
+		},
 		switchTab:function(e){
-			console.log(e.srcElement);
+			 
 			$("[name='tab']").removeClass("cur");
 			$(e.srcElement).addClass("cur");
 			if($(e.srcElement).text()=="预录"){
@@ -37,6 +47,13 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
            	self=this;  
        		self.$el.html(tplYulu()); 
        		$(tplBottomNav()).appendTo(self.$el);
+       		self.$el.find(".n_b_1").css({
+       			"background-position":"-19px top"
+       		});
+       		self.$el.find("#navbottom").find("span").eq(0).css({
+       			color:"#299be4"
+       		});
+       		
         },
         onCreate:function(){
         

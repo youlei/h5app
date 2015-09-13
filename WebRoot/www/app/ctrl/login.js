@@ -21,7 +21,7 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   						
   					}
   				});
-  			UC.go("yulu");
+  			UC.go("yulu",{anim:false});
   			
   			//this.showLoading();
   		},
@@ -38,6 +38,11 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
             var tpl = this.initTemplate(),
             	self=this; 
         	self.$el.html(tpl({ "data": data })); 
+        	//self.$el.addClass("app_user_bg");
+        	self.$el.css({
+        		
+        	    background: "url(res/images/indexbg.jpg) no-repeat"
+        	});
         	
         },
         onCreate:function(){

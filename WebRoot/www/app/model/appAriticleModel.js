@@ -1,20 +1,25 @@
 define(['jquery','underscore','backbone','lib'],function($,_,Backbone){
-	var userModel=Backbone.Model.extend({
+	var appAriticleModel=Backbone.Model.extend({
 		defaults:{
 			
 			
 		},
-		rootUrl:'http://192.168.0.114:8090/',
+		rootUrl:'appariticle/getPhoneCategory',
 		sync:function(method,model,options){
+			 
 			var params=_.extend({
   				type:"get",
   				dataType:'jsonp',
-  				url:this.url+"?callback=?",
+  				//url:this.url+"?callback=?",
+  				url:UC.actionUrl+this.url,
   				processData:false
   			},options);
   			return $.ajax(params);
+		},
+		parse:function(data){
+			console.log(data);
 		}
 		
 	});
-	return userModel;
+	return appAriticleModel;
 });

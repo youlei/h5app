@@ -3,6 +3,7 @@ require.config({
 		'jquery':'lib/jquery-1.7.1',
 		'underscore':'lib/underscore',
 		'text':'lib/text',
+		'iscroll':'lib/iscroll',
 		'backbone':'lib/backbone',
 		'basePageView':'app/basePageView',
 		'index':'app/ctrl/index',
@@ -17,7 +18,16 @@ require.config({
 		'forget':'app/ctrl/forget',
 		'yulu':'app/ctrl/yulu',
 		'my':'app/ctrl/my',
+		'find':'app/ctrl/find',
+		'telList':'app/ctrl/telList',
+		'telDetailList':'app/ctrl/telDetailList',
+		'telDetail':'app/ctrl/telDetail',
+		'violations':'app/ctrl/violations',
+		'violationsDetail':'app/ctrl/violationsDetail',
 		
+		
+		'selectCategoryModel':'app/model/selectCategoryModel',
+		'appAriticleModel':'app/model/appAriticleModel',
 		
 		'TemplateHeader':'app/view/header.html',
 		'TemplateForget':'app/view/forget.html',
@@ -28,7 +38,14 @@ require.config({
 		'TemplateIndex':'app/view/index.html',
 		'TemplateBottomNav':'app/view/bottomNav.html',
 		'TemplateYulu':'app/view/yulu.html',
-		'TemplateMy':'app/view/my.html'
+		'TemplateMy':'app/view/my.html',
+		'TemplateFind':'app/view/find.html',
+		'TemplateTelList':'app/view/telList.html',
+		'TemplateTelDetailList':'app/view/telDetailList.html',
+		'TemplateTelDetail':'app/view/telDetail.html',
+		'TemplateViolations':'app/view/violations.html',
+		'TemplateViolationsDetail':'app/view/violationsDetail.html'
+			
 	}
 });
  
