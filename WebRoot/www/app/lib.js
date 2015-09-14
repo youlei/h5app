@@ -35,90 +35,62 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			}
 			
 			
-		},
+		}, 
 		
-		showAnim:function(name,param){
-			//if(param.anim){}
+		// 获取页面切换是前进还是后退
+		getDirection:function(currentPage,targetPage){
+			var cindex,tindex,
+				pageViewStack=UC.PageViewMgr.pageViewStack;
+			for(var i=0;i<pageViewStack.length;i++){
+				if(pageViewStack[i].name==currentPage.name){
+					cindex=i;
+				}
+				if(pageViewStack[i].name==targetPage.name){
+					tindex=i;
+				}
+			}
+			if(cindex>tindex){
+				return "back";
+			}else{
+				return "forward";
+			}
 		},
 		
 		show:function(name){
-			var self=this,
-				duration=UC.animate.duration,
-				easing='linear';
-			if(!$.isEmptyObject(self.goParam)){
-				
-				if(self.goParam.anim){
-					duration=self.goParam.duration;
-				}else{
-					duration=0;
-				}
-				easing=self.goParam.easing||"linear";
-			}
+			var self=this;
+			 			
 			if(this.PageViewMgr.mapping[name]){
-				var screenWidth=$(document).width(),
-					currentPageView=this.PageViewMgr.getCurrentShow();
-				if(self.PageViewMgr.isFront(currentPageView,this.PageViewMgr.mapping[name])){
-					self.PageViewMgr.mapping[name].$el.css({
-						left:"0px",
-						opacity:1
-						
-					});
-					self.PageViewMgr.mapping[name].show();
-					self.PageViewMgr.mapping[name].onShow();
-					this.PageViewMgr.getCurrentShow().$el.animate({
-						left:screenWidth+'px',
-						opacity:0
-						
-					},duration,easing,function(){ 
-						currentPageView.status=false;
-						self.PageViewMgr.mapping[name].status=true;
-						currentPageView.hide();
-					});
-				}else{
-					this.PageViewMgr.mapping[name].$el.css({
-						opacity:1,
-					});
-					this.PageViewMgr.mapping[name].show();
-					self.PageViewMgr.mapping[name].onShow();
-					this.PageViewMgr.mapping[name].$el.animate({
-						left:'0px'
-					},duration,easing,function(){ 
-						currentPageView.status=false;
-						self.PageViewMgr.mapping[name].status=true;
-						for(var p in self.PageViewMgr.mapping){
-							if(p!=name){
-								self.PageViewMgr.mapping[p].hide();
-							}
-						}
-					});
+				var currentPageView=this.PageViewMgr.getCurrentShow(),
+					targetPageView=this.PageViewMgr.mapping[name];
+				if(self.getDirection(currentPageView,targetPageView)==="back"){
+					self.back(currentPageView,targetPageView);
+				}else if(self.getDirection(currentPageView,targetPageView)==="forward"){
+					self.forward(currentPageView,targetPageView);
 				}
 				//this.PageViewMgr.mapping[name].goParam=goParam;
 				
 				return;
+			}else{
+				this.load(name);
 			}
-			require([name],function(pageView){ 
-				 var pv=new pageView();
-				 self.PageViewMgr.mapping[name].$el.animate({
-						left:'0px'
-				 },duration,easing,function(){
-					//console.log(this);
-					 for(var p in self.PageViewMgr.mapping){
-						 if(pv.name!=p){
-							 self.PageViewMgr.mapping[p].status=false;
-							 self.PageViewMgr.mapping[p].hide();
-						 }
-						 
-					 }
-					 pv.status=true;
-				 });
-			});
+			
 		},
 		// 单页模式下页面跳转
 		/**
 		 * param.anmi
 		 * */
 		go:function(name,param){
-			this.goParam=param||{};
+			//this.goParam=param||this.goParam;
+			if(!$.isEmptyObject(param)){
+				$.extend(this.goParam,param);
+			}else{
+				param={
+					anim:false,
+					duration:300,
+					easing:'linear'
+				};
+			}
+			
 			window.location.hash="#"+name; 
 			//this.show(name);
 		},
@@ -127,20 +99,111 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			
 			
 		},
-		back:function(){
+		//
+		back:function(currentPageView,targetPageView){
+			var self=this,
+			 	screenWidth=$(document).width();
+			if(self.goParam.anim){
+				targetPageView.$pageEl.css({
+					left:"0px",
+					opacity:1
+					
+				});
+				targetPageView.show();
+				targetPageView.onShow();
+				currentPageView.$pageEl.animate({
+					left:screenWidth+'px',
+					opacity:0
+					
+				},self.goParam.duration,self.goParam.easing,function(){ 
+					currentPageView.status=false;
+					targetPageView.status=true;
+					currentPageView.hide();
+				});
+			}else{
+				targetPageView.onShow();
+				targetPageView.show();
+				targetPageView.status=true;
+				currentPageView.hide();
+				currentPageView.status=false; 
+			}
 			
 		},
-		forward:function(){
+		//
+		forward:function(currentPageView,targetPageView){
+			var self=this,
+				screenWidth=$(document).width();
+			if(self.goParam.anim){
+				targetPageView.$pageEl.css({
+					opacity:1,
+				});
+				targetPageView.show();
+				targetPageView.onShow();
+				targetPageView.$pageEl.animate({
+					left:'0px'
+				},self.goParam.duration,self.goParam.easing,function(){ 
+					currentPageView.status=false;
+					targetPageView.status=true;
+					currentPageView.hide();
+					 
+				});
+			}else{
+				targetPageView.$pageEl.css({
+					opacity:1,
+					left:'0px'
+				});
+				targetPageView.onShow();
+				targetPageView.$pageEl.show();
+				targetPageView.status=true;
+				currentPageView.hide();
+				
+			}
 			
 		},
-		// 跳转参数
+		load:function(pageViewName){
+			var self=this,
+			    currentPageView=this.PageViewMgr.getCurrentShow();
+			require([pageViewName],function(pageView){ 
+				 var pv=new pageView();
+				 if(self.goParam.anim){
+					 pv.$pageEl.animate({
+							left:'0px'
+					 },self.goParam.anim,self.goParam.easing,function(){
+						//console.log(this); 
+						 pv.status=true;
+						 currentPageView.hide();
+						 currentPageView.status=false;
+						
+					 });
+					 
+				 }else{
+					 
+					 self.PageViewMgr.mapping[pageViewName].$pageEl.css({
+						 left:'0px'
+					 });
+					 self.PageViewMgr.mapping[pageViewName].$pageEl.show();
+					 if(currentPageView){
+						 currentPageView.hide();
+						 currentPageView.status=false;
+					 }
+					 
+					
+				 }
+			
+			});
+		},
+		// 每次跳转使用跳转参数
 		goParam:{
-			
+			anim:false,
+			duration:300,
+			easing:'linear'
 		},
+		// 全局使用
 		animate:{
 			anim:true,
 			duration:300,
 			easing:'linear'
+			
 		},
 		actionUrl:'http://192.168.1.106:8090/'
 			

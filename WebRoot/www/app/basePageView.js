@@ -8,19 +8,23 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		this.$headerEl=null;
 		this.events={
 			returnHandler:function(){
-				
+			 
 			},
 			homeHandler:function(){
-				
+				 
 			}
 				
 		};
 		
 		Header.prototype.set=function(param){
-			if(this.$headerEl){
-				this.$headerEl.remove();
-				this.$headerEl=null;
+			 
+			
+		   if(param.view){
+				this.$headerEl.show();
+			}else{
+				this.$headerEl.hide();
 			}
+			this.$headerEl.find("#title").html(param.title);
 			if(param.events){
 				if(param.events.returnHandler){
 					this.events.returnHandler=param.events.returnHandler;
@@ -29,33 +33,45 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 					this.events.homeHandler=param.events.homeHandler;
 				}
 			}
-			this.render(param);
+		 
+			//this.render(param);
+			this.eventSetUp();
 		};
 		Header.prototype.initTemplate=function(){
 			 return _.template(TemplateHeader);
 		};
 		Header.prototype.render=function(param){
+			 var self=this;
+			 var data=param||{
+				 title:self.title,
+				 back:self.back,
+				 home:self.home,
+				 view:self.view
+			 };
 			 var tpl = this.initTemplate();
-	         this.$headerEl=$(tpl({ "data": param })).prependTo(this.pageView.$el);   
-	         this.eventSetUp();
+	         this.$headerEl=$(tpl({ "data": data })).prependTo(this.pageView.$pageEl);   
+	         //this.eventSetUp();
 	       	 //this.pageView.$el.html(tpl({ "data": param })); 
 		};
+		
 		Header.prototype.eventSetUp=function(){
+			 
 			this.$headerEl.find("#headerBack").on("click",this.events.returnHandler);
-			this.$headerEl.find("#headerHome").on("click",this.events.homeHandler);
-			
+			this.$headerEl.find("#headerHome").on("click",this.events.homeHandler); 
 		};
 		
 	}
 	var BasePageView=Backbone.View.extend({
+		// 存放页面的内容 不包括title 
 		$el:null,
+		// 整个页面
+		$pageEl:null,
 		name:null,
 		timestap:null,
 		events:{},
 		status:true,
 		header:null, 
-		alert:null,
-		//eventNameArr:"blur change click dblclick error focus focusin focusout keydown keypress keyup mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup resize scroll submit unload ready hover".split(","),
+		alert:null, 
 		initialize:function(){
 			var self=this,
 				$el,
@@ -64,33 +80,29 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			self.name=name;
 			self.timestap=id;
 			self.alert=new alert();
-			if(!UC.PageViewMgr.mapping[name]){ 
-				var left= $(document).width();
-				$el= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;left:"+left+"px;height: 100%;background:#E9ECF1 'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
-				self.$el=$el;
-				var header=new Header({pageView:self,title:'',back:false,home:false,view:false});
-				self.header=header;
-				self.onCreate();
+		
+			var left= $(document).width();
+			self.$pageEl= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;left:"+left+"px;height: 100%;background:#E9ECF1 'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
+			
+			self.$el=$("<div id='main'></div>").appendTo(self.$pageEl);
+			var header=new Header({pageView:self,title:'',back:false,home:false,view:false});
+			header.render();
+			self.header=header;
+			self.onCreate();
 				
-				//UC.PageViewMgr.mapping[name]=self;
-				//self._handleBindEvent(self.events);
-			}else{
-				
-				
-			}
-			//UC.PageViewMgr.mapping[name].show();
+					
 			UC.PageViewMgr.add(self);
 			self.onShow();
 			
 		},
 		 
 		show:function(){ 
-			this.$el.show();
+			this.$pageEl.show();
 			
 		},
 		hide:function(){
 			
-			this.$el.hide();
+			this.$pageEl.hide();
 		},
 		onCreate:function(){
 			

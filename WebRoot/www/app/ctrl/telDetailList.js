@@ -61,6 +61,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
+	   					
 	   					UC.go('telList');
 	   				},
 	   				homeHandler:function(){
@@ -70,6 +71,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			}
 	   			
 	   		});
+	       	
         },
         onShow:function(){
         	   this.render();

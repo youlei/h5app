@@ -38,9 +38,12 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			view:true,
 	   			back:true,
 	   			home:true,
+	   			
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('login');
+	   					UC.go('login',{
+	   						
+	   					});
 	   				},
 	   				homeHandler:function(){
 	   					
@@ -49,6 +52,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			}
 	   			
 	   		});
+	       	 
         },
         onShow:function(){
         	

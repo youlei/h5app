@@ -1,26 +1,9 @@
-<%if(data.view){%>
-<div id="headerview" style="height: 48px;background-color: #15a4d5;position: fixed;width:100%;z-index:1;">
-	<header class="old-header">
-	<%if(data.back){%>
-		<i class="icon_home i_bef" id="headerHome"></i>
-	<%}%>
-	<h1><%=data.title%></h1>
-	<%if(data.home){%>
-		<i id="headerBack" class="returnico i_bef"></i>
-	<%}%>
-	</header>
-</div>
-<%}else{%>
 
-<div id="headerview" style="display:none;height: 48px;background-color: #15a4d5;">
-	<header class="old-header">
-	<%if(data.back){%>
-		<i class="icon_home i_bef" id="c-ui-header-home"></i>
-	<%}%>
-	<h1><%=data.title%></h1>
-	<%if(data.home){%>
-		<i id="c-ui-header-return" class="returnico i_bef"></i>
-	<%}%>
+<div id="headerview" style="height: 48px;background-color: #15a4d5;position: fixed;width:100%;z-index:1;display:none">
+	<header class="old-header"> 
+		<i class="icon_home i_bef" id="headerHome"></i> 
+		<h1 id='title'>xxxx</h1> 
+		<i id="headerBack" class="returnico i_bef"></i> 
 	</header>
 </div>
-<%}%>
+ 

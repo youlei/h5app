@@ -39,7 +39,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         },
         onCreate:function(){
         
-       	   this.render();
+       	    this.render();
 	       	this.header.set({
 	   			title:'电话列表',
 	   			view:true,
@@ -56,6 +56,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			}
 	   			
 	   		});
+	        
         },
         onShow:function(){
         	

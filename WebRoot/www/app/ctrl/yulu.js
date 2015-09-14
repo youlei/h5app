@@ -57,7 +57,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         },
         onCreate:function(){
         
-       	   this.render();
+       	    this.render();
 	       	this.header.set({
 	   			title:'dulei info sys',
 	   			view:true,
@@ -74,6 +74,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			}
 	   			
 	   		});
+	       	
         },
         onShow:function(){
         	
