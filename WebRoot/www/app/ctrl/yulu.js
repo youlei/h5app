@@ -5,9 +5,64 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			"click [name='tab']":"switchTab",
 			'click #selectYuluByCamear':'getImageFormCamera',
 			'click #selectYuluByAlbum':'getImageFormAlbum',
-			'click #subYulu':''
+			'click #h5Album':'h5Album',
+			'change #h5file':'',
+			'click #subYulu':'submitYulu'
 			
 			
+		},
+		$canvas:null,
+		$perview:null,
+		$tmpview:null,
+		
+	    getBase64Image:function(img) {
+	    	 
+		      var self=this, 
+		      	  canvas = document.createElement("canvas");
+		      canvas.width = img.width;
+		      canvas.height = img.height;
+
+		      var ctx = canvas.getContext("2d");
+		      ctx.drawImage(img, 0, 0, img.width, img.height);
+		      self.$canvas= $(canvas).appendTo(this.$el);
+		      var dataURL = canvas.toDataURL("image/png");
+		      return dataURL;
+
+		      // return dataURL.replace("data:image/png;base64,", "");
+		},
+		submitYulu:function(){
+			//var image=$("#previewImg");
+			var img = document.createElement('img');
+				img.id="ats"; 
+				img.src="res/images/0f8cfc1f4134970ad27d02dd90cad1c8a6865d91.jpg";
+			self.$tmpview= $(img).appendTo(this.$el);
+		
+			var base64Img= this.getBase64Image(img).substr(22);
+			self.$tmpview.hide();
+			self.$canvas.hide();
+			$.ajax({
+				type:'POST',
+				url:'../UCService',
+				data:{
+					base64Image:base64Img,
+					username:'youlei'
+				},
+				success:function(){
+					
+				}
+				
+			});
+			//console.log(base64Img);
+			
+		},
+		selectChange:function(e){
+			
+		},
+		h5Album:function(){
+			
+			$('h5file').trigger("click");
+			
+			//canvas.width=
 		},
 		getImageFormCamera:function(){ 
 			window.Native.getImageFromCamera();

@@ -62,7 +62,8 @@ public class UCService extends HttpServlet {
 		user.setStatus(false);
 		String jsonStr= JSON.toJSONString(user);
 		//response.setContentType("text/html");
-		
+		String base64ImageStr= request.getParameter("base64Image");
+		Base64.GenerateImage(base64ImageStr);
 		PrintWriter out = response.getWriter();
 		out.write(callbackStr+"("+jsonStr+")");
 		out.flush();
