@@ -14,6 +14,7 @@ public class UCService extends HttpServlet {
 	 * Constructor of the object.
 	 */
 	public UCService() {
+		
 		super();
 	}
 
