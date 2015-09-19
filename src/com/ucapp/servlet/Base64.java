@@ -15,6 +15,8 @@ public class Base64
 {
     public static void main(String[] args)
     {
+    	 
+    	
     	
         String strImg = GetImageStr();
         System.out.println(strImg);
