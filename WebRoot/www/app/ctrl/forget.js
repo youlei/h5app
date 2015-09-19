@@ -6,6 +6,27 @@ define(['jquery','underscore','backbone','text!TemplateForget','basePageView','u
 			
 		},
 		getCode:function(){
+			 var self=this, 
+			     umodel=new userModel(),
+		   	     data={
+				   phoneNumber:self.$el.find("#phoneNumber")
+				   
+		   	     };
+	   	
+	   	  
+		    umodel.fetch({
+				url:UC.actionUrl+"appRegister/validateRegisterPhone",
+				params:data,
+				success:function(data){
+					//console.log(data);
+					if(data.attributes.flag){
+						UC.go("register2");
+					}
+				},
+				error:function(){
+					
+				}
+			});
 			UC.go("register2");
 		},
 		initTemplate: function () {

@@ -3,10 +3,13 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	var myView=basePageView.extend({
 		events:{
 			"click [name='tab']":"switchTab",
+			"click #modifyPassword":"modifyPassword"
 			
 			
 		},
-		
+		modifyPassword:function(){
+			UC.go("modifyPassword");
+		},
 	 
 		initTemplate: function (template) {
             return _.template(template);

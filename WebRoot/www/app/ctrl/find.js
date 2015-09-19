@@ -3,9 +3,12 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	var myView=basePageView.extend({
 		events:{
 			 'click #allTel':'goToTelList',
-			 'click #detailList':'goToViolationsSelect'
+			 'click #detailList':'goToViolationsSelect',
+			 "click #containerQuery":"goContainerQuery"
 		},
-		
+		goContainerQuery:function(){
+			UC.go('containerQuery');
+		},
 		goToViolationsSelect:function(){
 			
 			UC.go('violations');

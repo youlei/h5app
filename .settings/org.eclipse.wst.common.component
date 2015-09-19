@@ -3,7 +3,7 @@
     <wb-module deploy-name="UCAPPService">
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="/UCAPPService"/>
         <property name="java-output-path" value="/UCAPPService/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="/UCAPPService"/>
     </wb-module>
 </project-modules>

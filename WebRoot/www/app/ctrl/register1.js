@@ -6,7 +6,29 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
 			
 		},
 		getCode:function(){
-			UC.go("register2");
+			
+			 var self=this, 
+			     umodel=new userModel(),
+		   	     data={
+				   phoneNumber:self.$el.find("#phoneNumber")
+				   
+		   	     };
+		   	
+		   	  
+		   umodel.fetch({
+				url:UC.actionUrl+"appRegister/validateRegisterPhone",
+				params:data,
+				success:function(data){
+					//console.log(data);
+					if(data.attributes.flag){
+						UC.go("register2");
+					}
+				},
+				error:function(){
+					
+				}
+			});
+		 
 		},
 		initTemplate: function () {
             return _.template(TemplateRegister1);
@@ -19,7 +41,7 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
         },
         onCreate:function(){
         
-       	   this.render();
+       	    this.render();
 	       	this.header.set({
 	   			title:'dulei info sys',
 	   			view:true,

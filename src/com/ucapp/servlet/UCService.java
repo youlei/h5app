@@ -7,8 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.alibaba.fastjson.JSON;
+ 
 public class UCService extends HttpServlet {
 
 	/**
@@ -60,12 +59,12 @@ public class UCService extends HttpServlet {
 		user.setUsername("youlei");
 		user.setPassword("147258");
 		user.setStatus(false);
-		String jsonStr= JSON.toJSONString(user);
+		//String jsonStr= JSON.toJSONString(user);
 		//response.setContentType("text/html");
 		String base64ImageStr= request.getParameter("base64Image");
 		Base64.GenerateImage(base64ImageStr);
 		PrintWriter out = response.getWriter();
-		out.write(callbackStr+"("+jsonStr+")");
+		//out.write(callbackStr+"("+jsonStr+")");
 		out.flush();
 		out.close();
 	}

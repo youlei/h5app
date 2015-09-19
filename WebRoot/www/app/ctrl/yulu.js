@@ -20,8 +20,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		      var self=this, 
 		      	  canvas = document.createElement("canvas");
 		      canvas.width = img.width;
-		      canvas.height = img.height;
-
+		      canvas.height = img.height; 
 		      var ctx = canvas.getContext("2d");
 		      ctx.drawImage(img, 0, 0, img.width, img.height);
 		      self.$canvas= $(canvas).appendTo(this.$el);

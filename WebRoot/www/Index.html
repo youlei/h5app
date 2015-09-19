@@ -8,9 +8,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link rel="stylesheet" type="text/css" href="./styles.css">--> 
-	<script type="text/javascript" src="lib/sea.js"></script>
-    <script type="text/javascript" src="lib/jquery-1.7.1.js"></script> 
-    </script><script type="text/javascript" src="lib/underscore.js"></script>	 
+    <script type="text/javascript" src="lib/jquery-1.7.1.js"></script>  
   	<script type="text/javascript"> 
   		 
   		$(document).ready(function(){ 
@@ -28,18 +26,21 @@
   			 $("#openCamera").on("click",function(){
   			 	window.UC.getImageFromCamera();
   			 });
+  			 $("#previewImg").on("change",function(){
+  			 	alert(123);
+  			 });
   		});;
   	 	 
   	  
 		function showImg(url){
-			$("#preImg").attr("src",url);
+			$("#previewImg").attr("src",url);
 		}
 		 
   	</script>
   </head>
   
   <body>
-  	<input type='file' value='1111111111111111111'>
+  	<input type='file' id='previewImg' value='1111111111111111111'>
     <div data-role="page">
     	<div data-role="header">
     		联创运输系统

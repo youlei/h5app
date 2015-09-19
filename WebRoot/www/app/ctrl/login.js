@@ -10,18 +10,28 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   		login:function(e){
   			var self=this,
   				umodel=new userModel();
-  				username=self.$el.find("#username"),
-  				password=self.$el.find("password");
+  				username=self.$el.find("#username").val(),
+  				password=self.$el.find("#password").val();
   				umodel.fetch({
-  					url:'',
-  					success:function(){
+  					url:UC.actionUrl+"appLogin/login",
+  					params:{
+  						username:username,
+  						password:password
+  					},
+  					success:function(data){
+  						if(data.attributes.flag){
+  							UC.go("yulu",{anim:false});
+  						}else{
+  							alert("用户名密码错误");
+  							
+  						}
   						
+  			  			
   					},
   					error:function(){
   						
   					}
   				});
-  			UC.go("yulu",{anim:false});
   			
   			//this.showLoading();
   		},

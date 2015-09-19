@@ -1,5 +1,7 @@
 define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var UC={
+			
+		actionUrl:'http://192.168.1.101:8090/',
 		PageViewMgr:{
 			mapping:{},
 			pageViewStack:[],
@@ -204,8 +206,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			duration:300,
 			easing:'linear'
 			
-		},
-		actionUrl:'http://192.168.1.106:8090/'
+		}
 			
 	};
 	

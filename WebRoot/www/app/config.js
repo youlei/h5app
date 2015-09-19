@@ -11,7 +11,7 @@ require.config({
 		'lib':'app/lib',
 		'alert':'app/alert', 
 		'boot':'app/boot',
-		'userModel':'app/model/userModel',
+		
 		'register1':'app/ctrl/register1',
 		'register2':'app/ctrl/register2',
 		'register3':'app/ctrl/register3',
@@ -24,10 +24,14 @@ require.config({
 		'telDetail':'app/ctrl/telDetail',
 		'violations':'app/ctrl/violations',
 		'violationsDetail':'app/ctrl/violationsDetail',
-		
+		'modifyPassword':'app/ctrl/modifyPassword',
+		'containerQuery':'app/ctrl/containerQuery',
+		'containerDetail':'app/ctrl/containerDetail',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
+		'userModel':'app/model/userModel',
+		
 		
 		'TemplateHeader':'app/view/header.html',
 		'TemplateForget':'app/view/forget.html',
@@ -44,7 +48,10 @@ require.config({
 		'TemplateTelDetailList':'app/view/telDetailList.html',
 		'TemplateTelDetail':'app/view/telDetail.html',
 		'TemplateViolations':'app/view/violations.html',
-		'TemplateViolationsDetail':'app/view/violationsDetail.html'
+		'TemplateViolationsDetail':'app/view/violationsDetail.html',
+		'TemplateModifyPassword':'app/view/modifyPassword.html',
+		'TemplateContainerQuery':'app/view/containerQuery.html',
+		'TemplateContainerDetail':'app/view/containerDetail.html'
 			
 	}
 });

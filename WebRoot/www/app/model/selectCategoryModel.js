@@ -10,8 +10,9 @@ define(['jquery','underscore','backbone','lib'],function($,_,Backbone){
 			var params=_.extend({
   				type:"get",
   				dataType:'jsonp',
+  			
   				//url:this.url+"?callback=?",
-  				url:UC.actionUrl+"appariticle/getPhoneCategory",
+  				url:UC.actionUrl+"appLogin/login",
   				processData:false
   			},options);
   			return $.ajax(params);

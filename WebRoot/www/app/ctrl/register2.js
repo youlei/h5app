@@ -6,7 +6,27 @@ define(['jquery','underscore','backbone','text!TemplateRegister2','basePageView'
 			
 		},
 		validate:function(){ 
-			UC.go("register3");
+			var self=this,
+				umodel=new userModel(),
+				phoneNumber="18602922416",
+				code=self.$el.find("#code").val();
+				umodel.fetch({
+					url:UC.actionUrl+"appRegister/validateCode",
+					params:{
+						validateCode:code,
+						phoneNumber:phoneNumber
+					},
+					success:function(data){
+						//console.log(data);
+						if(data.attributes.flag){
+							UC.go("register3");
+						}
+					},
+					error:function(){
+						
+					}
+				});
+			
 		},
 		initTemplate: function () {
             return _.template(TemplateRegister2);
