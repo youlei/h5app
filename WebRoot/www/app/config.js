@@ -27,6 +27,7 @@ require.config({
 		'modifyPassword':'app/ctrl/modifyPassword',
 		'containerQuery':'app/ctrl/containerQuery',
 		'containerDetail':'app/ctrl/containerDetail',
+		'validateContainerCode':'app/ctrl/validateContainerCode',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -51,7 +52,8 @@ require.config({
 		'TemplateViolationsDetail':'app/view/violationsDetail.html',
 		'TemplateModifyPassword':'app/view/modifyPassword.html',
 		'TemplateContainerQuery':'app/view/containerQuery.html',
-		'TemplateContainerDetail':'app/view/containerDetail.html'
+		'TemplateContainerDetail':'app/view/containerDetail.html',
+		'TemplateValidateContainerCode':'app/view/validateContainerCode.html'
 			
 	}
 });

@@ -17,7 +17,7 @@ define(['jquery','underscore','backbone','lib'],function($,_,Backbone){
   			return $.ajax(params);
 		},
 		parse:function(data){
-			console.log(data);
+			//console.log(data);
 		}
 		
 	});

@@ -4,7 +4,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		events:{
 			 'click #allTel':'goToTelList',
 			 'click #detailList':'goToViolationsSelect',
-			 "click #containerQuery":"goContainerQuery"
+			 "click #containerQuery":"goContainerQuery",
+			 'click #validateContainerCode':'goToValidateContainerCode',
 		},
 		goContainerQuery:function(){
 			UC.go('containerQuery');
@@ -15,6 +16,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		},
 		goToTelList:function(){
 			UC.go('telList');
+		},
+		goToValidateContainerCode:function(){
+			UC.go('validateContainerCode');
 		},
 		initTemplate: function (template) {
             return _.template(template);

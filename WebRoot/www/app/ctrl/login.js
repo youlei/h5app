@@ -20,6 +20,8 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   					},
   					success:function(data){
   						if(data.attributes.flag){
+  							localStorage.setItem("username",username);
+  							localStorage.setItem("password",password);
   							UC.go("yulu",{anim:false});
   						}else{
   							alert("用户名密码错误");
@@ -56,7 +58,9 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
         	
         },
         onCreate:function(){
-         
+        	if(UC.isLogin()){
+        		UC.go("yulu");
+        	}
         	this.render();
         },
         onShow:function(){

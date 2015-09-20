@@ -12,7 +12,7 @@ define(['jquery','underscore','backbone','lib'],function($,_,Backbone){
   				dataType:'jsonp',
   			
   				//url:this.url+"?callback=?",
-  				url:UC.actionUrl+"appLogin/login",
+  				url:UC.actionUrl+"appariticle/getPhoneCategory",
   				processData:false
   			},options);
   			return $.ajax(params);

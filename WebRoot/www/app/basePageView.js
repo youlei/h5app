@@ -6,6 +6,8 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		this.view=param.back||false;
 		this.pageView=param.pageView;
 		this.$headerEl=null;
+		this.$backBt=null;
+		this.$homeBt=null;
 		this.events={
 			returnHandler:function(){
 			 
@@ -56,8 +58,8 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		
 		Header.prototype.eventSetUp=function(){
 			 
-			this.$headerEl.find("#headerBack").on("click",this.events.returnHandler);
-			this.$headerEl.find("#headerHome").on("click",this.events.homeHandler); 
+			this.$backBt=this.$headerEl.find("#headerBack").on("click",this.events.returnHandler);
+			this.$homeBt=this.$headerEl.find("#headerHome").on("click",this.events.homeHandler); 
 		};
 		
 	}
@@ -95,7 +97,10 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			self.onShow();
 			
 		},
-		 
+		// ´¥·¢header µÄback °´Å¥
+		triggerBack:function(){
+			this.header.$backBt.trgger("click");
+		},
 		show:function(){ 
 			this.$pageEl.show();
 			

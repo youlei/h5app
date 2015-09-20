@@ -1,7 +1,24 @@
 define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var UC={
 			
-		actionUrl:'http://192.168.1.101:8090/',
+		actionUrl:'http://192.168.1.109:8090/',
+		isLogin:function(){
+			alert(2);
+			if(localStorage.getItem("username")&&localStorage.getItem("password")){
+				alert(3);
+				return true;
+			}
+			return false;
+		},
+		getUser:function(){
+			if(this.isLogin()){
+				return {
+					username:localStorage.getItem("username"),
+					password:localStorage.getItem("password")
+				};
+			}
+			return null;
+		},
 		PageViewMgr:{
 			mapping:{},
 			pageViewStack:[],
@@ -206,7 +223,13 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			duration:300,
 			easing:'linear'
 			
-		}
+		},
+		// 主要解决android back 按钮
+	    hybridBack:function(){
+	    	var currentPage= UC.PageViewMgr.getCurrentShow();
+	    	currentPage.triggerBack();
+	    	
+	    }
 			
 	};
 	
