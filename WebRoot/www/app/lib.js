@@ -2,10 +2,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var UC={
 			
 		actionUrl:'http://192.168.1.109:8090/',
-		isLogin:function(){
-			alert(2);
-			if(localStorage.getItem("username")&&localStorage.getItem("password")){
-				alert(3);
+		isLogin:function(){ 
+			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 
 				return true;
 			}
 			return false;
@@ -244,12 +242,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		   var name;
 		   if(window.location.hash){
 			   name=window.location.hash.substring(1);
-		   }else{
-			   name="login";
-		   }
-		   
-		   if(name=="login"){
-			   window.location.hash=name;
+		   }  
+		   if(!name){
+			   window.location.hash="login";
+			   return;
 		   }
 		   UC.show(name);
 		   

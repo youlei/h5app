@@ -60,8 +60,11 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
         onCreate:function(){
         	if(UC.isLogin()){
         		UC.go("yulu");
+        	}else{
+        		this.render();
+        		
         	}
-        	this.render();
+        	
         },
         onShow:function(){
         	

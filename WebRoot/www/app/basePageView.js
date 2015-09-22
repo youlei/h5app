@@ -99,7 +99,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		},
 		// ´¥·¢header µÄback °´Å¥
 		triggerBack:function(){
-			this.header.$backBt.trgger("click");
+			this.header.$backBt.trigger("click");
 		},
 		show:function(){ 
 			this.$pageEl.show();
