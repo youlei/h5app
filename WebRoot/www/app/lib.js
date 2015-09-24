@@ -1,4 +1,16 @@
 define(['jquery','underscore','backbone'],function($,_,Backbone){
+	
+	var Animate={
+			Attention:"bounce flash pulse rubberBand shake swing tada wobble".split(" "),
+			BouncingEntrances:"bounceIn bounceInDown bounceInLeft bounceInRight bounceInUp".split(" "),
+			BouncingExits:"bounceOut bounceOutDown bounceOutLeft bounceOutRight bounceOutUp".split(" "),
+			FadingEntrances:"fadeIn fadeInDown fadeInDownBig fadeInLeft fadeInLeftBig fadeInRight fadeInRightBig fadeInUp fadeInUpBig".split(" "),
+			FadingExits:"fadeOut fadeOutDown fadeOutDownBig fadeOutLeft fadeOutLeftBig fadeOutRight fadeOutRightBig fadeOutUp fadeOutUpBig".split(" ")
+			
+			
+			
+	};
+	
 	var UC={
 			
 		actionUrl:'http://192.168.1.109:8090/',
@@ -127,9 +139,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					targetPageView.show();
 					targetPageView.onShow();
 					targetPageView.status=true; 
-					currentPageView.$pageEl.addClass("animated").addClass("fadeOutRight").show().one("webkitAnimationEnd", function(){
+					currentPageView.$pageEl.addClass("animated").addClass(self.animate.animateOut).show().one("webkitAnimationEnd", function(){
 						self.duration=false;
-						currentPageView.$pageEl.removeClass("animated").removeClass("fadeOutRight");
+						currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateOut);
 						currentPageView.hide();
 						currentPageView.status=false; 
 						
@@ -142,9 +154,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					self.duration=true;
 					targetPageView.onShow();
 					targetPageView.show();
-					currentPageView.$pageEl.addClass("animated").addClass("fadeOutRight").show().one("webkitAnimationEnd", function(){
+					currentPageView.$pageEl.addClass("animated").addClass(self.animate.animateOut).show().one("webkitAnimationEnd", function(){
 						self.duration=false;
-						currentPageView.$pageEl.removeClass("animated").removeClass("fadeOutRight");
+						currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateOut);
 						currentPageView.hide();
 						currentPageView.status=false; 
 						targetPageView.status=true;
@@ -161,9 +173,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				if(!self.duration){
 					self.duration=true;
 					targetPageView.onShow();
-					targetPageView.$pageEl.addClass("animated").addClass("fadeInRight").show().one("webkitAnimationEnd", function(){
+					targetPageView.$pageEl.addClass("animated").addClass(self.animate.animateIn).show().one("webkitAnimationEnd", function(){
 						self.duration=false;
-						targetPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
+						targetPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 						targetPageView.status=true;
 						currentPageView.statue=false;
 						currentPageView.hide();
@@ -175,9 +187,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				if(!self.duration){
 					self.duration=true;
 					targetPageView.onShow();
-					targetPageView.$pageEl.addClass("animated").addClass("fadeInRight").show().one("webkitAnimationEnd", function(){
+					targetPageView.$pageEl.addClass("animated").addClass(self.animate.animateIn).show().one("webkitAnimationEnd", function(){
 						self.duration=false;
-						targetPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
+						targetPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 						targetPageView.status=true;
 						currentPageView.hide();
 						currentPageView.statue=false;
@@ -212,22 +224,22 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 							 pv.status=true;
 							 currentPageView.hide();
 							 currentPageView.status=false;
-							 currentPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
-							 pv.$pageEl.removeClass("animated").removeClass("fadeInRight");
+							 currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
+							 pv.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 						 });
 					 }
 					 
 				 }else{
 					 if(!self.duration){
 						 self.duration=true;
-						 self.PageViewMgr.mapping[pageViewName].$pageEl.addClass("animated").addClass("fadeInRight").one("webkitAnimationEnd", function(){
+						 self.PageViewMgr.mapping[pageViewName].$pageEl.addClass("animated").addClass(self.animate.animateIn).one("webkitAnimationEnd", function(){
 							 self.duration=false;
 							 if(currentPageView){
-								 currentPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
+								 currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 								 currentPageView.hide();
 								 currentPageView.status=false;
 							 }
-							 self.PageViewMgr.mapping[pageViewName].$pageEl.removeClass("animated").removeClass("fadeInRight");
+							 self.PageViewMgr.mapping[pageViewName].$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 						 });
 					 }
 					 
@@ -258,7 +270,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		animate:{
 			anim:true,
 			duration:300,
-			easing:'linear'
+			//easing:'linear'
+			animateIn:Animate.FadingEntrances[5],
+			animateOut:Animate.FadingExits[5]
 			
 		},
 		// 是否有特效进行
