@@ -84,7 +84,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			self.alert=new alert();
 		
 			var left= $(document).width();
-			self.$pageEl= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;left:"+left+"px;height: 100%;background:#E9ECF1 'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
+			self.$pageEl= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;height: 100%;background:#E9ECF1 'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
 			
 			self.$el=$("<div id='main'></div>").appendTo(self.$pageEl);
 			var header=new Header({pageView:self,title:'',back:false,home:false,view:false});

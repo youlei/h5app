@@ -107,8 +107,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					easing:'linear'
 				};
 			}
-			
-			window.location.hash="#"+name; 
+			if(!this.duration){
+				window.location.hash="#"+name;
+			}
+			 
 			//this.show(name);
 		},
 		//
@@ -118,62 +120,71 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		},
 		//
 		back:function(currentPageView,targetPageView){
-			var self=this,
-			 	screenWidth=$(document).width();
+			var self=this;
 			if(self.goParam.anim){
-				targetPageView.$pageEl.css({
-					left:"0px",
-					opacity:1
+				if(!self.duration){
+					self.duration=true;
+					targetPageView.show();
+					targetPageView.onShow();
+					targetPageView.status=true; 
+					currentPageView.$pageEl.addClass("animated").addClass("fadeOutRight").show().one("webkitAnimationEnd", function(){
+						self.duration=false;
+						currentPageView.$pageEl.removeClass("animated").removeClass("fadeOutRight");
+						currentPageView.hide();
+						currentPageView.status=false; 
+						
+					});
+				}
 					
-				});
-				targetPageView.show();
-				targetPageView.onShow();
-				currentPageView.$pageEl.animate({
-					left:screenWidth+'px',
-					opacity:0
-					
-				},self.goParam.duration,self.goParam.easing,function(){ 
-					currentPageView.status=false;
-					targetPageView.status=true;
-					currentPageView.hide();
-				});
+				
 			}else{
-				targetPageView.onShow();
-				targetPageView.show();
-				targetPageView.status=true;
-				currentPageView.hide();
-				currentPageView.status=false; 
+				if(!self.duration){
+					self.duration=true;
+					targetPageView.onShow();
+					targetPageView.show();
+					currentPageView.$pageEl.addClass("animated").addClass("fadeOutRight").show().one("webkitAnimationEnd", function(){
+						self.duration=false;
+						currentPageView.$pageEl.removeClass("animated").removeClass("fadeOutRight");
+						currentPageView.hide();
+						currentPageView.status=false; 
+						targetPageView.status=true;
+						
+					});
+				}
 			}
 			
 		},
 		//
 		forward:function(currentPageView,targetPageView){
-			var self=this,
-				screenWidth=$(document).width();
+			var self=this;
 			if(self.goParam.anim){
-				targetPageView.$pageEl.css({
-					opacity:1,
-				});
-				targetPageView.show();
-				targetPageView.onShow();
-				targetPageView.$pageEl.animate({
-					left:'0px'
-				},self.goParam.duration,self.goParam.easing,function(){ 
-					currentPageView.status=false;
-					targetPageView.status=true;
-					currentPageView.hide();
-					 
-				});
+				if(!self.duration){
+					self.duration=true;
+					targetPageView.onShow();
+					targetPageView.$pageEl.addClass("animated").addClass("fadeInRight").show().one("webkitAnimationEnd", function(){
+						self.duration=false;
+						targetPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
+						targetPageView.status=true;
+						currentPageView.statue=false;
+						currentPageView.hide();
+						
+					});	
+				}
+					
 			}else{
-				targetPageView.$pageEl.css({
-					opacity:1,
-					left:'0px'
-				});
-				targetPageView.onShow();
-				targetPageView.$pageEl.show();
-				targetPageView.status=true;
-				currentPageView.hide();
-				
+				if(!self.duration){
+					self.duration=true;
+					targetPageView.onShow();
+					targetPageView.$pageEl.addClass("animated").addClass("fadeInRight").show().one("webkitAnimationEnd", function(){
+						self.duration=false;
+						targetPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
+						targetPageView.status=true;
+						currentPageView.hide();
+						currentPageView.statue=false;
+						
+					});
+				}
+								
 			}
 			
 		},
@@ -183,6 +194,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			require([pageViewName],function(pageView){ 
 				 var pv=new pageView();
 				 if(self.goParam.anim){
+					 /**
 					 pv.$pageEl.animate({
 							left:'0px'
 					 },self.goParam.anim,self.goParam.easing,function(){
@@ -192,9 +204,36 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 						 currentPageView.status=false;
 						
 					 });
+					 */
+					 if(!self.duration){
+						 self.duration=true;
+						 pv.$pageEl.addClass("animated").addClass("fadeInRight").one("webkitAnimationEnd", function(){
+							 self.duration=false;
+							 pv.status=true;
+							 currentPageView.hide();
+							 currentPageView.status=false;
+							 currentPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
+							 pv.$pageEl.removeClass("animated").removeClass("fadeInRight");
+						 });
+					 }
 					 
 				 }else{
+					 if(!self.duration){
+						 self.duration=true;
+						 self.PageViewMgr.mapping[pageViewName].$pageEl.addClass("animated").addClass("fadeInRight").one("webkitAnimationEnd", function(){
+							 self.duration=false;
+							 if(currentPageView){
+								 currentPageView.$pageEl.removeClass("animated").removeClass("fadeInRight");
+								 currentPageView.hide();
+								 currentPageView.status=false;
+							 }
+							 self.PageViewMgr.mapping[pageViewName].$pageEl.removeClass("animated").removeClass("fadeInRight");
+						 });
+					 }
 					 
+					
+					 //alert(123);
+					 /**
 					 self.PageViewMgr.mapping[pageViewName].$pageEl.css({
 						 left:'0px'
 					 });
@@ -203,7 +242,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 						 currentPageView.hide();
 						 currentPageView.status=false;
 					 }
-					 
+					 */
 					
 				 }
 			
@@ -222,6 +261,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			easing:'linear'
 			
 		},
+		// 是否有特效进行
+		duration:false,
 		// 主要解决android back 按钮
 	    hybridBack:function(){
 	    	var currentPage= UC.PageViewMgr.getCurrentShow();
