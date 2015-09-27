@@ -83,10 +83,11 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			self.timestap=id;
 			self.alert=new alert();
 		
-			var left= $(document).width();
-			self.$pageEl= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;height: 100%;background:#E9ECF1 'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
+			var height= $(window).height()+48; 
+			self.$pageEl= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;height:100%;'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
 			
-			self.$el=$("<div id='main'></div>").appendTo(self.$pageEl);
+			self.$el=$("<div id='mian_viewport' style='height:"+height+"px;'></div>").appendTo(self.$pageEl);
+			
 			var header=new Header({pageView:self,title:'',back:false,home:false,view:false});
 			header.render();
 			self.header=header;
@@ -132,6 +133,23 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		showLoading:function(param){
 			
 			this.alert.loading(param);
+		},
+		hideAlert:function(param){
+			this.alert.hideAlert(param);
+		},
+		
+		hideConfirm:function(param){
+			
+			this.alert.hideConfirm(param);
+		},
+		
+		hideToast:function(param){
+			
+			this.alert.hideToast(param);
+		},
+		hideLoading:function(param){
+			
+			this.alert.hideLoading(param);
 		}
 		
 	});

@@ -1,4 +1,4 @@
-#Sun Sep 20 12:39:44 CST 2015
+#Sat Sep 26 14:23:48 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/alert.js=utf-8
 encoding//WebRoot/www/app/ctrl/bottomNav.js=utf-8
@@ -7,6 +7,7 @@ encoding//WebRoot/www/app/ctrl/index.js=utf-8
 encoding//WebRoot/www/app/ctrl/login.js=UTF-8
 encoding//WebRoot/www/app/ctrl/modifyPassword.js=UTF-8
 encoding//WebRoot/www/app/ctrl/my.js=utf-8
+encoding//WebRoot/www/app/ctrl/register1.js=UTF-8
 encoding//WebRoot/www/app/ctrl/register3.js=UTF-8
 encoding//WebRoot/www/app/ctrl/telDetailList.js=UTF-8
 encoding//WebRoot/www/app/ctrl/telList.js=UTF-8
@@ -17,10 +18,13 @@ encoding//WebRoot/www/app/view/bottomNav.html=utf-8
 encoding//WebRoot/www/app/view/containerDetail.html=UTF-8
 encoding//WebRoot/www/app/view/containerQuery.html=UTF-8
 encoding//WebRoot/www/app/view/find.html=utf-8
+encoding//WebRoot/www/app/view/forget.html=UTF-8
+encoding//WebRoot/www/app/view/header.html=UTF-8
 encoding//WebRoot/www/app/view/index.html=utf-8
 encoding//WebRoot/www/app/view/login.html=UTF-8
 encoding//WebRoot/www/app/view/modifyPassword.html=UTF-8
 encoding//WebRoot/www/app/view/my.html=utf-8
+encoding//WebRoot/www/app/view/register1.html=UTF-8
 encoding//WebRoot/www/app/view/register2.html=UTF-8
 encoding//WebRoot/www/app/view/register3.html=UTF-8
 encoding//WebRoot/www/app/view/telDetail.html=UTF-8

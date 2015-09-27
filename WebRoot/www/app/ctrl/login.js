@@ -8,6 +8,7 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   			"click #forget":"forget"
   		},
   		login:function(e){
+  			this.showLoading("请求服务器...");
   			var self=this,
   				umodel=new userModel();
   				username=self.$el.find("#username").val(),
@@ -19,13 +20,13 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   						password:password
   					},
   					success:function(data){
+  						self.hideLoading();
   						if(data.attributes.flag){
   							localStorage.setItem("username",username);
   							localStorage.setItem("password",password);
   							UC.go("yulu",{anim:false});
   						}else{
-  							alert("用户名密码错误");
-  							
+  							self.showAlert("用户名密码错误"); 
   						}
   						
   			  			
@@ -51,10 +52,7 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
             	self=this; 
         	self.$el.html(tpl({ "data": data })); 
         	//self.$el.addClass("app_user_bg");
-        	self.$el.css({
-        		
-        	    background: "url(res/images/indexbg.jpg) no-repeat"
-        	});
+        	 
         	
         },
         onCreate:function(){

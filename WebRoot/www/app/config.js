@@ -1,6 +1,7 @@
 require.config({
 	paths:{
 		'jquery':'lib/jquery-1.7.1',
+		'zepto':'lib/zepto',
 		'underscore':'lib/underscore',
 		'text':'lib/text',
 		'iscroll':'lib/iscroll',
@@ -11,7 +12,7 @@ require.config({
 		'lib':'app/lib',
 		'alert':'app/alert', 
 		'boot':'app/boot',
-		
+		 
 		'register1':'app/ctrl/register1',
 		'register2':'app/ctrl/register2',
 		'register3':'app/ctrl/register3',

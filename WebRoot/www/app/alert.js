@@ -13,17 +13,19 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		 * */
 		Alert.prototype.alert=function(param){
 			var self=this;
-			self.maskHTML="<div class='cui-view cui-mask cui-opacitymask' style='position: absolute; left: 0px; top: 0px; width: 100%; height: "+$(document).height()+"px; display: block;'><div></div></div>";
-			self.alertHTML="<div class='cui-view cui-layer cui-alert' name='alertContent'  style='visibility: visible; '><div class='cui-pop-box'><div class='cui-bd'><div class='cui-error-tips'><div>"+param.title+"</div></div><div class='cui-roller-btns'><div class='cui-flexbd cui-btns-sure' name='sure'>"+param.content+"</div></div></div></div></div>";
-			self.$alert=$(this.maskHTML+this.alertHTML).appendTo($("body"));
+			self.maskHTML="<div class='error'><div class='error_text'>"+param+"</div><div class='error_button'></div></div>";
+		 
+			self.$alert=$(this.maskHTML).appendTo($("body"));
 			Alert.prototype.adjust($(self.$alert[1]));
-			self.$alert.find("[name='sure']").click(function(){
+			self.$alert.click(function(){
 				self.$alert.remove();
 			});
 			$(window).on('resize',function(){
 				self.adjust($(self.$alert[1]));
 			});
 		};
+		
+		
 		Alert.prototype.adjust=function($el){
 			var screenWidth=$(document).width(),
 				screenHeight=$(document).height(),
@@ -91,21 +93,26 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		 * */
 		Alert.prototype.loading=function(param){
 			var self=this;
-			self.maskHTML="<div class='cui-view cui-mask cui-opacitymask' style='position: absolute; left: 0px; top: 0px; width: 100%; height: "+$(document).height()+"px;  display: block;'><div></div></div>";
-			self.loadingHTML="<div class='cui-view cui-layer cui-loading'  style='visibility: visible; ><div class='cui-layer-padding'><div class='cui-layer-content'><div class='cui-breaking-load'><div class='cui-i cui-w-loading'></div><div class='cui-i cui-m-logo'></div></div></div></div></div>";
-			self.$loading=$(this.maskHTML+this.loadingHTML).appendTo($("body"));
+			self.maskHTML="<div class='loading'> <div class='loading_icon'><img src='res/images/loading.gif'></div><div class='loading_text'>"+param+"</div> </div>";
+			
+			self.$loading=$(this.maskHTML).appendTo($("body"));
+			self.$loading.addClass("animated").addClass("bounceIn");
 			Alert.prototype.adjust($(self.$loading[1]));
 			$(window).on('resize',function(){
 				self.adjust($(self.$loading[1]));
 			});
 			self.$loading.on("click",function(){
+				self.$loading.addClass("animated").addClass("bounceOut");
 				self.$loading.remove();
 			});
 			 
-			setInterval(function(){
-				self.$loading.remove();
-			},param.duration||4000);
+			 
 			
+		}
+		Alert.prototype.hideLoading=function(param){
+			var self=this;
+			self.$loading.addClass("animated").addClass("bounceOut");
+			self.$loading.remove();
 		}
 	}
 	return Alert;
