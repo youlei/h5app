@@ -2,12 +2,14 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	
 	var yuluView=basePageView.extend({
 		events:{
-			"click [name='tab']":"switchTab",
+		 
 			'click #selectYuluByCamear':'getImageFormCamera',
 			'click #selectYuluByAlbum':'getImageFormAlbum',
 			'click #h5Album':'h5Album',
 			'change #h5file':'',
-			'click #subYulu':'submitYulu'
+			'click #subYulu':'submitYulu',
+			"click [name='tab']":"switchTab",
+			"click #photograph":"photograph"
 			
 			
 		},
@@ -15,6 +17,26 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		$perview:null,
 		$tmpview:null,
 		
+		switchTab:function(e){
+			
+			$("[name='tab']").removeClass("hover");
+			$(e.srcElement).addClass("hover");
+			if($(e.srcElement).text()=="预录"){
+				$("[name='tabContent']").hide();
+				$("#yl1").show();
+				
+				//$("#yiwancheng").hide();
+			}else if($(e.srcElement).text()=="待预录"){
+				$("[name='tabContent']").hide();
+				$("#yl2").show();
+			}else if($(e.srcElement).text()=="待处理"){
+				$("[name='tabContent']").hide();
+				$("#yl3").show();
+			}else if($(e.srcElement).text()=="已完成"){
+				$("[name='tabContent']").hide();
+				$("#yl4").show();
+			}
+		},
 	    getBase64Image:function(img) {
 	    	 
 		      var self=this, 
@@ -33,9 +55,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			//var image=$("#previewImg");
 			var img = document.createElement('img');
 				img.id="ats"; 
-				img.src="res/images/0f8cfc1f4134970ad27d02dd90cad1c8a6865d91.jpg";
-			self.$tmpview= $(img).appendTo(this.$el);
-		
+				img.src=$("#photograph").date(url);
+			self.$tmpview= $(img).appendTo(this.$el); 
 			var base64Img= this.getBase64Image(img).substr(22);
 			self.$tmpview.hide();
 			self.$canvas.hide();
@@ -63,31 +84,38 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 			//canvas.width=
 		},
+		photograph:function(){
+			var self=this;
+			self.showConfirm({
+				title:'请选择',
+				sure:'拍照',
+				cancel:'相册',
+				sureCallback:function(){
+					self.getImageFormCamera();
+				},
+				cancelCallback:function(){
+					self.getImageFormAlbum();
+				}
+				
+			});
+			
+		},
+		
+		gotoImageView:function(url){
+			
+			
+		},
+		
 		getImageFormCamera:function(){ 
+			 
 			window.Native.getImageFromCamera();
 		},
 		getImageFormAlbum:function(){
+			 
 			window.Native.getImageFromAlbum();
 			
 		},
-		switchTab:function(e){
-			 
-			$("[name='tab']").removeClass("cur");
-			$(e.srcElement).addClass("cur");
-			if($(e.srcElement).text()=="预录"){
-				$("#yulu").show();
-				$("#daiyulu").hide();
-				$("#yiwancheng").hide();
-			}else if($(e.srcElement).text()=="待处理"){
-				$("#yulu").hide();
-				$("#daiyulu").show();
-				$("#yiwancheng").hide();
-			}else if($(e.srcElement).text()=="已完成"){
-				$("#yulu").hide();
-				$("#daiyulu").hide();
-				$("#yiwancheng").show();
-			}
-		},
+		 
 		 
 		getCode:function(){
 			UC.go("register2");
@@ -100,13 +128,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             	tplBottomNav=this.initTemplate(TemplateBottomNav);
            	self=this;  
        		self.$el.html(tplYulu()); 
-       		$(tplBottomNav()).appendTo(self.$el);
-       		self.$el.find(".n_b_1").css({
-       			"background-position":"-19px top"
-       		});
-       		self.$el.find("#navbottom").find("span").eq(0).css({
-       			color:"#299be4"
-       		});
+       		//$(tplBottomNav()).appendTo(self.$el);
+       		 
        		
         },
         onCreate:function(){

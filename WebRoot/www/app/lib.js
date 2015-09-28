@@ -282,6 +282,13 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	    	var currentPage= UC.PageViewMgr.getCurrentShow();
 	    	currentPage.triggerBack();
 	    	
+	    },
+	    previewImage:function(url){
+	    	$("#photograph").css({
+	    		background:"url("+url+")"
+	    	}); 
+	    	$("#photograph").data("url",url); 
+	    	UC.go('imageView',{url:url});
 	    }
 			
 	};

@@ -41,26 +41,48 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		 * param.cancel
 		 * param.sure 
 		 * param.sureCallback
+		 * param.cancelCallback
 		 * */
 		Alert.prototype.confirm=function(param){
 			var self=this;
-			self.maskHTML="<div class='cui-view cui-mask cui-opacitymask' style='position: absolute; left: 0px; top: 0px; width: 100%; height: "+$(document).height()+"px;  display: block;'><div></div></div>";
-			self.confirmHTML="<div class='cui-view cui-layer cui-alert'   style='visibility: visible; '><div class='cui-pop-box'><div class='cui-bd'><div class='cui-error-tips'>"+param.title+"</div><div class='cui-roller-btns'><div class='cui-flexbd cui-btns-cancel' name='cancel'>确定</div><div class='cui-flexbd cui-btns-sure' name='sure'>取消</div></div></div></div></div>";
+			self.maskHTML="<div class='error'>" 
+					     +"  <div class='error_text'>"+param.title+"</div>"
+					     +"<div class='confirm_button'>"
+					     +"<div class='confirm_button2' name='cancel'>"+param.cancel+"</div>"
+					     +"<div class='confirm_button1' name='sure'>"+param.sure+"</div>"
+					     +"</div>"
+					     +"</div>";
+			
 		 
-			self.$confirm=$(this.maskHTML+this.confirmHTML).appendTo($("body"));
-			Alert.prototype.adjust($(self.$confirm[1]));
-			$(window).on('resize',function(){
-				self.adjust($(self.$confirm[1]));
-			});
+			self.$confirm=$(this.maskHTML).appendTo($("body"));
+			self.$confirm.addClass("animated").addClass("bounceIn");
+			
 			self.$confirm.find("[name='sure']").click(function(){
-				self.$confirm.remove();
+				self.$confirm.one('webkitAnimationEnd',function(){
+					self.$confirm.remove();
+				});
+				self.$confirm.addClass("bounceOut"); 
 				if(param.sureCallback){
 					param.sureCallback();
 				}
 				
 			});
 			self.$confirm.find("[name='cancel']").click(function(){
-				self.$confirm.remove();
+				self.$confirm.one('webkitAnimationEnd',function(){
+					self.$confirm.remove();
+				});
+				self.$confirm.addClass("bounceOut");
+				if(param.sureCallback){
+					param.cancelCallback();
+				}
+			 
+			});
+			self.$confirm.on("click",function(){
+				self.$confirm.one('webkitAnimationEnd',function(){
+					self.$confirm.remove();
+				});
+				self.$confirm.addClass("bounceOut");
+				
 			});
 		}
 		/**
