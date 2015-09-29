@@ -53,6 +53,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		},
 		submitYulu:function(){
 			//var image=$("#previewImg");
+			/**
 			var img = document.createElement('img');
 				img.id="ats"; 
 				img.src=$("#photograph").date(url);
@@ -72,6 +73,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				}
 				
 			});
+			*/
 			//console.log(base64Img);
 			
 		},

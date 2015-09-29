@@ -1,4 +1,4 @@
-#Sat Sep 26 14:23:48 CST 2015
+#Tue Sep 29 23:13:33 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/alert.js=utf-8
 encoding//WebRoot/www/app/ctrl/bottomNav.js=utf-8
@@ -33,3 +33,4 @@ encoding//WebRoot/www/app/view/telList.html=UTF-8
 encoding//WebRoot/www/app/view/validateContainerCode.html=UTF-8
 encoding//WebRoot/www/app/view/yulu.html=utf-8
 encoding//WebRoot/www/res/mbooking.css=UTF-8
+encoding//src/com/ucapp/servlet/UCService.java=UTF-8

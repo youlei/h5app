@@ -1,6 +1,9 @@
 package com.ucapp.servlet;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -54,20 +57,29 @@ public class UCService extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getParameter("");
 		String callbackStr=request.getParameter("callback");
-		User user=new User();
-		user.setId("10011");
-		user.setUsername("youlei");
-		user.setPassword("147258");
-		user.setStatus(false);
+		InputStream in= request.getInputStream();
+		 
+        OutputStream out = new FileOutputStream("D:/workspace/tmp.jpg");
+        byte[] buffer = new byte[1024];
+        int length = -1;
+        while ((length = in.read(buffer)) != -1) {
+            out.write(buffer, 0, length);
+        }
+        out.flush();
+        
+        in.close();
+        out.close();
+       
 		//String jsonStr= JSON.toJSONString(user);
 		//response.setContentType("text/html");
-		String base64ImageStr= request.getParameter("base64Image");
-		Base64.GenerateImage(base64ImageStr);
-		PrintWriter out = response.getWriter();
+		//String base64ImageStr= request.getParameter("base64Image");
+		//Base64.GenerateImage(base64ImageStr);
+		//PrintWriter out1 = response.getWriter();
 		//out.write(callbackStr+"("+jsonStr+")");
-		out.flush();
-		out.close();
+		//out1.flush();
+		//out1.close();
 	}
 
 	/**
