@@ -41,7 +41,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
            	self=this; 
        		self.$el.html(tplYulu({data:{url:UC.goParam.url}})); 
        		self.$el.find("#preview").attr("src",UC.goParam.url);
-       		UC.imgData=self.getBase64Image(self.$el.find("#preview")[0]);
+       		//UC.imgData=self.getBase64Image(self.$el.find("#preview")[0]);
        		       		
         },
         onCreate:function(){

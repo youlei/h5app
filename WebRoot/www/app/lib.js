@@ -66,7 +66,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			
 		}, 
 		
-		// 获取页面切换是前进还是后退
+		// 锟斤拷取页锟斤拷锟叫伙拷锟斤拷前锟斤拷锟角猴拷锟斤拷
 		getDirection:function(currentPage,targetPage){
 			var cindex,tindex,
 				pageViewStack=UC.PageViewMgr.pageViewStack;
@@ -104,12 +104,15 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			}
 			
 		},
-		// 单页模式下页面跳转
+		// 锟斤拷页模式锟斤拷页锟斤拷锟斤拷转
 		/**
 		 * param.anmi
 		 * */
 		go:function(name,param){
 			//this.goParam=param||this.goParam;
+			if(this.isLogin()){
+				return;
+			}
 			if(!$.isEmptyObject(param)){
 				$.extend(this.goParam,param);
 			}else{
@@ -260,13 +263,13 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			
 			});
 		},
-		// 每次跳转使用跳转参数
+		// 每锟斤拷锟斤拷转使锟斤拷锟斤拷转锟斤拷锟斤拷
 		goParam:{
 			anim:false,
 			duration:300,
 			easing:'linear'
 		},
-		// 全局使用
+		// 全锟斤拷使锟斤拷
 		animate:{
 			anim:true,
 			duration:300,
@@ -275,21 +278,53 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			animateOut:Animate.FadingExits[5]
 			
 		},
-		// 是否有特效进行
+		// 锟角凤拷锟斤拷锟斤拷效锟斤拷锟斤拷
 		duration:false,
-		// 主要解决android back 按钮
+		// 锟斤拷要锟斤拷锟絘ndroid back 锟斤拷钮
 	    hybridBack:function(){
 	    	var currentPage= UC.PageViewMgr.getCurrentShow();
 	    	currentPage.triggerBack();
 	    	
 	    },
-	    previewImage:function(url){
+	    previewImage:function(url,bakUrl){   
 	    	$("#photograph").css({
-	    		background:"url("+url+")"
+	    		background:"url("+bakUrl+")"
 	    	}); 
 	    	$("#photograph").data("url",url); 
-	    	UC.go('imageView',{url:url});
-	    }
+	    	$("#photograph").data("bakUrl",bakUrl); 
+	    	//UC.go('imageView',{url:url});
+	    	window.Native.gotoPreviewImage(url); 
+	    	//this.addYL(123, url);
+	    },
+	    hideLoading:function(id,url){
+	    	
+	    	/**
+	    	var ylArray=JSON.parse(localStorage.getItem("ylArray"));  
+	    	if(!ylArray){
+	    		alert(123);
+	    		ylArray=[];
+	    	} 
+	    	var ylObj={
+    	    		id:id,
+    	    		url:url
+    	    	};
+	    	 
+	    	ylArray.push(ylObj);  
+	    	localStorage.setItem("ylArray",JSON.stringfy(ylArray)); 
+	    	UC.PageViewMgr.mapping["yulu"].refreshDaiYuLu();
+	    	**/
+	    	//alert(UC.PageViewMgr.mapping["yulu"]);
+	    	//alert(UC.PageViewMgr.mapping["yulu"].hideLoading);
+	    	UC.PageViewMgr.mapping["yulu"].hideLoading("");
+	    	UC.PageViewMgr.mapping["yulu"].showAlert("涓婁紶鎴愬姛.....");
+	    	return;
+	    },
+	    removeYL:function(id){
+	    	
+	    },
+	    hide:function(){
+	    	
+	    },
 			
 	};
 	

@@ -64,9 +64,9 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		
 	}
 	var BasePageView=Backbone.View.extend({
-		// ´æ·ÅÒ³ÃæµÄÄÚÈÝ ²»°üÀ¨title 
+		// ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½title 
 		$el:null,
-		// Õû¸öÒ³Ãæ
+		// ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 		$pageEl:null,
 		name:null,
 		timestap:null,
@@ -98,7 +98,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			self.onShow();
 			
 		},
-		// ´¥·¢header µÄback °´Å¥
+		// ï¿½ï¿½ï¿½ï¿½header ï¿½ï¿½back ï¿½ï¿½Å¥
 		triggerBack:function(){
 			this.header.$backBt.trigger("click");
 		},
@@ -148,7 +148,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			this.alert.hideToast(param);
 		},
 		hideLoading:function(param){
-			
+			alert("hide...");
 			this.alert.hideLoading(param);
 		}
 		

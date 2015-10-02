@@ -56,7 +56,8 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
         	
         },
         onCreate:function(){
-        	UC.previewImage("12234");
+        	//UC.previewImage("12234"); 
+        	UC.go("yulu");
         	if(UC.isLogin()){
         		UC.go("yulu");
         	}else{

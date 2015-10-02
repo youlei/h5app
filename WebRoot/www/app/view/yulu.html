@@ -11,7 +11,7 @@
       </div>
       <div id='yl1' name='tabContent' >
       	<div class="yulu_photo">
-        <div class="yulu_photo_title">您的预录还剩余<span class="text_green">15</span>次</div>
+        <div class="yulu_photo_title">您的预录还剩余<span class="text_green" id='prerecordCount'>0</span>次</div>
         <div class="yulu_photo_photo" style="height: 263px;" id='photograph'>
               <div class="yulu_photo_photo_small_dw">
                <i class="icon_photo"></i>
@@ -20,10 +20,10 @@
             </div> 
       
       </div>
-        <div class="login_page_user_button table_div">提交预录</div>
+        <div class="login_page_user_button table_div" id="subYulu">提交预录</div>
           <div class="yulu_kefu">客服电话：187549467465</div>
           <div class="yulu_gundong">
-            <ul>
+            <ul id='yuluSrcoll'>
               <li><span class="yulu_gundong_right">2015-09-15  14:34:42</span>用户XXX充值了795元</li>
               <li><span class="yulu_gundong_right">2015-09-15  14:34:42</span>用户XXX充值了795元</li>
               <li><span class="yulu_gundong_right">2015-09-15  14:34:42</span>用户XXX充值了795元</li>  
@@ -33,112 +33,42 @@
       </div>
           <!-- 待预录 -->
           <div class="daiyulu_list" name='tabContent' id='yl2' style='display:none'>
-        <ul>
-          <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> <a href="#" class="daiyulu_jiaji">加急</a> <a href="#" class="daiyulu_quxiao">取消</a> </div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
-          <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> <a href="#" class="daiyulu_jiaji">加急</a> <a href="#" class="daiyulu_quxiao">取消</a> </div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
-            <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> <a href="#" class="daiyulu_jiaji">加急</a> <a href="#" class="daiyulu_quxiao">取消</a> </div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
-            <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> <a href="#" class="daiyulu_jiaji">加急</a> <a href="#" class="daiyulu_quxiao">取消</a> </div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
+        <ul id="dylUl">
+           
         </ul>
       </div>
-          <!-- 预录列表 -->
+      
+          <!-- 待处理 -->
           <div class="daiyulu_list" name='tabContent'  id='yl3' style='display:none'>
-        <ul>
-          <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
+        <ul id="dclUl">
+            <!-- 
            <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
+            <div class="daiyulu_li" name="dcl">
+              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32</div>
               <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
             </div>
+            <div>  </div>
             <div class="daiyulu_line"></div>
-          </li>
-           <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
-           <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
- 
+          </li> 
+           -->
+          
         </ul>
+        
       </div>
           
-                   <!-- 预录列表 -->
+                   <!-- 已完成-->
           <div class="daiyulu_list" name='tabContent'  id='yl4' style='display:none'>
-        <ul>
+        <ul id="ywcUl">
+          <!-- 
           <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
+            <div class="daiyulu_li" name="ywc">
+              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32</div>
+              <div class="daiyulu_img"><img style='width:150px;height:150px;' src="images/pic.jpg" alt=""></div>
             </div>
+            <div class="login_page_user_button table_div" id="subYulu">确认预录</div>
             <div class="daiyulu_line"></div>
           </li>
-           <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
-           <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
-           <li>
-            <div class="daiyulu_li">
-              <div class="daiyulu_button"> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32
-</div>
-              <div class="daiyulu_img"><img src="images/pic.jpg" alt=""></div>
-            </div>
-            <div class="daiyulu_line"></div>
-          </li>
- 
+           -->
         </ul>
       </div>
           

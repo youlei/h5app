@@ -10,19 +10,21 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		/**
 		 * param.title
 		 * param.content
+		 * param.autoHide
 		 * */
 		Alert.prototype.alert=function(param){
 			var self=this;
 			self.maskHTML="<div class='error'><div class='error_text'>"+param+"</div><div class='error_button'></div></div>";
-		 
+			if(self.$confirm){
+				return;
+			}
 			self.$alert=$(this.maskHTML).appendTo($("body"));
 			Alert.prototype.adjust($(self.$alert[1]));
 			self.$alert.click(function(){
 				self.$alert.remove();
+				self.$alert=null;
 			});
-			$(window).on('resize',function(){
-				self.adjust($(self.$alert[1]));
-			});
+			setTimeout(function(){},5000);
 		};
 		
 		
@@ -42,6 +44,7 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		 * param.sure 
 		 * param.sureCallback
 		 * param.cancelCallback
+		 * param.autoHide
 		 * */
 		Alert.prototype.confirm=function(param){
 			var self=this;
@@ -53,7 +56,9 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 					     +"</div>"
 					     +"</div>";
 			
-		 
+			if(self.$confirm){
+				return;
+			}
 			self.$confirm=$(this.maskHTML).appendTo($("body"));
 			self.$confirm.addClass("animated").addClass("bounceIn");
 			
@@ -70,6 +75,7 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 			self.$confirm.find("[name='cancel']").click(function(){
 				self.$confirm.one('webkitAnimationEnd',function(){
 					self.$confirm.remove();
+					self.$confirm=null;
 				});
 				self.$confirm.addClass("bounceOut");
 				if(param.sureCallback){
@@ -80,15 +86,18 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 			self.$confirm.on("click",function(){
 				self.$confirm.one('webkitAnimationEnd',function(){
 					self.$confirm.remove();
+					self.$confirm=null;
 				});
 				self.$confirm.addClass("bounceOut");
 				
 			});
+			setTimeout(function(){},5000);
 		}
 		/**
 		 * param.content
 		 * param.duration
 		 * param.callback
+		 * param.autoHide
 		 * */
 		Alert.prototype.toast=function(param){
 			var self=this;
@@ -105,29 +114,32 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 				self.$toast.remove();
 			});
 			 
-			setInterval(function(){
-				self.$toast.remove();
-			},param.duration||4000);
+			setTimeout(function(){},5000);
 			 
 		}
 		/**
 		 * param.duration
+		 * param.autoHide
 		 * */
 		Alert.prototype.loading=function(param){
 			var self=this;
 			self.maskHTML="<div class='loading'> <div class='loading_icon'><img src='res/images/loading.gif'></div><div class='loading_text'>"+param+"</div> </div>";
-			
+			 
 			self.$loading=$(this.maskHTML).appendTo($("body"));
-			self.$loading.addClass("animated").addClass("bounceIn");
+			
+			//self.$loading.addClass("animated").addClass("bounceIn");
+			/**
 			Alert.prototype.adjust($(self.$loading[1]));
 			$(window).on('resize',function(){
 				self.adjust($(self.$loading[1]));
 			});
+			
+			*/
 			self.$loading.on("click",function(){
-				self.$loading.addClass("animated").addClass("bounceOut");
+				//self.$loading.addClass("animated").addClass("bounceOut");
 				self.$loading.remove();
 			});
-			 
+			//setTimeout(function(){},5000);
 			 
 			
 		}

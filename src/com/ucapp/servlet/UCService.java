@@ -60,7 +60,9 @@ public class UCService extends HttpServlet {
 		request.getParameter("");
 		String callbackStr=request.getParameter("callback");
 		InputStream in= request.getInputStream();
-		 
+		String username=request.getParameter("username");
+		String password=request.getParameter("password");
+		String fileName=request.getParameter("fileName");
         OutputStream out = new FileOutputStream("D:/workspace/tmp.jpg");
         byte[] buffer = new byte[1024];
         int length = -1;
