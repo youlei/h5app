@@ -2,23 +2,23 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	
 	var myView=basePageView.extend({
 		events:{
-			 'click #allTel':'goToTelList',
-			 'click #detailList':'goToViolationsSelect',
+			 'click #tel':'goToTelList',
+			 'click #violations':'goToViolationsSelect',
 			 "click #containerQuery":"goContainerQuery",
 			 'click #validateContainerCode':'goToValidateContainerCode',
 		},
 		goContainerQuery:function(){
-			UC.go('containerQuery');
+			UC.go('containerQuery',{anim:true});
 		},
 		goToViolationsSelect:function(){
 			
-			UC.go('violations');
+			UC.go('violations',{anim:true});
 		},
 		goToTelList:function(){
-			UC.go('telList');
+			UC.go('telList',{anim:true});
 		},
 		goToValidateContainerCode:function(){
-			UC.go('validateContainerCode');
+			UC.go('validateContainerCode',{anim:true});
 		},
 		initTemplate: function (template) {
             return _.template(template);
@@ -41,22 +41,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	   this.render();
 	       	this.header.set({
-	   			title:'dulei info sys',
+	   			title:'今日物流',
 	   			view:true,
-	   			back:true,
-	   			home:true,
-	   			
-	   			events:{
-	   				returnHandler:function(){
-	   					UC.go('login',{
-	   						
-	   					});
-	   				},
-	   				homeHandler:function(){
-	   					
-	   					
-	   				}
-	   			}
+	   			back:false,
+	   			home:true 
 	   			
 	   		});
 	       	 

@@ -1,19 +1,40 @@
-<div style='margin-top:50px'>
-
-
-<!--fm_app_list-->
-<ul class="fm_app_list basefix" style="margin-top:10px;">
-
-	<li id='allTel'><span>电话大全</span><i class="icon_next"></i><em>11</em></li>
-    <li><span>开港信息</span><i class="icon_next"></i><em class="cur">37</em></li>
-    <li id="containerQuery"><span>箱号查询</span><i class="icon_next"></i><em>11</em></li>
-    <li id="validateContainerCode"><span>箱号检测</span><i class="icon_next"></i><em>11</em></li>
-    <li id='detailList'><span>违章查询</span><i class="icon_next"></i><em>11</em></li>
-    <li><span>道路状况</span><i class="icon_next"></i><em>11</em></li>
-    <li><span>电子装箱查询</span><i class="icon_next"></i><em>11</em></li>
-</ul>
-<!--END OF fm_app_list-->
-
- 
-</div> 
- 
+<div id="main" >
+   <div class="main_viewport">
+    <div class="index_body">
+      <div class="zh_list body_n1">
+        <ul>
+          <li id='tel'><i class="zh_icon_dh zh_table_icon "></i>电话大全</li>
+          <li id=''><i class="zh_icon_kg zh_table_icon "></i>开港信息</li>
+          <li id='containerQuery'><i class="zh_icon_xh zh_table_icon "></i>箱号查询</li>
+          <li id='validateContainerCode'><i class="zh_icon_jc zh_table_icon "></i>箱号检测</li>
+          <li id='violations'><i class="zh_icon_wz zh_table_icon "></i>违章查询</li>
+          <li id=''><i class="zh_icon_dl zh_table_icon "></i>道路状况</li>
+          <li id=''><i class="zh_icon_dz zh_table_icon "></i>电子装箱查询</li> 
+        </ul> 
+      
+      </div> 
+    
+         
+    </div>
+    
+    <div class="foot">
+  <ul>
+  <li onclick="UC.go('home',{anim:false})">
+     		<div class="icon_home"></div>
+            <div >首  页</div>
+     </li>
+     <li onclick="UC.go('yulu',{anim:false})">
+     		<div class="icon_yulu"></div>
+            <div>预  录</div>
+     </li>
+     <li class="hover" >
+     		<div class="icon_zonghe"></div>
+            <div >综   合</div>
+     </li>
+  
+     <li onclick="UC.go('my',{anim:false})">
+     		<div class="icon_wode"></div>
+            <div>我  的</div>
+     </li>
+  
+  </ul>

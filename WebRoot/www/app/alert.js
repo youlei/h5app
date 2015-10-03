@@ -13,7 +13,8 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		 * param.autoHide
 		 * */
 		Alert.prototype.alert=function(param){
-			var self=this;
+			var self=this,
+				param=param||"";
 			self.maskHTML="<div class='error'><div class='error_text'>"+param+"</div><div class='error_button'></div></div>";
 			if(self.$confirm){
 				return;
@@ -122,7 +123,8 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		 * param.autoHide
 		 * */
 		Alert.prototype.loading=function(param){
-			var self=this;
+			var self=this,
+				param=param||"";
 			self.maskHTML="<div class='loading'> <div class='loading_icon'><img src='res/images/loading.gif'></div><div class='loading_text'>"+param+"</div> </div>";
 			 
 			self.$loading=$(this.maskHTML).appendTo($("body"));

@@ -1,5 +1,5 @@
 define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateYulu','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateYulu,basePageView,userModel){
-	
+	var umodel=new userModel();
 	var yuluView=basePageView.extend({
 		events:{
 		 
@@ -68,8 +68,27 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 		},
 		cancelYulu:function(e){
-			var $this=$(e.srcElement),
+			var self=this,
+				$this=$(e.srcElement),
 				id=$this.data("id"); 
+			self.showLoading(); 
+			 
+	       	umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/cancelPrerecordCount",
+				params:{
+					id:id,
+					accountName:'18602922416'
+				},
+				success:function(obj){   
+					self.hideLoading();
+					self.showAlert("取消成功"); 
+					self.refresh();
+					 
+				},
+				error:function(){
+					self.showToast("取消失败");
+				}
+			});
 		},
 		previewImg:function(e){
 			var $this=$(e.srcElement); 
@@ -90,8 +109,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					self.img=$("#photograph").data("url");  
 					window.Native.uploadFile(serverUrl,$("#photograph").data("url")); 
 				},1000);
-				setTimeout(function(){ 
-					umodel=new userModel();
+				setInterval(function(){ 
+					 
 			       	umodel.fetch({
 						url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
 						params:{
@@ -139,6 +158,22 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			});
 			
 		}, 
+		refresh:function(){
+		 
+			umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
+				params:{
+					accountName:'18602922416'
+				},
+				success:function(obj){   
+					var resultArray= obj.attributes; 
+					self.refreshGrid(resultArray);
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
+		},
 		refreshGrid:function(result){
 			var self=this;   
 			self.refreshDYL(result.DYL);
@@ -151,16 +186,15 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			 
 			var self=this,
 				html=""; 
-		    for(var i=0;i<data.length;i++){
-		    	 
+		    for(var i=0;i<data.length;i++){ 
 		    	var bakFile=data[i].fileName+".bak"; 
 		    	html+=" <li id='"+data[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
-		              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+data[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' "+data[i].id+" name='cancel'>取消</a> </div>"
-		              +"<div class='daiyulu_img'><img style='width:150px;height:150px;border:0;' name='"+data[i].fileName+"'  src='"+bakFile+"' alt=''></div>"
+		              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+data[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+data[i].id+" name='cancel'>取消</a> </div>"
+		              +"<div class='daiyulu_img'><img style='width: 136px;height: 153px;border:0;' name='"+data[i].fileName+"'  src='"+bakFile+"' alt=''></div>"
 		              +"</div>"
 		              +"<div class='daiyulu_line'></div> </li>";
 		    } 
-		    //$("#dylUl").empty(); 
+		    $("#dylUl").empty(); 
 		    $(html).appendTo(self.$el.find("#dylUl")); 
 		    
 		},
@@ -171,16 +205,16 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		    	 
 		    	var bakFile=data[i].fileName+".bak"; 
 		    	html+="	<li>"
-					    +"<div class='daiyulu_li' name='dcl'>"
+					    +"<div class='yiwancheng_button' name='dcl'>"
 					    +"		  <div class='daiyulu_button'> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32</div>"
-					    +"		  <div class='daiyulu_img'><img style='width:150px;height:150px;border:0;' src='"+bakFile+"' alt=''></div>"
+					    +"		  <div class='daiyulu_img'><img style='width: 136px;height: 153px;border:0;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></div>"
 					    +"		</div>"
-					    +"		<div class='login_page_user_button table_div'>确认预录</div>"
+					    +"		<button>确认预录</button>"
 					    +"		<div class='daiyulu_line'></div>"
 					    +"	  </li>";
 		    	
 			    } 
-		    //$("#dylUl").empty(); 
+		    $("#dyDCL").empty(); 
 		    $(html).appendTo(self.$el.find("#dclUl")); 
 		
 		},
@@ -191,18 +225,25 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	    for(var i=0;i<data.length;i++){
 	    	 
 	    	var bakFile=data[i].fileName+".bak"; 
-	    	html+="	<li>"
-				    +"<div class='daiyulu_li' name='ywc'>"
-				    +"		  <div class='daiyulu_button'> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32</div>"
-				    +"		  <div class='daiyulu_img'><img style='width:150px;height:150px;border:0;' src='"+bakFile+"' alt=''></div>"
-				    +"		</div>"
-				
-				    +"		<div class='daiyulu_line'></div>"
-				    +"	  </li>";
+		    	html+="<li>"
+	            +"<div class='yiwancheng_button'>"
+	            +"<ul>"
+	            +"  <li><img style='width:180px;height:120px;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></li>"
+	            +"  <li><img style='width:180px;height:120px;' name='"+data[i].xpImageUrl+"' src='"+data[i].xpImageUrl+"' alt=''></li>"
+	            +"</ul>"
+	            +"</div>"
+	            +"<div class='yiwancheng_button'>"
+	            +"<ul>"
+	            +"  <li>申请时间:"+data[i].createDate+"</li>"
+	            +"  <li>完成时间:"+data[i].wcDate+"</li>"
+	            +"</ul>"
+	            +"</div>"
+	            +"<div class='yiwancheng_line'></div>"
+	            +"</li>";
 	    	
 		    } 
-	    //$("#dylUl").empty(); 
-	    $(html).appendTo(self.$el.find("#ywcUl")); 
+	    	$("#dyYWC").empty(); 
+	    	$(html).appendTo(self.$el.find("#ywcUl")); 
 		},
 		getImageFormCamera:function(){ 
 			 
@@ -246,9 +287,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	    this.render();
 	       	this.header.set({
-	   			title:'dulei info sys',
+	   			title:'今日物流',
 	   			view:true,
-	   			back:true,
+	   			back:false,
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
@@ -263,7 +304,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   		});
 	       	//
 	        
-	       	umodel=new userModel();
+	      
 	       	umodel.fetch({
 				url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
 				params:{

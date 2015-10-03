@@ -102,7 +102,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			}else{
 				this.load(name);
 			}
-			
+			 
 		},
 		// ��ҳģʽ��ҳ����ת
 		/**
@@ -125,7 +125,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			if(!this.duration){
 				window.location.hash="#"+name;
 			}
-			 
+			
 			//this.show(name);
 		},
 		//
@@ -138,6 +138,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			var self=this;
 			if(self.goParam.anim){
 				if(!self.duration){
+					
 					self.duration=true;
 					targetPageView.show();
 					targetPageView.onShow();
@@ -153,18 +154,14 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					
 				
 			}else{
-				if(!self.duration){
-					self.duration=true;
+				if(!self.duration){ 
 					targetPageView.onShow();
 					targetPageView.show();
-					currentPageView.$pageEl.addClass("animated").addClass(self.animate.animateOut).show().one("webkitAnimationEnd", function(){
-						self.duration=false;
-						currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateOut);
-						currentPageView.hide();
-						currentPageView.status=false; 
-						targetPageView.status=true;
-						
-					});
+					currentPageView.hide();
+					currentPageView.status=false; 
+					targetPageView.status=true; 
+
+					
 				}
 			}
 			
@@ -187,18 +184,15 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				}
 					
 			}else{
-				if(!self.duration){
-					self.duration=true;
+				if(!self.duration){ 
 					targetPageView.onShow();
-					targetPageView.$pageEl.addClass("animated").addClass(self.animate.animateIn).show().one("webkitAnimationEnd", function(){
-						self.duration=false;
-						targetPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
-						targetPageView.status=true;
-						currentPageView.hide();
-						currentPageView.statue=false;
-						
-					});
+					targetPageView.show();
+					targetPageView.status=true;
+					currentPageView.hide();
+					currentPageView.statue=false;
+					
 				}
+				
 								
 			}
 			
@@ -225,25 +219,23 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 						 pv.$pageEl.addClass("animated").addClass("fadeInRight").one("webkitAnimationEnd", function(){
 							 self.duration=false;
 							 pv.status=true;
-							 currentPageView.hide();
-							 currentPageView.status=false;
-							 currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
+							 if(currentPageView){
+								 currentPageView.hide();
+								 currentPageView.status=false;
+								 currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
+							 }
+							 
 							 pv.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 						 });
 					 }
 					 
 				 }else{
 					 if(!self.duration){
-						 self.duration=true;
-						 self.PageViewMgr.mapping[pageViewName].$pageEl.addClass("animated").addClass(self.animate.animateIn).one("webkitAnimationEnd", function(){
-							 self.duration=false;
-							 if(currentPageView){
-								 currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
-								 currentPageView.hide();
-								 currentPageView.status=false;
-							 }
-							 self.PageViewMgr.mapping[pageViewName].$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
-						 });
+						 if(currentPageView){ 
+							 currentPageView.hide();
+							 currentPageView.status=false;
+						 }
+						 self.PageViewMgr.mapping[pageViewName].show(); 
 					 }
 					 
 					
@@ -265,7 +257,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		},
 		// ÿ����תʹ����ת����
 		goParam:{
-			anim:false,
+			anim:true,
 			duration:300,
 			easing:'linear'
 		},

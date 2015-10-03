@@ -26,11 +26,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
        		
         	var model=new selectCategoryModel(),
         		self=this;
-        
-        	
-        	var tplBottomNav=self.initTemplate(TemplateBottomNav);
-    		var $list=$("<div></div>").appendTo( self.$el); 
-    		$(tplBottomNav()).appendTo(self.$el);
+         
+    		var $list=$("<div></div>").appendTo( self.$el);  
         	model.fetch({
         		url:UC.actionUrl+"appariticle/getViolationsSelect",
         		success:function(me,data){

@@ -1,36 +1,36 @@
 
-<nav class="app_site padlr basefix">
-	<a href="#" class="txt_lt fl">注册第一步</a>
-	<!-- 
-    <a href="#" class="txt_lr fr">联系携程</a>
-     -->
-</nav>
+ 
 
-<ul class="fm_app_list basefix marlr">
-	<li><span class="lab">箱号<span style='color:red'>*</span></span><span class="txt_box"><input type="text" id='txt' placeholder="联系电话"></span><i class="icon_next"></i> </li>
-	 正确箱号列表：<textarea name="textarea" rows="15" id="tc" style="font-size:24px"></textarea>
-	 错误箱号列表：<textarea name="textarea2" rows="15" id="tf" style="font-size:24px"></textarea>
-</ul>
-
-
-
-<!-- 
-<nav class="padlr">用户信息</nav>
-
-<ul class="fm_app_list basefix">
-	<li><span class="lab">用户名</span><span class="txt_box"><input type="text" placeholder="用户名称"></span><i class="icon_next"></i></li>
-    <li><span class="lab">密码<span style='color:red'>*</span></span><span class="txt_box"><input type="text" placeholder="6位以上数字或字母"></span><i class="icon_next"></i></li>
-    <li><span class="lab">重复密码<span style='color:red'>*</span></span><span class="txt_box"><input type="text" placeholder="6位以上数字或字母"></span><i class="icon_next"></i></li>
-    <li><span class="lab">所属车队</span><span class="txt_box"><input type="text" placeholder=""></span><i class="icon_next"></i></li>
-    <li><span class="lab">电子邮箱</span><span class="txt_box"><input type="text"></span><i class="icon_next"></i></li>
-   
-</ul>
-<a class="app_btn_a" style="margin:10px 10px 60px;"><span>更多交通、酒店、用餐等要求</span><i class="icon_next"></i></a>
- -->
-
-<section class="nav_btn">
-	<a class="" href="javascript:void(0)" id="doCheck" style='width:100%'>获取验证码</a>
-   
-</section>
-
+<div id="main">
+  <div class="main_viewport">
+    <div class="index_body">
+      <div class="body_n1 xianghao_t1">
+        <div class="xianghao_t1_1">
+          <div class="xianghao_t1_1_t">输入11位箱号：</div>
+          <div class="xianghao_t1_1_b">(支持批量输入)</div>
+        </div>
+        <div class="xianghao_t1_2">
+          <input type="text" id='txt' placeholder="请输入集装箱号">
+        </div>
+        <div class="xianghao_t1_3">
+          <button class="xianghao_t1_1_t" id="doCheck">提交校验</button>
+          <div class="xianghao_t1_1_b">(一行一个箱号)</div>
+        </div>
+      </div>
+      <div class="xianghao_t2">
+         <div class="xianghao_t2_right">
+             <div>正确的箱号列表：</div>
+             <div><textarea  id="tc"></textarea></div>
+         </div>
+          <div class="xianghao_t2_error">
+             <div>错误的箱号列表：</div>
+             <div><textarea id="tf"></textarea></div>
+         </div>
+      
+      
+      
+      </div>
+    </div>
+  </div>
+</div>
 

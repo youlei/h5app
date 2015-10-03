@@ -2,8 +2,8 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 	var Header=function(param){
 		this.title=param.title||"";
 		this.back=param.back||false;
-		this.home=param.back||false;
-		this.view=param.back||false;
+		this.home=param.home||false;
+		this.view=param.view||false;
 		this.pageView=param.pageView;
 		this.$headerEl=null;
 		this.$backBt=null;
@@ -26,6 +26,9 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			}else{
 				this.$headerEl.hide();
 			}
+		    if(!param.back){
+		    	this.$headerEl.find("#headerBack").hide();
+		    }
 			this.$headerEl.find("#title").html(param.title);
 			if(param.events){
 				if(param.events.returnHandler){
@@ -64,9 +67,9 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		
 	}
 	var BasePageView=Backbone.View.extend({
-		// ���ҳ������� ������title 
+		// 锟斤拷锟揭筹拷锟斤拷锟斤拷锟斤拷 锟斤拷锟斤拷锟斤拷title 
 		$el:null,
-		// ���ҳ��
+		// 锟斤拷锟揭筹拷锟�
 		$pageEl:null,
 		name:null,
 		timestap:null,
@@ -98,7 +101,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			self.onShow();
 			
 		},
-		// ����header ��back ��ť
+		// 锟斤拷锟斤拷header 锟斤拷back 锟斤拷钮
 		triggerBack:function(){
 			this.header.$backBt.trigger("click");
 		},

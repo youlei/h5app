@@ -2,7 +2,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	
 	var myView=basePageView.extend({
 		events:{
-			 'click li':'gotoTelDetail'
+			 //'click li':'gotoTelDetail'
 		},
 		
 		gotoTelDetail:function(){
@@ -19,13 +19,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         		$(this).remove();
         	});
         	var model=new appAriticleModel(),
-        		self=this;
-        
+        		self=this; 
         	
-        	var tplBottomNav=self.initTemplate(TemplateBottomNav);
     		var $list=$("<div></div>").appendTo( self.$el);
     		var iscroll;
-    		$(tplBottomNav()).appendTo(self.$el);
+    		
         	model.fetch({
         		url:UC.actionUrl+'appariticle/getAriticleByCategoryId?cid='+UC.goParam.id,
         		success:function(me,data){
@@ -55,7 +53,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	
 	       	this.header.set({
-	   			title:'dulei info sys',
+	       		title:'今日物流',
 	   			view:true,
 	   			back:true,
 	   			home:true,

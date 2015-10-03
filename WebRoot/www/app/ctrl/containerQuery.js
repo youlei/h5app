@@ -20,8 +20,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					if(data.attributes.flag){
 					   UC.go("containerDetail",{electronPacking:data.attributes.electronPacking});
 					}else{
-						alert(data.attributes.errorMessage);
-						
+						//alert(data.attributes.errorMessage);
+						self.showAlert(data.attributes.errorMessage);
 					}
 					 
 				},
@@ -43,7 +43,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	   this.render();
 	       	this.header.set({
-	   			title:'œ‰∫≈–≈œ¢',
+	   			title:'ÁÆ±Âè∑Êü•ËØ¢',
 	   			view:true,
 	   			back:true,
 	   			home:true,

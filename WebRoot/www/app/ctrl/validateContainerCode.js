@@ -1,19 +1,19 @@
 define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateValidateContainerCode','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateValidateContainerCode,basePageView,userModel){
 	
 	
-	//È¥³ý×Ö·û´®µÄ¿Õ¸ñ
+	//È¥ï¿½ï¿½ï¿½Ö·ï¿½Ä¿Õ¸ï¿½
 	function gf_trim(as_string)
 	{
 	   while(as_string.length > 0 && as_string.indexOf(" ")==0) as_string = as_string.substr(1);
 	   while(as_string.length > 0 && as_string.lastIndexOf(" ")==(as_string.length-1)) as_string = as_string.substr(0,as_string.length-1);
 	   return as_string;
 	}
-	//¼¯×°ÏäÏäºÅÑéÖ¤
-	//¹¦ÄÜ£ºÑéÖ¤¼¯×°ÏäÏäºÅ£º
-	//²ÎÊý£º
-	//   as_cntrno ÊÇ·ñ·ûºÏ¹ú¼Ê±ê×¼£¬
-	//·µ»ØÖµ£ºTrue ·ûºÏ¹ú¼Ê±ê×¼»òÇ¿ÐÐÍ¨¹ý(ÌØÊâÏäºÅ)
-	//¾ÙÀý£ºgf_chkcntrno( 'TEXU2982987', 0 )     
+	//ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
+	//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Å£ï¿½
+	//ï¿½ï¿½ï¿½ï¿½
+	//   as_cntrno ï¿½Ç·ï¿½ï¿½Ï¹ï¿½Ê±ï¿½×¼ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½True ï¿½ï¿½Ï¹ï¿½Ê±ï¿½×¼ï¿½ï¿½Ç¿ï¿½ï¿½Í¨ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+	//ï¿½ï¿½ï¿½ï¿½gf_chkcntrno( 'TEXU2982987', 0 )     
 	function chkcntrno(as_cntrno,ai_choice)
 	{
 	 var fi_ki;
@@ -22,14 +22,14 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	 var fai_num = new Array(11);
 	 var fb_errcntrno=false;
 
-	 if (as_cntrno==null) return true; //null²»½øÐÐÑéÖ¤
-	 if (gf_trim(as_cntrno)=="") return true; //¿Õ²»½øÐÐÑéÖ¤
+	 if (as_cntrno==null) return true; //nullï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
+	 if (gf_trim(as_cntrno)=="") return true; //ï¿½Õ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
 	 as_cntrno = gf_trim(as_cntrno);
 	 
-	 if (as_cntrno.length == 11)   //¹ú¼Ê±ê×¼Îª11Î»£¬×îºóÒ»Î»ÊÇÐ£ÑéÎ»£¬Èô²»ÊÇ11Î»¿Ï¶¨²»ÊÇ±ê×¼Ïä
+	 if (as_cntrno.length == 11)   //ï¿½ï¿½Ê±ï¿½×¼Îª11Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Î»ï¿½ï¿½Ð£ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11Î»ï¿½Ï¶ï¿½ï¿½ï¿½ï¿½Ç±ï¿½×¼ï¿½ï¿½
 	 { for(fi_ki=1;fi_ki<=11;fi_ki++)
 	   fai_num[fi_ki] = 0;
-	  for(fi_ki=1;fi_ki<=4;fi_ki++)     //¸ù¾Ý¹ú¼Ê±ê×¼ÑéÖ¤·¨Ôò´¦ÀíÏäºÅÇ°ÃæµÄ4¸öÓ¢ÎÄ×ÖÄ¸
+	  for(fi_ki=1;fi_ki<=4;fi_ki++)     //ï¿½ï¿½Ý¹ï¿½Ê±ï¿½×¼ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½4ï¿½ï¿½Ó¢ï¿½ï¿½ï¿½ï¿½Ä¸
 	  {
 	   fch_char=as_cntrno.charAt(fi_ki-1).toUpperCase();
 	   switch(true)
@@ -52,7 +52,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   fi_numsum += fai_num[fi_ki] * fi_sqr;
 	  }
 
-	  if (as_cntrno.substr(0,4) == "HLCU") fi_numsum = fi_numsum - 2; //hapaq lloydµÄ¹ñºÅÓë¹ú¼Ê±ê×¼Ïà²î2
+	  if (as_cntrno.substr(0,4) == "HLCU") fi_numsum = fi_numsum - 2; //hapaq lloydï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½×¼ï¿½ï¿½ï¿½2
 	  fi_nummod = fi_numsum % 11;
 	  if (fi_nummod == 10) fi_nummod = 0;
 	  if (fi_nummod == fai_num[11]) fb_errcntrno = true;
@@ -70,11 +70,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			str = text[i];
 			str = str.replace(/[ ]/g,"");
 			str = str.replace(/[\r\n]/g,"");
-					 if (chkcntrno(str ,0)){				
-					    document.getElementById("tc").value = document.getElementById("tc").value + "\r" + str;					
-					 }else{					
-					 	document.getElementById("tf").value = document.getElementById("tf").value + "\r" + str;
-					 }	
+				 if (chkcntrno(str ,0)){				
+				    document.getElementById("tc").value = document.getElementById("tc").value + "\r" + str;					
+				 }else{					
+				 	document.getElementById("tf").value = document.getElementById("tf").value + "\r" + str;
+				 }	
 		}			 
 	}
 
@@ -101,7 +101,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	   this.render();
 	       	this.header.set({
-	   			title:'TemplateValidateContainerCode',
+	   			title:'ç®±å·æ£€æµ‹',
 	   			view:true,
 	   			back:true,
 	   			home:true,

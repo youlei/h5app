@@ -8,6 +8,7 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   			"click #forget":"forget"
   		},
   		login:function(e){
+  			UC.go("yulu",{anim:true});
   			this.showLoading("请求服务器...");
   			var self=this,
   				umodel=new userModel();
@@ -56,14 +57,16 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
         	
         },
         onCreate:function(){
-        	//UC.previewImage("12234"); 
-        	UC.go("yulu");
+        	 
+        	this.render();
+        	/**
         	if(UC.isLogin()){
         		UC.go("yulu");
         	}else{
         		this.render();
         		
         	}
+        	*/
         	
         },
         onShow:function(){

@@ -18,11 +18,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
        		
         	var model=new selectCategoryModel(),
         		self=this;
-        
-        	
-        	var tplBottomNav=self.initTemplate(TemplateBottomNav);
-    		var $list=$("<div></div>").appendTo( self.$el); 
-    		$(tplBottomNav()).appendTo(self.$el);
+         
+    		var $list=$("<div></div>").appendTo( self.$el);  
         	model.fetch({
         		success:function(me,data){
         			var tplYulu = self.initTemplate(TemplateTelList);
@@ -41,7 +38,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	    this.render();
 	       	this.header.set({
-	   			title:'电话列表',
+	       		title:'今日物流',
 	   			view:true,
 	   			back:true,
 	   			home:true,

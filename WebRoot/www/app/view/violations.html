@@ -1,15 +1,25 @@
-<div style='margin-top:50px'>
-
-
-<!--fm_app_list-->
-<ul class="fm_app_list basefix" style="margin-top:10px;">
-<% _.each(data,function(d){%>
-	<li id="<%=d.id%>" data-id='<%=d.id%>' data-httpUrl='<%=d.httpUrl%>' data-parid='<%=d.parid%>' data-text='<%=d.text%>'><span><%=d.text%></span><i class="icon_next"></i></li>
-	<%})%>
-   
-</ul>
-<!--END OF fm_app_list-->
-
  
-</div> 
+ 
+ <div id="main" >
+	   <div class="main_viewport">
+	    <div class="index_body" style="height:800px">
+	      <div class="zh_list body_n1">
+	        <ul>
+	        
+	         <% _.each(data,function(d){%> 
+			  <li id="<%=d.id%>" data-id='<%=d.id%>' data-httpUrl='<%=d.httpUrl%>' data-parid='<%=d.parid%>' data-text='<%=d.text%>'><i class="zh_icon_wz zh_table_icon"></i><%=d.text%></li>
+			<%})%>
+	          
+	          
+	        
+	        </ul>
+	      
+	      
+	      </div>
+	      
+	         
+	    </div>
+	  </div>
+	</div>
+
  
