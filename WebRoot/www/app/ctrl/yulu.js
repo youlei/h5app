@@ -15,6 +15,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			"click #yl4 img":"previewImg",
 			"click #yl2 [name='cancel']":"cancelYulu",
 			"click #yl2 [name='jiaji']":"jiajiYulu",
+			"click #dclUl button":"confirmDCL"
 			
 			
 		},
@@ -28,8 +29,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			$(e.srcElement).addClass("hover");
 			if($(e.srcElement).text()=="预录"){
 				$("[name='tabContent']").hide();
-				$("#yl1").show();
-				
+				$("#yl1").show(); 
 				//$("#yiwancheng").hide();
 			}else if($(e.srcElement).text()=="待预录"){
 				$("[name='tabContent']").hide();
@@ -41,6 +41,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				$("[name='tabContent']").hide();
 				$("#yl4").show();
 			}
+			self.refresh();
 		},
 	    getBase64Image:function(img) {
 	    	  
@@ -66,6 +67,28 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			var $this=$(e.srcElement),
 				id=$this.data("id");
 			
+		},
+		confirmDCL:function(e){
+			var self=this,
+				$this=$(e.srcElement),
+				id=$this.data("id"); 
+			self.showLoading();  
+	       	umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/confirmPrerecordCount",
+				params:{
+					id:id,
+					accountName:'18602922416'
+				},
+				success:function(obj){   
+					self.hideLoading();
+					self.showAlert("取消成功"); 
+					self.refresh();
+					 
+				},
+				error:function(){
+					self.showToast("取消失败");
+				}
+			});
 		},
 		cancelYulu:function(e){
 			var self=this,
@@ -105,7 +128,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				self.showLoading("提交图片请等候......"); 
 				setTimeout(function(){ 
 					//var serverUrl="http://192.168.1.106:8080/UCAPPService/UCService?accountName=youlei&password=123456&fileName="+$("#photograph").data("url");
-					var serverUrl="http://192.168.1.109:8090/appAppPrerecordInfo/savePrerecordInfo?accountName=18602922416&password=123456&fileName="+$("#photograph").data("url");
+					var serverUrl=UC.actionUrl+"appAppPrerecordInfo/savePrerecordInfo?accountName=18602922416&password=123456&fileName="+$("#photograph").data("url");
 					self.img=$("#photograph").data("url");  
 					window.Native.uploadFile(serverUrl,$("#photograph").data("url")); 
 				},1000);
@@ -190,7 +213,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		    	var bakFile=data[i].fileName+".bak"; 
 		    	html+=" <li id='"+data[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
 		              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+data[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+data[i].id+" name='cancel'>取消</a> </div>"
-		              +"<div class='daiyulu_img'><img style='width: 136px;height: 153px;border:0;' name='"+data[i].fileName+"'  src='"+bakFile+"' alt=''></div>"
+		              +"<div class='daiyulu_img'><img style='width: 130px;height: 110px;border:0;' name='"+data[i].fileName+"'  src='"+bakFile+"' alt=''></div>"
 		              +"</div>"
 		              +"<div class='daiyulu_line'></div> </li>";
 		    } 
@@ -201,20 +224,23 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		refreshDCL:function(data){
 			var self=this,
 				html=""; 
-		    for(var i=0;i<data.length;i++){
-		    	 
+		    for(var i=0;i<data.length;i++){ 
 		    	var bakFile=data[i].fileName+".bak"; 
-		    	html+="	<li>"
-					    +"<div class='yiwancheng_button' name='dcl'>"
-					    +"		  <div class='daiyulu_button'> 申请时间:9-24  15:32:32<br>完成时间:9-24  15:32:32</div>"
-					    +"		  <div class='daiyulu_img'><img style='width: 136px;height: 153px;border:0;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></div>"
-					    +"		</div>"
-					    +"		<button>确认预录</button>"
-					    +"		<div class='daiyulu_line'></div>"
-					    +"	  </li>";
+		    	html+="<li>"
+		            +"<div class='yiwancheng_button'>"
+		            +"<ul>"
+		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></li>"
+		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].xpImageUrl+"' src='"+data[i].xpImageUrl+"' alt=''></li>"
+		            +"</ul>"
+		            +"</div>"
+		            +"<div class='yiwancheng_button'>"
+		            +"<button data-id='"+data[i].id+"' style=' width: 100%;height: 30px;border-radius: 100; border-radius: 4px;opacity: 0.7;background: #93e246;'>预录确认</button>"
+		            +"</div>"
+		            +"<div class='yiwancheng_line'></div>"
+		            +"</li>";
 		    	
 			    } 
-		    $("#dyDCL").empty(); 
+		    $("#dclUl").empty(); 
 		    $(html).appendTo(self.$el.find("#dclUl")); 
 		
 		},
@@ -222,27 +248,27 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 			var self=this,
 			html=""; 
-	    for(var i=0;i<data.length;i++){
-	    	 
-	    	var bakFile=data[i].fileName+".bak"; 
-		    	html+="<li>"
-	            +"<div class='yiwancheng_button'>"
-	            +"<ul>"
-	            +"  <li><img style='width:180px;height:120px;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></li>"
-	            +"  <li><img style='width:180px;height:120px;' name='"+data[i].xpImageUrl+"' src='"+data[i].xpImageUrl+"' alt=''></li>"
-	            +"</ul>"
-	            +"</div>"
-	            +"<div class='yiwancheng_button'>"
-	            +"<ul>"
-	            +"  <li>申请时间:"+data[i].createDate+"</li>"
-	            +"  <li>完成时间:"+data[i].wcDate+"</li>"
-	            +"</ul>"
-	            +"</div>"
-	            +"<div class='yiwancheng_line'></div>"
-	            +"</li>";
-	    	
-		    } 
-	    	$("#dyYWC").empty(); 
+		    for(var i=0;i<data.length;i++){
+		    	 
+		    	var bakFile=data[i].fileName+".bak"; 
+			    	html+="<li>"
+		            +"<div class='yiwancheng_button'>"
+		            +"<ul>"
+		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></li>"
+		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].xpImageUrl+"' src='"+data[i].xpImageUrl+"' alt=''></li>"
+		            +"</ul>"
+		            +"</div>"
+		            +"<div class='yiwancheng_button'>"
+		            +"<ul>"
+		            +"  <li>申请时间:"+data[i].createDate+"</li>"
+		            +"  <li>完成时间:"+data[i].wcDate+"</li>"
+		            +"</ul>"
+		            +"</div>"
+		            +"<div class='yiwancheng_line'></div>"
+		            +"</li>";
+		    	
+			    } 
+	    	$("#ywcUl").empty(); 
 	    	$(html).appendTo(self.$el.find("#ywcUl")); 
 		},
 		getImageFormCamera:function(){ 

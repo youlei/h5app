@@ -12,8 +12,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	};
 	
 	var UC={
-			
-		actionUrl:'http://192.168.1.109:8090/',
+		params:[],//存放每次hash 跳转时候带有的参数	
+		actionUrl:'http://192.168.1.101:8090/',
 		isLogin:function(){ 
 			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 
 				return true;
@@ -328,14 +328,18 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			},
 
 		defaultRoute : function(actions){
-		   var name;
+		   var name,
+		   	   params=!actions?[]:actions.split("/");
+		   //console.log(actions);
+		   
 		   if(window.location.hash){
-			   name=window.location.hash.substring(1);
+			   name=params[0];
 		   }  
 		   if(!name){
 			   window.location.hash="login";
 			   return;
 		   }
+		   UC.params=params;
 		   UC.show(name);
 		   
 

@@ -15,36 +15,19 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             return _.template(template);
         },
         render: function (data) {
-            var tplYulu = this.initTemplate(TemplateMy),
-            	tplBottomNav=this.initTemplate(TemplateBottomNav);
-           	self=this;  
-       		self.$el.html(tplYulu()); 
-       		$(tplBottomNav()).appendTo(self.$el);
-       		self.$el.find(".n_b_3").css({
-       			"background-position":"-129px top"
-       		});
-       		self.$el.find("#navbottom").find("span").eq(2).css({
-       			color:"#299be4"
-       		});
+            var tplYulu = this.initTemplate(TemplateMy), 
+            	self=this;  
+       		self.$el.html(tplYulu());  
        		
         },
         onCreate:function(){
         
        	   this.render();
 	       	this.header.set({
-	   			title:'dulei info sys',
+	   			title:"我的",
 	   			view:true,
-	   			back:true,
-	   			home:true,
-	   			events:{
-	   				returnHandler:function(){
-	   					UC.go('login');
-	   				},
-	   				homeHandler:function(){
-	   					
-	   					
-	   				}
-	   			}
+	   			back:false,
+	   			home:true
 	   			
 	   		});
         },

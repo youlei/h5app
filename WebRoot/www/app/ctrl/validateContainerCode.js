@@ -108,9 +108,16 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('find',{
-	   						
-	   					});
+	   					if(UC.params[1]=="from"){
+	   						UC.go(UC.params[2],{
+		   						anim:true
+		   					});
+	   					}else{
+	   						UC.go('find',{
+		   						
+		   					});
+	   					}
+	   					
 	   				},
 	   				homeHandler:function(){
 	   					

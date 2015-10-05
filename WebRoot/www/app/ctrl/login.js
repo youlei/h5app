@@ -8,7 +8,7 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   			"click #forget":"forget"
   		},
   		login:function(e){
-  			UC.go("yulu",{anim:true});
+  			UC.go("home",{anim:true});
   			this.showLoading("请求服务器...");
   			var self=this,
   				umodel=new userModel();

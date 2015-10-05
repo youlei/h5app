@@ -3,6 +3,7 @@ require.config({
 		'jquery':'lib/jquery-1.7.1',
 		'zepto':'lib/zepto',
 		'underscore':'lib/underscore',
+		'touchSlider':'lib/touchSlider',
 		'text':'lib/text',
 		'iscroll':'lib/iscroll',
 		'backbone':'lib/backbone',
@@ -30,6 +31,7 @@ require.config({
 		'containerDetail':'app/ctrl/containerDetail',
 		'validateContainerCode':'app/ctrl/validateContainerCode',
 		'imageView':'app/ctrl/imageView',
+		'home':'app/ctrl/home',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -56,7 +58,8 @@ require.config({
 		'TemplateContainerQuery':'app/view/containerQuery.html',
 		'TemplateContainerDetail':'app/view/containerDetail.html',
 		'TemplateValidateContainerCode':'app/view/validateContainerCode.html',
-		'TemplateImageView':'app/view/imageView.html'
+		'TemplateImageView':'app/view/imageView.html',
+		'TemplateHome':'app/view/home.html'
 			
 	}
 });
