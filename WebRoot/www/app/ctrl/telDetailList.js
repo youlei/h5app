@@ -1,79 +1,154 @@
-define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateTelDetailList','basePageView','appAriticleModel','iscroll'],function(jquery,_,Backbone,TemplateBottomNav,TemplateTelDetailList,basePageView,appAriticleModel,iScroll){
-	
+define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateTelDetailList','basePageView','userModel','iscroll'],function(jquery,_,Backbone,TemplateBottomNav,TemplateTelDetailList,basePageView,userModel,iScroll){
+	var model=new userModel();
 	var myView=basePageView.extend({
 		events:{
 			 //'click li':'gotoTelDetail'
+			"click #search":"search"
 		},
-		
-		gotoTelDetail:function(){
-			
+		currentPage:1,
+		gotoTelDetail:function(){ 
 			UC.go('telDetail');
 		},
 		initTemplate: function (template) {
             return _.template(template);
         },
-        render: function (data) {
-         
-       		
-        	$("[name='detailList']").each(function(){
-        		$(this).remove();
-        	});
-        	var model=new appAriticleModel(),
-        		self=this; 
-        	
+        search:function(){
+        	var self=this;  
+        	 
     		var $list=$("<div></div>").appendTo( self.$el);
-    		var iscroll;
-    		
+    		self.currentPage=1;
+    		self.showLoading();
         	model.fetch({
-        		url:UC.actionUrl+'appariticle/getAriticleByCategoryId?cid='+UC.goParam.id,
+        		url:UC.actionUrl+'appariticle/getAriticleByCategoryId', 
+        		params:{
+        			title:self.$el.find("#searchTxt").val(),
+        			cid:UC.goParam.id,
+        			limit:10,
+        			start:0
+        		},
         		success:function(me,data){
-        			var tpl = self.initTemplate(TemplateTelDetailList);
-        			$list.html(tpl({data:data.rows}));
-        			iscroll=new IScroll("#wrapper",{
-        				 mouseWheel: true,
-        				 onRefresh:function(){
-        					 console.log('refresh.......');
-        				 },
-        				 onScrollMove:function(){
-        					 console.log('move............');
-        				 },
-        				 scrollEnd:function(){
-        					 console.log('end.............');
-        				 }
-        				 
-        			});
-        			document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        			self.hideLoading()
+        			self.currentPage++;
+        			var html="";
+        			for(var i=0;i<data.rows.length;i++){
+        				var str="	<li>"
+						 +"<div class='duix_box'>"
+						 +"<div class='duix_box_1'>"+data.rows[i].title+"</div>"
+						 +"<div class='duix_box_2'>"
+						 +" <div class='duix_box_2_l'>范围：</div>"
+						 +" <div class='duix_box_2_r'>"+data.rows[i].content+"</div>"
+						 +"</div>" 
+						 +"<div class='duix_box_2'>"
+						 +" <div class='duix_box_2_l'>地址：</div>"
+						 +" <div class='duix_box_2_r'>"+data.rows[i].address+"</div>"
+						 +"</div>" 
+						 +"<div class='duix_box_2'>"
+						 +" <div class='duix_box_2_l'>电话：</div>"
+						 +" <div class='duix_box_2_r '>"+data.rows[i].lxfs+"</div>"
+						 +"</div>"
+						 +"</div>"
+						 +"<li> ";
+        				html+=str;
+        			}
+        			$("#telDetailListUl").empty();
+        			$(html).appendTo($("#telDetailListUl"));
+        						
+        			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
         		},
         		error:function(data){
-        			
+        			self.hideLoading();
         		}
         	});
+        	
+        },
+        render: function (data) {
+        	var self=this;   
+    		var $list=$("<div></div>").appendTo( self.$el);   
+    		self.showLoading();
+        	model.fetch({
+        		url:UC.actionUrl+'appariticle/getAriticleByCategoryId',
+        		params:{
+        			cid:UC.goParam.id,
+        			limit:10,
+        			start:0
+        		},
+        		success:function(me,data){
+        			self.hideLoading();
+        			var tpl = self.initTemplate(TemplateTelDetailList);
+        			$list.html(tpl({data:data.rows}));
+        			
+        			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        		},
+        		error:function(data){
+        			self.hideLoading()
+        		}
+        	});
+        	
         },
         onCreate:function(){
-        
-       	
+        	var self=this; 
 	       	this.header.set({
 	       		title:'今日物流',
 	   			view:true,
 	   			back:true,
 	   			home:true,
 	   			events:{
-	   				returnHandler:function(){
-	   					
+	   				returnHandler:function(){ 
 	   					UC.go('telList');
 	   				},
-	   				homeHandler:function(){
-	   					
+	   				homeHandler:function(){ 
 	   					
 	   				}
 	   			}
 	   			
 	   		});
-	       	
+	       	$(window).scroll(function () {
+			    if ($(document).scrollTop() + $(window).height() >= $(document).height()) { 
+			    	self.showLoading();
+			    	model.fetch({
+		        		url:UC.actionUrl+'appariticle/getAriticleByCategoryId',
+		        		params:{
+		        			limit:10,
+		        			cid:UC.goParam.id,
+		        			start:self.currentPage*10
+		        		},
+		        		success:function(me,data){
+		        			//var tpl = self.initTemplate(TemplateTelDetailList);
+		        			self.hideLoading();
+		        			self.currentPage++;
+		        			var html="";
+		        			for(var i=0;i<data.rows.length;i++){
+		        				var str="	<li>"
+								 +"<div class='duix_box'>"
+								 +"<div class='duix_box_1'>"+data.rows[i].title+"</div>"
+								 +"<div class='duix_box_2'>"
+								 +" <div class='duix_box_2_l'>范围：</div>"
+								 +" <div class='duix_box_2_r'>"+data.rows[i].content+"</div>"
+								 +"</div>" 
+								 +"<div class='duix_box_2'>"
+								 +" <div class='duix_box_2_l'>地址：</div>"
+								 +" <div class='duix_box_2_r'>"+data.rows[i].address+"</div>"
+								 +"</div>" 
+								 +"<div class='duix_box_2'>"
+								 +" <div class='duix_box_2_l'>电话：</div>"
+								 +" <div class='duix_box_2_r '>"+data.rows[i].lxfs+"</div>"
+								 +"</div>"
+								 +"</div>"
+								 +"<li> ";
+		        				html+=str;
+		        			}
+		        			$(html).appendTo($("#telDetailListUl"));
+		        		},
+		        		error:function(data){
+		        			self.hideLoading();
+		        		}
+		        	});
+			    }
+			});
         },
         onShow:function(){
         	   this.render();
-       	  
+        	   
         }
 	});
 	return myView;

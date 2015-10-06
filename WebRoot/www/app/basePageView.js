@@ -119,7 +119,10 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		onShow:function(){
 			console.log("show...............");
 		},
-		
+		onHide:function(){
+			
+			
+		},
 		showAlert:function(param){
 			this.alert.alert(param);
 		},

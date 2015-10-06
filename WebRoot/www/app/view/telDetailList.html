@@ -1,16 +1,14 @@
-
-
 <div id="main">
   <div class="main_viewport">
     <div class="index_body">
       <div class="yulu_tab">
         <div class="search_input" >
-          <input type="text">
+          <input type="text" id="searchTxt">
         </div>
-        <div class="search_button"> <i class="dc_icon_sear"></i> </div>
+        <div class="search_button"> <i class="dc_icon_sear" id="search"></i> </div>
       </div>
 	   <div id='scroller'>
-	    <ul>
+	    <ul id='telDetailListUl'>
 	   <% _.each(data,function(d){%> 
 		<li>
 			 <div class="duix_box">

@@ -3,8 +3,7 @@ define(['jquery','underscore','backbone','lib'],function($,_,Backbone){
 		defaults:{
 			
 			
-		},
-		rootUrl:'http://192.168.0.114:8090/',
+		}, 
 		sync:function(method,model,options){
 			var url=options.url;
 			url+="?";
