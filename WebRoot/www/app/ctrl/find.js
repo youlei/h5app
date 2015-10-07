@@ -2,40 +2,36 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	
 	var myView=basePageView.extend({
 		events:{
-			 'click #tel':'goToTelList',
-			 'click #violations':'goToViolationsSelect',
-			 "click #containerQuery":"goContainerQuery",
-			 'click #validateContainerCode':'goToValidateContainerCode',
+			 'click #tel':'gotoTelList',
+			 'click #violations':'gotoViolationsSelect',
+			 "click #containerQuery":"gotoContainerQuery",
+			 'click #validateContainerCode':'gotoValidateContainerCode',
+			 'click #shippingDateQuery':'gotoShippingDateQuery',
 		},
-		goContainerQuery:function(){
+		gotoShippingDateQuery:function(){
+			UC.go('shippingDateQuery',{anim:true});
+		},
+		gotoContainerQuery:function(){
 			UC.go('containerQuery',{anim:true});
 		},
-		goToViolationsSelect:function(){
+		gotoViolationsSelect:function(){
 			
 			UC.go('violations',{anim:true});
 		},
-		goToTelList:function(){
+		gotoTelList:function(){
 			UC.go('telList',{anim:true});
 		},
-		goToValidateContainerCode:function(){
+		gotoValidateContainerCode:function(){
 			UC.go('validateContainerCode',{anim:true});
 		},
 		initTemplate: function (template) {
             return _.template(template);
         },
         render: function (data) {
-            var tplYulu = this.initTemplate(TemplateFind),
-            	tplBottomNav=this.initTemplate(TemplateBottomNav);
-           	self=this;  
+            var self=this,
+            	tplYulu = this.initTemplate(TemplateFind);
+           	
        		self.$el.html(tplYulu()); 
-       		$(tplBottomNav()).appendTo(self.$el);
-       		self.$el.find(".n_b_2").css({
-       			"background-position":"-80px top"
-       		});
-       		self.$el.find("#navbottom").find("span").eq(1).css({
-       			color:"#299be4"
-       		});
-       		
         },
         onCreate:function(){
         

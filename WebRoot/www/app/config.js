@@ -35,6 +35,7 @@ require.config({
 		'validateContainerCode':'app/ctrl/validateContainerCode',
 		'imageView':'app/ctrl/imageView',
 		'home':'app/ctrl/home',
+		'shippingDateQuery':'app/ctrl/shippingDateQuery',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -62,7 +63,8 @@ require.config({
 		'TemplateContainerDetail':'app/view/containerDetail.html',
 		'TemplateValidateContainerCode':'app/view/validateContainerCode.html',
 		'TemplateImageView':'app/view/imageView.html',
-		'TemplateHome':'app/view/home.html'
+		'TemplateHome':'app/view/home.html',
+		'TemplateShippingDateQuery':'app/view/shippingDateQuery.html',
 			
 	}
 });

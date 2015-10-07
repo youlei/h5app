@@ -13,6 +13,11 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	
 	var UC={
 		params:[],//存放每次hash 跳转时候带有的参数	
+		// 全局
+		pageInfo:{
+			limit:20
+			
+		},
 		actionUrl:'http://192.168.1.101:8090/',
 		isLogin:function(){ 
 			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 

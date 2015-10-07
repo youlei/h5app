@@ -1,4 +1,4 @@
-#Sun Oct 04 11:26:05 CST 2015
+#Wed Oct 07 14:59:26 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/basePageView.js=UTF-8
 encoding//WebRoot/www/app/ctrl/containerQuery.js=UTF-8
@@ -6,6 +6,7 @@ encoding//WebRoot/www/app/ctrl/find.js=UTF-8
 encoding//WebRoot/www/app/ctrl/home.js=UTF-8
 encoding//WebRoot/www/app/ctrl/login.js=UTF-8
 encoding//WebRoot/www/app/ctrl/my.js=UTF-8
+encoding//WebRoot/www/app/ctrl/shippingDateQuery.js=UTF-8
 encoding//WebRoot/www/app/ctrl/telDetailList.js=UTF-8
 encoding//WebRoot/www/app/ctrl/telList.js=UTF-8
 encoding//WebRoot/www/app/ctrl/validateContainerCode.js=UTF-8
@@ -15,6 +16,7 @@ encoding//WebRoot/www/app/view/containerQuery.html=UTF-8
 encoding//WebRoot/www/app/view/find.html=UTF-8
 encoding//WebRoot/www/app/view/home.html=UTF-8
 encoding//WebRoot/www/app/view/login.html=UTF-8
+encoding//WebRoot/www/app/view/shippingDateQuery.html=UTF-8
 encoding//WebRoot/www/app/view/telDetailList.html=UTF-8
 encoding//WebRoot/www/app/view/telList.html=gbk
 encoding//WebRoot/www/app/view/validateContainerCode.html=UTF-8
