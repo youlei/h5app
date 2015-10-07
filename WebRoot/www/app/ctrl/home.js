@@ -1,4 +1,4 @@
-define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateHome','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateHome,basePageView,userModel){
+define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateHome','basePageView','userModel','unslider','move','swipe'],function(jquery,_,Backbone,TemplateBottomNav,TemplateHome,basePageView,userModel,unslider,move,swipe){
 	
 	var myView=basePageView.extend({
 		events:{
@@ -9,7 +9,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			"click #smyl":"smyl"
 		},
 		yulu:function(e){
-			var $this=$(e.currentTarget);
+			 var $this=$(e.currentTarget);
 			 $this.addClass("click-scale").on("webkitTransitionEnd",function(e){
 				 var i = $(e.currentTarget);
 				 $this.removeClass("click-scale").css({
@@ -72,7 +72,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         },
         onCreate:function(){
         
-       	   this.render();
+       	    this.render();
 	       	this.header.set({
 	   			title:"首页",
 	   			view:true,
@@ -80,6 +80,13 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			home:true 
 	   			
 	   		});
+	       	$(function() {
+	       	    $('.banner').unslider({
+	       	    	//arrows: true,
+					fluid: true,
+					dots: true
+	       	    });
+	       	});
         },
         onShow:function(){
         	
