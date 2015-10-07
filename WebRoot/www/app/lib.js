@@ -182,7 +182,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 						self.duration=false;
 						targetPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 						targetPageView.status=true;
-						currentPageView.statue=false;
+						currentPageView.status=false;
 						currentPageView.hide();
 						
 					});	
@@ -194,7 +194,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					targetPageView.show();
 					targetPageView.status=true;
 					currentPageView.hide();
-					currentPageView.statue=false;
+					currentPageView.status=false;
 					
 				}
 				
