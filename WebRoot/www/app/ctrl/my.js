@@ -2,15 +2,22 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	
 	var myView=basePageView.extend({
 		events:{
-			"click [name='tab']":"switchTab",
-			"click #modifyPassword":"modifyPassword"
+			
+			"click #modifyPassword":"gotoModifyPassword",
+			"click #myInfo":"gotoMyInfo",
+			"click #loginOut":"loginOut"
 			
 			
 		},
-		modifyPassword:function(){
-			UC.go("modifyPassword");
+		loginOut:function(){
+			UC.go("login");
 		},
-	 
+		gotoModifyPassword:function(){
+			UC.go("modifyPassword",{anim:true});
+		},
+		gotoMyInfo:function(){ 
+			UC.go('myInfo',{anim:true});
+		},
 		initTemplate: function (template) {
             return _.template(template);
         },

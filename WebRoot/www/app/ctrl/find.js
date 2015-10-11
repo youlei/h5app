@@ -7,6 +7,14 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			 "click #containerQuery":"gotoContainerQuery",
 			 'click #validateContainerCode':'gotoValidateContainerCode',
 			 'click #shippingDateQuery':'gotoShippingDateQuery',
+			 'click #roadStatus':"gotoRoadStatus",
+			 'click #electronicZxd':"gotoElectronicZxd" 
+		},
+		gotoRoadStatus:function(){
+			UC.go('roadStatus',{anim:true});
+		},
+		gotoElectronicZxd:function(){
+			UC.go('electronicZxd',{anim:true});
 		},
 		gotoShippingDateQuery:function(){
 			UC.go('shippingDateQuery',{anim:true});
@@ -14,8 +22,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		gotoContainerQuery:function(){
 			UC.go('containerQuery',{anim:true});
 		},
-		gotoViolationsSelect:function(){
-			
+		gotoViolationsSelect:function(){ 
 			UC.go('violations',{anim:true});
 		},
 		gotoTelList:function(){

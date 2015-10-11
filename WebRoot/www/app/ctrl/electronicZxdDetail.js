@@ -1,33 +1,23 @@
-define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateViolationsDetail','basePageView','selectCategoryModel','iscroll'],function(jquery,_,Backbone,TemplateBottomNav,TemplateViolationsDetail,basePageView,selectCategoryModel,iscroll){
+define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateElectronicZxdDetail','basePageView','selectCategoryModel','iscroll'],function(jquery,_,Backbone,TemplateBottomNav,TemplateElectronicZxdDetail,basePageView,selectCategoryModel,iscroll){
 	
 	var myView=basePageView.extend({
 		events:{
-			 'click li':'gotoViolationsDetail'
-		},
-		
-		gotoViolationsDetail:function(e){
-			//console.log(e.currentTarget);
 			 
 		},
+		 
 		initTemplate: function (template) {
             return _.template(template);
         },
-        render: function (data) {
-        	
-       		
-        	var model=new selectCategoryModel(),
-        		self=this;
-        
-        	
+        render: function (data) { 
+        	var self=this; 
         	if(self.ifream){
         		self.ifream.remove();
         		self.ifream=null;
         	}
     		var $list=$("<div></div>").appendTo( self.$el);
-    		var tpl = self.initTemplate(TemplateViolationsDetail);
+    		var tpl = self.initTemplate(TemplateElectronicZxdDetail);
     		UC.goParam.height=$(document).height();
-			$list.html(tpl({data:UC.goParam}));
-			
+			$list.html(tpl({data:UC.goParam})); 
 			self.ifream=$list;
 			//$list.find("iframe").attr("src",UC.goParam.httpUrl).attr("height",height);
 			//self.showLoading();
@@ -47,7 +37,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('violations');
+	   					UC.go('electronicZxd');
 	   				},
 	   				homeHandler:function(){
 	   					
@@ -56,7 +46,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			}
 	   			
 	   		});
-	       
         },
         onShow:function(){
         	

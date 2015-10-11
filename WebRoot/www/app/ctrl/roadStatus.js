@@ -1,33 +1,26 @@
-define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateViolationsDetail','basePageView','selectCategoryModel','iscroll'],function(jquery,_,Backbone,TemplateBottomNav,TemplateViolationsDetail,basePageView,selectCategoryModel,iscroll){
+define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateRoadStatus','basePageView','selectCategoryModel','iscroll'],function(jquery,_,Backbone,TemplateBottomNav,TemplateRoadStatus,basePageView,selectCategoryModel,iscroll){
 	
 	var myView=basePageView.extend({
 		events:{
-			 'click li':'gotoViolationsDetail'
-		},
-		
-		gotoViolationsDetail:function(e){
-			//console.log(e.currentTarget);
 			 
 		},
+		 
 		initTemplate: function (template) {
             return _.template(template);
         },
-        render: function (data) {
-        	
-       		
-        	var model=new selectCategoryModel(),
-        		self=this;
-        
-        	
+        render: function (data) { 
+        	var self=this; 
         	if(self.ifream){
         		self.ifream.remove();
         		self.ifream=null;
         	}
     		var $list=$("<div></div>").appendTo( self.$el);
-    		var tpl = self.initTemplate(TemplateViolationsDetail);
+    		var tpl = self.initTemplate(TemplateRoadStatus);
     		UC.goParam.height=$(document).height();
-			$list.html(tpl({data:UC.goParam}));
-			
+			$list.html(tpl({data:{
+				httpUrl:"http://map.baidu.com/mobile/webapp/index/index#index/index/foo=bar/vt=map",
+				height:$(document).height()
+			}})); 
 			self.ifream=$list;
 			//$list.find("iframe").attr("src",UC.goParam.httpUrl).attr("height",height);
 			//self.showLoading();
@@ -38,16 +31,16 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
        		
         },
         onCreate:function(){
-        
+        	
         	var self=this;
 	       	this.header.set({
-	   			title:UC.goParam.text,
+	   			title:"道路状况",
 	   			view:true,
 	   			back:true,
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('violations');
+	   					UC.go('find');
 	   				},
 	   				homeHandler:function(){
 	   					
@@ -56,7 +49,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			}
 	   			
 	   		});
-	       
         },
         onShow:function(){
         	

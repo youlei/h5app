@@ -1063,3 +1063,110 @@ width: 170px;
 }
  @media (max-width:375px) {
 }
+
+/*我的*/
+.my_body {
+	min-height: 100%;
+	background: #f3f3f3;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-size: cover;
+}
+.top_zwf {
+	width:100%;
+	height:48px;
+}
+.bottom_zwf{
+	width:100%;
+	height:60px;
+}
+	
+.my_top1 {
+	width:100%;
+	height: 190px;
+	background:url(../images/my_banner_bg.jpg) no-repeat;
+	background-size: 100% 100%;
+	text-align:center;
+	line-height:30px;
+	padding-top: 30px;
+	margin-bottom: 10px;
+}
+.my_photo {
+	width:100px;
+	height:100px;
+	margin:0 auto;
+	border-radius: 100%;
+	margin-bottom: 15px;
+	-moz-border-radius: 100%;
+	-webkit-border-radius: 100%;
+	overflow:hidden;
+}
+.my_photo img {
+	width:100%;
+	height:auto;
+}
+.my_list ul li {
+	line-height: 56px;
+	border-top: 1px solid #EAEAEA;
+	background-color: #fff;
+	color: #5F5F5F;
+	font-size: 16px;
+	padding: 0 20px;
+	position:relative
+}
+.my_list ul li:last-of-type {
+	border-bottom: 1px solid #EAEAEA;
+}
+.icon_my_jt {
+	position: absolute;
+	right: 10px;
+	top: 16px;
+	width: 15px;
+	height: 24px;
+	background: url(../images/icon.png ) no-repeat -306px -351px;
+}
+.my_list {
+	margin-bottom: 20px;
+}
+.my_icon {
+	display: inline-block;
+	background-image: url(../images/icon.png );
+	background-repeat:no-repeat;
+	width: 40px;
+	height: 40px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.icon_zl {
+	background-position:0px -345px;
+}
+.icon_jf {
+	background-position:-56px -345px;
+}
+.icon_ye {
+	background-position:-113px -345px;
+}
+.icon_mm {
+	background-position:-173px -345px;
+}
+.icon_zx {
+	background-position:-231px -345px;
+}
+.my_red{color: #e76565;
+  font-weight: bold;
+  margin-left: 10px;}
+.my_modify{float: right;
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+    height: 56px;
+  text-align: right;width: 200px;}
+  .my_modify2{
+  display: inline-block;
+  vertical-align: middle;
+  border: 0;
+    height: 56px;
+ width: 200px;}
+ .welcome{ width:100% ; height:100%;}

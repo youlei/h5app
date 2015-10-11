@@ -36,6 +36,10 @@ require.config({
 		'imageView':'app/ctrl/imageView',
 		'home':'app/ctrl/home',
 		'shippingDateQuery':'app/ctrl/shippingDateQuery',
+		'myInfo':'app/ctrl/myInfo',
+		'electronicZxd':'app/ctrl/electronicZxd',
+		'electronicZxdDetail':'app/ctrl/electronicZxdDetail',
+		'roadStatus':'app/ctrl/roadStatus',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -65,6 +69,10 @@ require.config({
 		'TemplateImageView':'app/view/imageView.html',
 		'TemplateHome':'app/view/home.html',
 		'TemplateShippingDateQuery':'app/view/shippingDateQuery.html',
+		'TemplateMyInfo':'app/view/myInfo.html',
+		'TemplateElectronicZxd':'app/view/electronicZxd.html',
+		'TemplateElectronicZxdDetail':'app/view/electronicZxdDetail.html',
+		'TemplateRoadStatus':'app/view/roadStatus.html'
 			
 	}
 });

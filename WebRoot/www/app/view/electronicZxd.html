@@ -1,0 +1,25 @@
+ 
+ 
+ <div id="main" >
+	   <div class="main_viewport">
+	    <div class="index_body" style="height:800px">
+	      <div class="zh_list body_n1">
+	        <ul>
+	        
+	         <% _.each(data,function(d){%> 
+			  <li id="<%=d.id%>" data-id='<%=d.id%>' data-httpUrl='<%=d.httpUrl%>' data-parid='<%=d.parid%>' data-text='<%=d.text%>'><i class="zh_icon_wz zh_table_icon"></i><%=d.text%></li>
+			<%})%>
+	          
+	          
+	        
+	        </ul>
+	      
+	      
+	      </div>
+	      
+	         
+	    </div>
+	  </div>
+	</div>
+
+ 

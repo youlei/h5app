@@ -2,10 +2,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	
 	var myView=basePageView.extend({
 		events:{
-			 
 			"click #submitUser":"submitUser"
-			
-			
 		},
 		submitUser:function(){
 			
@@ -41,13 +38,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             var tplYulu = this.initTemplate(TemplateModifyPassword), 
            		self=this;  
        		self.$el.html(tplYulu()); 
-       		 
-       		self.$el.find(".n_b_3").css({
-       			"background-position":"-129px top"
-       		});
-       		self.$el.find("#navbottom").find("span").eq(2).css({
-       			color:"#299be4"
-       		});
        		
         },
         onCreate:function(){
@@ -60,7 +50,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('login');
+	   					UC.go('my');
 	   				},
 	   				homeHandler:function(){
 	   					
