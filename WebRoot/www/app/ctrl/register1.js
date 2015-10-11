@@ -69,7 +69,7 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
 		   self.flag=true;
 		   $("#getCode").css("background","#EDECE8").html("正在获取"); 
 		   umodel.fetch({
-				url:UC.actionUrl+"appRegister/validateRegisterPhone",
+				url:UC.actionUrl+"appRegister/sendCode",
 				params:data,
 				success:function(data){
 					//console.log(data);

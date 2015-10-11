@@ -11,7 +11,7 @@ define(['jquery','underscore','backbone','text!TemplateRegister2','basePageView'
 			 	password=$.trim(self.$el.find("#password").val()),
 			 	repassword=$.trim(self.$el.find("#repassword").val());
 			if(password!==repassword){
-				self.showAlert("ÃÜÂë²»Ò»ÖÂ");
+				self.showAlert("ï¿½ï¿½ï¿½ë²»Ò»ï¿½ï¿½");
 				return false;
 			}
 			return true;
@@ -42,16 +42,16 @@ define(['jquery','underscore','backbone','text!TemplateRegister2','basePageView'
 					self.hideLoading();
 					self.flag=false;
 					if(data.attributes.flag){
-						self.showAlert("×¢²á³É¹¦");
-						UC.go("index");
+						self.showAlert("æ³¨å†ŒæˆåŠŸ");
+						UC.go("home");
 					}else{
-						self.showAlert("×¢²áÊ§°ÜÇëÖØĞÂ×¢²á");
+						self.showAlert("æ³¨å†Œå¤±è´¥");
 					}
 				},
 				error:function(){
 					self.hideLoading();
 					self.flag=false;
-					self.showAlert("×¢²áÊ§°ÜÇëÖØĞÂ×¢²á");
+					self.showAlert("æ³¨å†Œå¤±è´¥");
 				}
 			});
 		},

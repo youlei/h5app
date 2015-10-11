@@ -2,32 +2,35 @@ define(['jquery','underscore','backbone','text!TemplateForget','basePageView','u
 	
 	var loginView=basePageView.extend({
 		events:{
-			"click #getCode":"getCode"
+			"click #getPassword":"getPassword"
 			
 		},
-		getCode:function(){
+		getPassword:function(){
 			 var self=this, 
 			     umodel=new userModel(),
 		   	     data={
-				   phoneNumber:self.$el.find("#phoneNumber")
+				   phoneNumber:self.$el.find("#phoneNumber").val()
 				   
 		   	     };
 	   	
 	   	  
 		    umodel.fetch({
-				url:UC.actionUrl+"appRegister/validateRegisterPhone",
+				url:UC.actionUrl+"appRegister/backPassword",
 				params:data,
 				success:function(data){
 					//console.log(data);
 					if(data.attributes.flag){
-						UC.go("register2");
+						self.showAlert("新密码已经发送至手机");
+						 
+					}else{
+						self.showAlert("不存在该账户！！");
 					}
 				},
 				error:function(){
-					
+					self.showAlert("服务器错误！！");
 				}
 			});
-			UC.go("register2");
+			 
 		},
 		initTemplate: function () {
             return _.template(TemplateForget);

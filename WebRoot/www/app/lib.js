@@ -115,9 +115,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		 * */
 		go:function(name,param){
 			//this.goParam=param||this.goParam;
-			if(this.isLogin()){
-				return;
-			}
+		
 			if(!$.isEmptyObject(param)){
 				$.extend(this.goParam,param);
 			}else{

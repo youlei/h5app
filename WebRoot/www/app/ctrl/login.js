@@ -8,7 +8,7 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   			"click #forget":"forget"
   		},
   		login:function(e){
-  			UC.go("home",{anim:true});
+  			//UC.go("home",{anim:true});
   			this.showLoading("请求服务器...");
   			var self=this,
   				umodel=new userModel();
@@ -25,7 +25,7 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   						if(data.attributes.flag){
   							localStorage.setItem("username",username);
   							localStorage.setItem("password",password);
-  							UC.go("yulu",{anim:false});
+  							UC.go("home");
   						}else{
   							self.showAlert("用户名密码错误"); 
   						}
