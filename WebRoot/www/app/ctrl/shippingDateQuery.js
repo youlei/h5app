@@ -77,7 +77,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             			}
         			}
         			
-        			$("#shippingDateQueryListUl").empty();
+        			self.$el.find("#shippingDateQueryListUl").empty();
         			$(html).appendTo($("#shippingDateQueryListUl"));
         						
         			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);

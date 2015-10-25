@@ -80,7 +80,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             			}
         			}
         			
-        			$("#telDetailListUl").empty();
+        			self.$el.find("#telDetailListUl").empty();
         			$(html).appendTo($("#telDetailListUl"));
         						
         			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
@@ -118,7 +118,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         onCreate:function(){
         	var self=this; 
 	       	this.header.set({
-	       		title:'今日物流',
+	       		title:'电话大全',
 	   			view:true,
 	   			back:true,
 	   			home:true,
