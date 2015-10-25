@@ -16,7 +16,7 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 			var self=this,
 				param=param||"";
 			self.maskHTML="<div class='error'><div class='error_text'>"+param+"</div><div class='error_button'></div></div>";
-			if(self.$confirm){
+			if(self.$alert){
 				return;
 			}
 			self.$alert=$(this.maskHTML).appendTo($("body"));
@@ -149,6 +149,21 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 			var self=this;
 			self.$loading.addClass("animated").addClass("bounceOut");
 			self.$loading.remove();
+		}
+		Alert.prototype.hide=function(){
+			var self=this;
+			if(self.$loading){
+				self.$loading.remove();
+			} 
+			if(self.$toast){
+				self.$toast.remove();			
+			}
+			if(self.$confirm){
+				self.$confirm.remove();		
+			}
+			if(self.$alert){
+				self.$alert.remove();		
+			} 
 		}
 	}
 	return Alert;

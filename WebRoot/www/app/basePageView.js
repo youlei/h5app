@@ -60,9 +60,11 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		};
 		
 		Header.prototype.eventSetUp=function(){
+			var self=this;
 			 
-			this.$backBt=this.$headerEl.find("#headerBack").on("click",this.events.returnHandler);
+			this.$backBt=this.$headerEl.find("#headerBack").on("click",this.events.returnHandler); 
 			this.$homeBt=this.$headerEl.find("#headerHome").on("click",this.events.homeHandler); 
+			 
 		};
 		
 	}
@@ -89,7 +91,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 			var height= $(window).height()+48; 
 			self.$pageEl= $("<div id='client_id_viewport_"+id+"' style='display:block;position:absolute;width:100%;height:100%;'page-url='"+name+"' data-view-name='"+name+"' ></div>").appendTo($("body"));
 			
-			self.$el=$("<div id='mian_viewport' style='height:"+height+"px;'></div>").appendTo(self.$pageEl);
+			self.$el=$("<div id='mian_viewport' style='height:100%;'></div>").appendTo(self.$pageEl);
 			
 			var header=new Header({pageView:self,title:'',back:false,home:false,view:false});
 			header.render();
@@ -118,7 +120,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		},
 		onShow:function(){
 			console.log("show...............");
-		},
+		},		
 		onHide:function(){
 			
 			
@@ -156,6 +158,10 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		hideLoading:function(param){
 			alert("hide...");
 			this.alert.hideLoading(param);
+		},
+		// 关闭所有提示
+		hideTips:function(){
+			this.alert.hide();
 		}
 		
 	});

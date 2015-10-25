@@ -90,6 +90,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         },
         onShow:function(){
         	
+        	if(!UC.isLogin()){
+        		UC.go('login');
+        	}
        	  
         }
 	});

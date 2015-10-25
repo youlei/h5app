@@ -16,13 +16,23 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					ctno:code
 				},
 				success:function(data){
-					
-					if(data.attributes.flag){
-					   UC.go("containerDetail",{electronPacking:data.attributes.electronPacking});
+					if(data.attributes){
+						if(data.attributes.flag){
+							   UC.go("containerDetail",{electronPacking:data.attributes.electronPacking});
+							}else{
+								//alert(data.attributes.errorMessage);
+								self.showAlert(data.attributes.errorMessage);
+							}
 					}else{
-						//alert(data.attributes.errorMessage);
-						self.showAlert(data.attributes.errorMessage);
+						
+						if(data.flag){
+							   UC.go("containerDetail",{electronPacking:data.electronPacking});
+							}else{
+								//alert(data.attributes.errorMessage);
+								self.showAlert(data.errorMessage);
+							}
 					}
+					
 					 
 				},
 				error:function(){

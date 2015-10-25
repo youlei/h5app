@@ -47,7 +47,16 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			title:'今日物流',
 	   			view:true,
 	   			back:false,
-	   			home:true 
+	   			home:true ,
+	   			events:{
+	   				returnHandler:function(){
+	   					UC.go('home');
+	   				},
+	   				homeHandler:function(){
+	   					
+	   					
+	   				}
+	   			}
 	   			
 	   		});
 	       	 

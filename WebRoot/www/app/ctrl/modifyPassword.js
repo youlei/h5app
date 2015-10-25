@@ -8,9 +8,15 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 			var self=this,
 				umodel=new userModel(),
-				phoneNumber="18602922416",
-				password=self.$el.find("#password").val();
-				newPassword=self.$el.find("#newPassword").val();
+				phoneNumber=localStorage.getItem("usernmae"),
+				password=self.$el.find("#password").val(),
+				newPassword=self.$el.find("#newPassword").val(),
+				reNewPassword=self.$el.find("#reNewPassword").val();
+			if(newPassword!==reNewPassword){
+				self.showAlert("密码不一致");
+				return ;
+			}
+				
 			umodel.fetch({
 				url:UC.actionUrl+"appRegister/modifyPassword",
 				params:{
@@ -21,7 +27,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				success:function(data){
 					//console.log(data);
 					if(data.attributes.flag){
+						self.showAlert("修改成功");
 						UC.go("yulu");
+					}else{
+						self.showAlert("旧密码错误");
 					}
 				},
 				error:function(){

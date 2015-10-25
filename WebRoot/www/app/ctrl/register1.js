@@ -29,16 +29,32 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
 				success:function(data){
 					//console.log(data);
 					self.hideLoading();
-					if(data.attributes.flag){
-						UC.go("register2",{
-							phoneNumber:phoneNumber,
-							code:code
-						});
+					if(data.attributes){
+						if(data.attributes.flag){
+							UC.go("register2",{
+								phoneNumber:phoneNumber,
+								code:code
+							});
+							
+						}else{
+							self.showAlert("验证码有误！！");
+							
+						}
 						
 					}else{
-						self.showAlert("验证码有误！！");
 						
+						if(data.flag){
+							UC.go("register2",{
+								phoneNumber:phoneNumber,
+								code:code
+							});
+							
+						}else{
+							self.showAlert("验证码有误！！");
+							
+						}
 					}
+					
 				},
 				error:function(){
 					
@@ -51,6 +67,7 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
 			 
 			 var self=this, 
 			     umodel=new userModel(),
+			     timer=60,
 		   	     data={
 				   phoneNumber:self.$el.find("#phoneNumber").val()
 				   
@@ -66,19 +83,58 @@ define(['jquery','underscore','backbone','text!TemplateRegister1','basePageView'
 		   if(self.flag){
 			   return ;
 		   }	
-		   self.flag=true;
+		  
 		   $("#getCode").css("background","#EDECE8").html("正在获取"); 
+		   var timerInterval= setInterval(function(){
+			   if(timer>0){
+				   timer--;
+				   $("#getCode").html("等待"+timer); 
+				 
+			   }else{ 
+				   clearInterval(timerInterval);
+				   self.flag=false;
+				   $("#getCode").css("background","#205975").html("获取验证码"); 
+			   }
+			 
+		   },1000);
+		   if(self.flag){
+			   
+			   return;
+		   }
+		   self.flag=true;
 		   umodel.fetch({
 				url:UC.actionUrl+"appRegister/sendCode",
 				params:data,
 				success:function(data){
 					//console.log(data);
-					self.flag=false;
-					if(data.attributes.flag){
-						self.next=true;
+					
+					//clearInterval(timerInterval);
+					//  $("#getCode").css("background","#205975").html("获取验证码");
+					if(data.attributes){
+						if(data.attributes.flag){
+							self.next=true;
+						}else{
+							self.next=false;
+							self.flag=false;
+							self.showAlert("电话已经被注册");
+							clearInterval(timerInterval);
+						    $("#getCode").css("background","#205975").html("获取验证码"); 
+						}
+						
 					}else{
-						self.showAlert("电话已经被注册");
+						
+						if(data.flag){
+							self.next=true;
+						}else{
+							self.next=false;
+							self.flag=false;
+							self.showAlert("电话已经被注册");
+							clearInterval(timerInterval);
+						    $("#getCode").css("background","#205975").html("获取验证码"); 
+						}
+						
 					}
+					
 					
 				},
 				error:function(){

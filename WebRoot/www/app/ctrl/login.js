@@ -22,15 +22,25 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   					},
   					success:function(data){
   						self.hideLoading();
-  						if(data.attributes.flag){
-  							localStorage.setItem("username",username);
-  							localStorage.setItem("password",password);
-  							UC.go("home");
+  						if(data.attributes){
+  							if(data.attributes.flag){
+  	  							localStorage.setItem("username",username);
+  	  							localStorage.setItem("password",password);
+  	  							UC.go("home");
+  	  						}else{
+  	  							self.showAlert("用户名密码错误"); 
+  	  						}
   						}else{
-  							self.showAlert("用户名密码错误"); 
+  							
+  							if(data.flag){
+  	  							localStorage.setItem("username",username);
+  	  							localStorage.setItem("password",password);
+  	  							UC.go("home");
+  	  						}else{
+  	  							self.showAlert("用户名密码错误"); 
+  	  						}
   						}
-  						
-  			  			
+  					 
   					},
   					error:function(){
   						
@@ -40,10 +50,10 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
   			//this.showLoading();
   		},
   		forget:function(){
-  			UC.go("forget");
+  			UC.go("forget",{anim:true});
   		},
   		register:function(){
-  			UC.go('register1');
+  			UC.go('register1',{anim:true});
   		},
   		initTemplate: function () {
              return _.template(TemplateLogin);
@@ -59,15 +69,14 @@ define(['jquery','underscore','backbone','text!TemplateLogin','basePageView','us
         onCreate:function(){
         	 
         	this.render();
-        	/**
+        	
         	if(UC.isLogin()){
         		UC.go("yulu");
         	}else{
         		this.render();
         		
         	}
-        	*/
-        	
+        
         },
         onShow:function(){
         	

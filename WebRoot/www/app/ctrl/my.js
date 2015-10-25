@@ -10,6 +10,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 		},
 		loginOut:function(){
+			localStorage.clear();
 			UC.go("login");
 		},
 		gotoModifyPassword:function(){
@@ -34,13 +35,26 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			title:"我的",
 	   			view:true,
 	   			back:false,
-	   			home:true
+	   			home:true,
+	   			events:{
+	   				returnHandler:function(){
+	   					UC.go('home');
+	   				},
+	   				homeHandler:function(){
+	   					
+	   					
+	   				}
+	   			}
 	   			
 	   		});
         },
         onShow:function(){
-        	
-       	  
+        	var self=this;
+        	if(!UC.isLogin()){
+        		UC.go('login');
+        	}
+       	  	self.$el.find("#username").html(localStorage.getItem("username"));
+       	  	self.$el.find("#company").html(localStorage.getItem("username"));
         }
 	});
 	return myView;

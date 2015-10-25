@@ -40,6 +40,7 @@ require.config({
 		'electronicZxd':'app/ctrl/electronicZxd',
 		'electronicZxdDetail':'app/ctrl/electronicZxdDetail',
 		'roadStatus':'app/ctrl/roadStatus',
+		'welcome':'app/ctrl/welcome',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -72,7 +73,8 @@ require.config({
 		'TemplateMyInfo':'app/view/myInfo.html',
 		'TemplateElectronicZxd':'app/view/electronicZxd.html',
 		'TemplateElectronicZxdDetail':'app/view/electronicZxdDetail.html',
-		'TemplateRoadStatus':'app/view/roadStatus.html'
+		'TemplateRoadStatus':'app/view/roadStatus.html',
+		'TemplateWelcome':'app/view/welcome.html'
 			
 	}
 });

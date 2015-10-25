@@ -77,7 +77,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				url:UC.actionUrl+"appAppPrerecordInfo/confirmPrerecordCount",
 				params:{
 					id:id,
-					accountName:'18602922416'
+					accountName:localStorage.getItem("username")
 				},
 				success:function(obj){   
 					self.hideLoading();
@@ -100,7 +100,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				url:UC.actionUrl+"appAppPrerecordInfo/cancelPrerecordCount",
 				params:{
 					id:id,
-					accountName:'18602922416'
+					accountName:localStorage.getItem("username")
 				},
 				success:function(obj){   
 					self.hideLoading();
@@ -140,8 +140,14 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 							accountName:'18602922416'
 						},
 						success:function(obj){   
-							var resultArray= obj.attributes; 
-							self.refreshGrid(resultArray);
+							if(obj.attributes){
+								var resultArray= obj.attributes; 
+								self.refreshGrid(resultArray);
+							}else{
+								var resultArray= obj; 
+								self.refreshGrid(resultArray);
+							}
+							
 						},
 						error:function(){
 							self.showToast("请求错误.....");
@@ -186,11 +192,16 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			umodel.fetch({
 				url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
 				params:{
-					accountName:'18602922416'
+					accountName:localStorage.getItem("username")
 				},
 				success:function(obj){   
-					var resultArray= obj.attributes; 
-					self.refreshGrid(resultArray);
+					if(obj.attributes){
+						var resultArray= obj.attributes; 
+						self.refreshGrid(resultArray);
+					}else{
+						var resultArray= obj; 
+						self.refreshGrid(resultArray);
+					}
 				},
 				error:function(){
 					self.showToast("请求错误.....");
@@ -319,7 +330,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('login');
+	   					UC.go('home');
 	   				},
 	   				homeHandler:function(){
 	   					
@@ -334,11 +345,16 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	       	umodel.fetch({
 				url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
 				params:{
-					accountName:'18602922416'
+					accountName:localStorage.getItem("username")
 				},
 				success:function(obj){   
-					var resultArray= obj.attributes; 
-					self.refreshGrid(resultArray);
+					if(obj.attributes){
+						var resultArray= obj.attributes; 
+						self.refreshGrid(resultArray);
+					}else{
+						var resultArray= obj; 
+						self.refreshGrid(resultArray);
+					}
 				},
 				error:function(){
 					self.showToast("请求错误.....");
@@ -349,22 +365,62 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	    	umodel.fetch({
 				url:UC.actionUrl+"appAppPrerecordInfo/queryPrerecordCount",
 				params:{
-					accountName:'18602922416'
+					accountName:localStorage.getItem("username")
 				},
 				success:function(obj){ 
-					var prerecordCount= obj.attributes.prerecordCount;
+					var prerecordCount;
+					if(obj.attributes){
+						prerecordCount= obj.attributes.prerecordCount;
+					}else{
+						prerecordCount= obj.prerecordCount;
+					}
+					 
 					self.$el.find("#prerecordCount").text(prerecordCount);
 				},
 				error:function(){
 					self.showToast("请求错误.....");
 				}
 			});
-			 
+	    	setInterval(function(){
+	    		umodel.fetch({
+					url:UC.actionUrl+"appAppPrerecordInfo/queryRechargeRecords",
+					params:{
+						accountName:localStorage.getItem("username")
+					},
+					success:function(obj){ 
+						//var prerecordCount= obj.attributes.prerecordCount;
+						//self.$el.find("#prerecordCount").text(prerecordCount);
+						var str="";
+						if(obj.attributes.rows){
+							 
+							for(var i=0;i<obj.attributes.rows.length;i++){
+								str=str+"<li><span class='yulu_gundong_right'>"+obj.attributes.rows[i].recordDate+"</span>用户"+obj.attributes.rows[i].phone+"充值了"+obj.attributes.rows[i].recordMoney+"元</li>";
+							}
+						}else{
+							
+							for(var i=0;i<obj.rows.length;i++){
+								str=str+"<li><span class='yulu_gundong_right'>"+obj.rows[i].recordDate+"</span>用户"+obj.rows[i].phone+"充值了"+obj.rows[i].recordMoney+"元</li>";
+							}
+						}
+						self.$el.find("#yuluSrcoll").html(str);
+					},
+					error:function(){
+						self.showToast("请求错误.....");
+					}
+				});
+	    		
+	    	},2000);
+	    
 		 
         },
         onShow:function(){
         	
-       	  
+        	if(!UC.isLogin()){
+        		UC.go('login');
+        	}
+        	
+        	
+			 
         }
 	});
 	return yuluView;

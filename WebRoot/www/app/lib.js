@@ -12,13 +12,13 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	};
 	
 	var UC={
-		params:[],//´æ·ÅÃ¿´Îhash Ìø×ªÊ±ºò´øÓĞµÄ²ÎÊı	
-		// È«¾Ö
+		params:[],//ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½hash ï¿½ï¿½×ªÊ±ï¿½ï¿½ï¿½ï¿½ĞµÄ²ï¿½ï¿½ï¿½	
+		// È«ï¿½ï¿½
 		pageInfo:{
 			limit:20
 			
 		},
-		actionUrl:'http://192.168.1.105:8090/',
+		actionUrl:'http://192.168.1.106:8090/',
 		isLogin:function(){ 
 			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 
 				return true;
@@ -94,8 +94,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			var self=this;
 			 			
 			if(this.PageViewMgr.mapping[name]){
-				var currentPageView=this.PageViewMgr.getCurrentShow(),
+				var currentPageView=this.PageViewMgr.getCurrentShow(), 
 					targetPageView=this.PageViewMgr.mapping[name];
+				currentPageView.hideTips();
+				targetPageView.hideTips();
 				if(self.getDirection(currentPageView,targetPageView)==="back"){
 					self.back(currentPageView,targetPageView);
 				}else if(self.getDirection(currentPageView,targetPageView)==="forward"){
@@ -126,6 +128,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				};
 			}
 			if(!this.duration){
+				
 				window.location.hash="#"+name;
 			}
 			
@@ -150,6 +153,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 						self.duration=false;
 						currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateOut);
 						currentPageView.hide();
+						currentPageView.onHide();
 						currentPageView.status=false; 
 						
 					});
@@ -162,6 +166,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					targetPageView.show();
 					currentPageView.hide();
 					currentPageView.status=false; 
+					currentPageView.onHide();
 					targetPageView.status=true; 
 
 					
@@ -182,7 +187,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 						targetPageView.status=true;
 						currentPageView.status=false;
 						currentPageView.hide();
-						
+						currentPageView.onHide();
 					});	
 				}
 					
@@ -193,7 +198,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					targetPageView.status=true;
 					currentPageView.hide();
 					currentPageView.status=false;
-					
+					currentPageView.onHide();
 				}
 				
 								
@@ -225,6 +230,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 							 if(currentPageView){
 								 currentPageView.hide();
 								 currentPageView.status=false;
+								 currentPageView.onHide();
 								 currentPageView.$pageEl.removeClass("animated").removeClass(self.animate.animateIn);
 							 }
 							 
@@ -236,6 +242,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					 if(!self.duration){
 						 if(currentPageView){ 
 							 currentPageView.hide();
+							 currentPageView.onHide();
 							 currentPageView.status=false;
 						 }
 						 self.PageViewMgr.mapping[pageViewName].show(); 
@@ -260,7 +267,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		},
 		// Ã¿ï¿½ï¿½ï¿½ï¿½×ªÊ¹ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
 		goParam:{
-			anim:true,
+			anim:false,
 			duration:300,
 			easing:'linear'
 		},
@@ -334,7 +341,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		   var name,
 		   	   params=!actions?[]:actions.split("/");
 		   //console.log(actions);
-		   
+		  
 		   if(window.location.hash){
 			   name=params[0];
 		   }  
@@ -346,6 +353,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		   UC.show(name);
 		   
 
+		},
+		//å¤„ç†å¼€æœºç”»é¢
+		procStartPage:function(){
+			
 		}
 	});
 	window.UC=UC;

@@ -30,26 +30,50 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         			self.hideLoading()
         			self.currentPage++;
         			var html="";
-        			for(var i=0;i<data.rows.length;i++){
-        				var str="	<li>"
-						 +"<div class='duix_box'>"
-						 +"<div class='duix_box_1'>"+data.rows[i].title+"</div>"
-						 +"<div class='duix_box_2'>"
-						 +" <div class='duix_box_2_l'>范围：</div>"
-						 +" <div class='duix_box_2_r'>"+data.rows[i].content+"</div>"
-						 +"</div>" 
-						 +"<div class='duix_box_2'>"
-						 +" <div class='duix_box_2_l'>地址：</div>"
-						 +" <div class='duix_box_2_r'>"+data.rows[i].address+"</div>"
-						 +"</div>" 
-						 +"<div class='duix_box_2'>"
-						 +" <div class='duix_box_2_l'>电话：</div>"
-						 +" <div class='duix_box_2_r '>"+data.rows[i].lxfs+"</div>"
-						 +"</div>"
-						 +"</div>"
-						 +"<li> ";
-        				html+=str;
+        			if(data.attributes){
+        				for(var i=0;i<data.attributes.rows.length;i++){
+            				var str="	<li>"
+    						 +"<div class='duix_box'>"
+    						 +"<div class='duix_box_1'>"+data.attributes.rows[i].title+"</div>"
+    						 +"<div class='duix_box_2'>"
+    						 +" <div class='duix_box_2_l'>范围：</div>"
+    						 +" <div class='duix_box_2_r'>"+data.attributes.rows[i].content+"</div>"
+    						 +"</div>" 
+    						 +"<div class='duix_box_2'>"
+    						 +" <div class='duix_box_2_l'>地址：</div>"
+    						 +" <div class='duix_box_2_r'>"+data.attributes.rows[i].address+"</div>"
+    						 +"</div>" 
+    						 +"<div class='duix_box_2'>"
+    						 +" <div class='duix_box_2_l'>电话：</div>"
+    						 +" <div class='duix_box_2_r '>"+data.attributes.rows[i].lxfs+"</div>"
+    						 +"</div>"
+    						 +"</div>"
+    						 +"<li> ";
+            				html+=str;
+            			}
+        			}else{
+        				for(var i=0;i<data.rows.length;i++){
+            				var str="	<li>"
+    						 +"<div class='duix_box'>"
+    						 +"<div class='duix_box_1'>"+data.rows[i].title+"</div>"
+    						 +"<div class='duix_box_2'>"
+    						 +" <div class='duix_box_2_l'>范围：</div>"
+    						 +" <div class='duix_box_2_r'>"+data.rows[i].content+"</div>"
+    						 +"</div>" 
+    						 +"<div class='duix_box_2'>"
+    						 +" <div class='duix_box_2_l'>地址：</div>"
+    						 +" <div class='duix_box_2_r'>"+data.rows[i].address+"</div>"
+    						 +"</div>" 
+    						 +"<div class='duix_box_2'>"
+    						 +" <div class='duix_box_2_l'>电话：</div>"
+    						 +" <div class='duix_box_2_r '>"+data.rows[i].lxfs+"</div>"
+    						 +"</div>"
+    						 +"</div>"
+    						 +"<li> ";
+            				html+=str;
+            			}
         			}
+        			
         			$("#telDetailListUl").empty();
         			$(html).appendTo($("#telDetailListUl"));
         						
@@ -145,6 +169,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		        	});
 			    }
 			});
+        },
+        onHide:function(){
+        	$(window).unbind("scroll");
+        	 
+        	
         },
         onShow:function(){
         	   this.render();
