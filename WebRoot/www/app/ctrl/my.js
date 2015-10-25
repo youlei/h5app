@@ -1,5 +1,5 @@
 define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateMy','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateMy,basePageView,userModel){
-	
+	var umodel=new userModel();
 	var myView=basePageView.extend({
 		events:{
 			
@@ -53,8 +53,33 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         	if(!UC.isLogin()){
         		UC.go('login');
         	}
-       	  	self.$el.find("#username").html(localStorage.getItem("username"));
-       	  	self.$el.find("#company").html(localStorage.getItem("username"));
+       	  	
+       	 umodel.fetch({
+				url:UC.actionUrl+"appAccountInfo/myAccountInfo",
+				params:{
+					accountName:localStorage.getItem("username")
+				},
+				success:function(obj){ 
+					var myAccountInfo;
+					if(obj.attributes){
+					 
+						myAccountInfo= obj.attributes.myAccountInfo[0];
+					}else{
+						myAccountInfo= obj.myAccountInfo[0];
+					}
+					 
+					self.$el.find("#username").html(myAccountInfo.accountName);
+		       	  	self.$el.find("#company").html(myAccountInfo.theFleet);
+		       	  	self.$el.find("#integral").html(myAccountInfo.integral);
+		       	  	self.$el.find("#accountMoney").html(myAccountInfo.accountMoney);
+		       	  	localStorage.setItem("username",myAccountInfo.accountName);
+		       	  	localStorage.setItem("email",myAccountInfo.email);
+		       	  	localStorage.setItem("theFleet",myAccountInfo.theFleet);
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
         }
 	});
 	return myView;

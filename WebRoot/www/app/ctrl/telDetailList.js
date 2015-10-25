@@ -21,16 +21,19 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         	model.fetch({
         		url:UC.actionUrl+'appariticle/getAriticleByCategoryId', 
         		params:{
-        			title:self.$el.find("#searchTxt").val(),
+        			title:encodeURI(encodeURI(self.$el.find("#searchTxt").val())),
         			cid:UC.goParam.id,
         			limit:10,
         			start:0
         		},
         		success:function(me,data){
         			self.hideLoading()
-        			self.currentPage++;
+        		 
         			var html="";
         			if(data.attributes){
+        				if(data.attributes.rows.length>0){
+        					self.currentPage++;
+        				}
         				for(var i=0;i<data.attributes.rows.length;i++){
             				var str="	<li>"
     						 +"<div class='duix_box'>"
@@ -52,6 +55,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             				html+=str;
             			}
         			}else{
+        				if(data.rows.length>0){
+        					self.currentPage++;
+        				}
         				for(var i=0;i<data.rows.length;i++){
             				var str="	<li>"
     						 +"<div class='duix_box'>"

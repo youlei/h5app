@@ -18,15 +18,18 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         	model.fetch({
         		url:UC.actionUrl+"appArrivalDateGrab/getArrivalDate",
         		params:{
-        			selectPar:self.$el.find("#searchTxt").val(), 
+        			selectPar:encodeURI(encodeURI(self.$el.find("#searchTxt").val())), 
         			limit:10,
         			start:0
         		},
         		success:function(me,data){
         			self.hideLoading()
-        			self.currentPage++;
+        			
         			var html="";
         			if(data.attributes){
+        				if(data.attributes.rows.length>0){
+        					self.currentPage++;
+        				}
         				for(var i=0;i<data.attributes.rows.length;i++){
             				var str="	<li>"
     							 +"<div class='duix_box'>"
@@ -49,6 +52,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             			}
         				
         			}else{
+        				if(data.rows.length>0){
+        					self.currentPage++;
+        				}
         				for(var i=0;i<data.rows.length;i++){
             				var str="	<li>"
     							 +"<div class='duix_box'>"
@@ -134,28 +140,58 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		        		success:function(me,data){
 		        			//var tpl = self.initTemplate(TemplateTelDetailList);
 		        			self.hideLoading();
-		        			self.currentPage++;
+		        			 
 		        			var html="";
-		        			for(var i=0;i<data.rows.length;i++){
-		        				var str="	<li>"
-								 +"<div class='duix_box'>"
-								 +"<div class='duix_box_1'>"+data.rows[i].englishShipsName+"&nbsp;"+data.rows[i].voyageNumber+"</div>"
-								 +"<div class='duix_box_2'>"
-								 +" <div class='duix_box_2_l'>港口：</div>"
-								 +" <div class='duix_box_2_r'>"+data.rows[i].portName+"</div>"
-								 +"</div>" 
-								 +"<div class='duix_box_2'>"
-								 +" <div class='duix_box_2_l'>开港时间：</div>"
-								 +" <div class='duix_box_2_r'>"+data.rows[i].intoBoxStartDate+"</div>"
-								 +"</div>" 
-								 +"<div class='duix_box_2'>"
-								 +" <div class='duix_box_2_l'>截港时间：</div>"
-								 +" <div class='duix_box_2_r '>"+data.rows[i].intoBoxEndDate+"</div>"
-								 +"</div>"
-								 +"</div>"
-								 +"<li> ";
-		        				html+=str;
+		        			if(data.attributes){
+		        				if(data.attributes.rows.length>0){
+		        					self.currentPage++;
+		        				}
+			        			for(var i=0;i<data.attributes.rows.length;i++){
+			        				var str="	<li>"
+									 +"<div class='duix_box'>"
+									 +"<div class='duix_box_1'>"+data.attributes.rows[i].englishShipsName+"&nbsp;"+data.attributes.rows[i].voyageNumber+"</div>"
+									 +"<div class='duix_box_2'>"
+									 +" <div class='duix_box_2_l'>港口：</div>"
+									 +" <div class='duix_box_2_r'>"+data.attributes.rows[i].portName+"</div>"
+									 +"</div>" 
+									 +"<div class='duix_box_2'>"
+									 +" <div class='duix_box_2_l'>开港时间：</div>"
+									 +" <div class='duix_box_2_r'>"+data.attributes.rows[i].intoBoxStartDate+"</div>"
+									 +"</div>" 
+									 +"<div class='duix_box_2'>"
+									 +" <div class='duix_box_2_l'>截港时间：</div>"
+									 +" <div class='duix_box_2_r '>"+data.attributes.rows[i].intoBoxEndDate+"</div>"
+									 +"</div>"
+									 +"</div>"
+									 +"<li> ";
+			        				html+=str;
+			        			}
+		        			}else{
+		        				if(data.rows.length>0){
+		        					self.currentPage++;
+		        				}
+			        			for(var i=0;i<data.rows.length;i++){
+			        				var str="	<li>"
+									 +"<div class='duix_box'>"
+									 +"<div class='duix_box_1'>"+data.rows[i].englishShipsName+"&nbsp;"+data.rows[i].voyageNumber+"</div>"
+									 +"<div class='duix_box_2'>"
+									 +" <div class='duix_box_2_l'>港口：</div>"
+									 +" <div class='duix_box_2_r'>"+data.rows[i].portName+"</div>"
+									 +"</div>" 
+									 +"<div class='duix_box_2'>"
+									 +" <div class='duix_box_2_l'>开港时间：</div>"
+									 +" <div class='duix_box_2_r'>"+data.rows[i].intoBoxStartDate+"</div>"
+									 +"</div>" 
+									 +"<div class='duix_box_2'>"
+									 +" <div class='duix_box_2_l'>截港时间：</div>"
+									 +" <div class='duix_box_2_r '>"+data.rows[i].intoBoxEndDate+"</div>"
+									 +"</div>"
+									 +"</div>"
+									 +"<li> ";
+			        				html+=str;
+			        			}
 		        			}
+		        			
 		        			$(html).appendTo(self.$el.find("#shippingDateQueryListUl"));
 		        		},
 		        		error:function(data){

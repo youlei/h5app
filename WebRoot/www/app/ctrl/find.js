@@ -8,7 +8,15 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			 'click #validateContainerCode':'gotoValidateContainerCode',
 			 'click #shippingDateQuery':'gotoShippingDateQuery',
 			 'click #roadStatus':"gotoRoadStatus",
-			 'click #electronicZxd':"gotoElectronicZxd" 
+			 'click #electronicZxd':"gotoElectronicZxd" ,
+			 'click #commonProblems':'gotoCommonProblems',
+			 'click #askQuestions':'gotoAskQuestions'
+		},
+		gotoCommonProblems:function(){
+			UC.go('commonProblems',{anim:true});
+		},
+		gotoAskQuestions:function(){
+			UC.go('askQuestions',{anim:true});
 		},
 		gotoRoadStatus:function(){
 			UC.go('roadStatus',{anim:true});

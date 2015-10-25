@@ -1,0 +1,36 @@
+<div id="main">
+  <div class="main_viewport">
+    <div class="index_body">
+      <div class="yulu_tab">
+        <div class="search_input" >
+          <input type="text" id="searchTxt">
+        </div>
+        <div class="search_button"> <i class="dc_icon_sear" id="search"></i> </div>
+      </div>
+	   <div id='scroller'>
+	    <ul id='shippingDateQueryListUl'>
+	   <% _.each(data,function(d){%> 
+		<li>
+			 <div class="duix_box">
+			<div class="duix_box_1" style='text-align: center;'><%=d.title%></div>
+			<div class="duix_box_2">
+			  <div class="duix_box_2_l"> </div>
+			  <div class="duix_box_2_r"><%=d.content%></div>
+			</div> 
+		 
+			
+			 
+		  </div>
+		<li> 
+		 	<%})%>
+	  </ul>
+     
+	</div> 
+     
+       
+       
+    </div>
+  </div>
+</div>
+
+ 

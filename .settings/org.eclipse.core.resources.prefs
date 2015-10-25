@@ -1,6 +1,8 @@
-#Sun Oct 25 10:15:20 CST 2015
+#Sun Oct 25 18:48:07 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/basePageView.js=UTF-8
+encoding//WebRoot/www/app/ctrl/askQuestions.js=utf-8
+encoding//WebRoot/www/app/ctrl/commonProblems.js=utf-8
 encoding//WebRoot/www/app/ctrl/containerQuery.js=UTF-8
 encoding//WebRoot/www/app/ctrl/find.js=UTF-8
 encoding//WebRoot/www/app/ctrl/forget.js=UTF-8
@@ -19,6 +21,8 @@ encoding//WebRoot/www/app/ctrl/validateContainerCode.js=UTF-8
 encoding//WebRoot/www/app/ctrl/violations.js=UTF-8
 encoding//WebRoot/www/app/ctrl/yulu.js=UTF-8
 encoding//WebRoot/www/app/lib.js=utf-8
+encoding//WebRoot/www/app/view/askQuestions.html=utf-8
+encoding//WebRoot/www/app/view/commonProblems.html=UTF-8
 encoding//WebRoot/www/app/view/containerQuery.html=UTF-8
 encoding//WebRoot/www/app/view/find.html=UTF-8
 encoding//WebRoot/www/app/view/forget.html=UTF-8

@@ -8,7 +8,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 			var self=this,
 				umodel=new userModel(),
-				phoneNumber=localStorage.getItem("usernmae"),
+				phoneNumber=localStorage.getItem("username"),
 				password=self.$el.find("#password").val(),
 				newPassword=self.$el.find("#newPassword").val(),
 				reNewPassword=self.$el.find("#reNewPassword").val();
@@ -26,12 +26,22 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				},
 				success:function(data){
 					//console.log(data);
-					if(data.attributes.flag){
-						self.showAlert("修改成功");
-						UC.go("yulu");
+					if(data.attributes){
+						if(data.attributes.flag){
+							self.showAlert("修改成功");
+							UC.go("my");
+						}else{
+							self.showAlert("原密码错误");
+						}
 					}else{
-						self.showAlert("旧密码错误");
+						if(data.flag){
+							self.showAlert("修改成功");
+							UC.go("my");
+						}else{
+							self.showAlert("原密码错误");
+						}
 					}
+					
 				},
 				error:function(){
 					

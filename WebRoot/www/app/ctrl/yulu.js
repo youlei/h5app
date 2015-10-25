@@ -34,7 +34,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			}else if($(e.srcElement).text()=="待预录"){
 				$("[name='tabContent']").hide();
 				$("#yl2").show();
-			}else if($(e.srcElement).text()=="待处理"){
+			}else if($(e.srcElement).text()=="待确认"){
 				$("[name='tabContent']").hide();
 				$("#yl3").show();
 			}else if($(e.srcElement).text()=="已完成"){
@@ -81,12 +81,12 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				},
 				success:function(obj){   
 					self.hideLoading();
-					self.showAlert("取消成功"); 
+					self.showAlert("确认成功"); 
 					self.refresh();
 					 
 				},
 				error:function(){
-					self.showToast("取消失败");
+					self.showToast("确认失败");
 				}
 			});
 		},
@@ -128,16 +128,16 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				self.showLoading("提交图片请等候......"); 
 				setTimeout(function(){ 
 					//var serverUrl="http://192.168.1.106:8080/UCAPPService/UCService?accountName=youlei&password=123456&fileName="+$("#photograph").data("url");
-					var serverUrl=UC.actionUrl+"appAppPrerecordInfo/savePrerecordInfo?accountName=18602922416&password=123456&fileName="+$("#photograph").data("url");
+					var serverUrl=UC.actionUrl+"appAppPrerecordInfo/savePrerecordInfo?accountName="+localStorage.getItem('username')+"&password="+localStorage.getItem("password")+"&fileName="+$("#photograph").data("url")+"&fileBak="+$("#photograph").data("bakUrl");
 					self.img=$("#photograph").data("url");  
-					window.Native.uploadFile(serverUrl,$("#photograph").data("url")); 
+					window.Native.uploadFile(serverUrl,$("#photograph").data("url"),$("#photograph").data("bakUrl")); 
 				},1000);
 				setInterval(function(){ 
 					 
 			       	umodel.fetch({
 						url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
 						params:{
-							accountName:'18602922416'
+							accountName:localStorage.getItem('username')
 						},
 						success:function(obj){   
 							if(obj.attributes){
@@ -202,11 +202,32 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						var resultArray= obj; 
 						self.refreshGrid(resultArray);
 					}
+					umodel.fetch({
+						url:UC.actionUrl+"appAppPrerecordInfo/queryPrerecordCount",
+						params:{
+							accountName:localStorage.getItem("username")
+						},
+						success:function(obj){ 
+							var prerecordCount;
+							if(obj.attributes){
+								prerecordCount= obj.attributes.prerecordCount;
+							}else{
+								prerecordCount= obj.prerecordCount;
+							}
+							 
+							self.$el.find("#prerecordCount").text(prerecordCount);
+						},
+						error:function(){
+							self.showToast("请求错误.....");
+						}
+					});
 				},
 				error:function(){
 					self.showToast("请求错误.....");
 				}
 			});
+		 	 
+	    	
 		},
 		refreshGrid:function(result){
 			var self=this;   
@@ -221,7 +242,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			var self=this,
 				html=""; 
 		    for(var i=0;i<data.length;i++){ 
-		    	var bakFile=data[i].fileName+".bak"; 
+		    	var bakFile=data[i].fileBak; 
 		    	html+=" <li id='"+data[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
 		              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+data[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+data[i].id+" name='cancel'>取消</a> </div>"
 		              +"<div class='daiyulu_img'><img style='width: 130px;height: 110px;border:0;' name='"+data[i].fileName+"'  src='"+bakFile+"' alt=''></div>"
@@ -236,7 +257,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			var self=this,
 				html=""; 
 		    for(var i=0;i<data.length;i++){ 
-		    	var bakFile=data[i].fileName+".bak"; 
+		    	var bakFile=data[i].fileBak; 
 		    	html+="<li>"
 		            +"<div class='yiwancheng_button'>"
 		            +"<ul>"
@@ -261,7 +282,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			html=""; 
 		    for(var i=0;i<data.length;i++){
 		    	 
-		    	var bakFile=data[i].fileName+".bak"; 
+		    	var bakFile=data[i].fileBak; 
 			    	html+="<li>"
 		            +"<div class='yiwancheng_button'>"
 		            +"<ul>"
@@ -271,8 +292,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		            +"</div>"
 		            +"<div class='yiwancheng_button'>"
 		            +"<ul>"
-		            +"  <li>申请时间:"+data[i].createDate+"</li>"
-		            +"  <li>完成时间:"+data[i].wcDate+"</li>"
+		            +"  <li>申请:"+data[i].createDate+"</li>"
+		            +"  <li>完成:"+data[i].wcDate+"</li>"
 		            +"</ul>"
 		            +"</div>"
 		            +"<div class='yiwancheng_line'></div>"
@@ -368,6 +389,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					accountName:localStorage.getItem("username")
 				},
 				success:function(obj){ 
+					
 					var prerecordCount;
 					if(obj.attributes){
 						prerecordCount= obj.attributes.prerecordCount;
@@ -376,6 +398,26 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					}
 					 
 					self.$el.find("#prerecordCount").text(prerecordCount);
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
+	    	umodel.fetch({
+				url:UC.actionUrl+"appAccountInfo/myAccountInfo",
+				params:{
+					accountName:localStorage.getItem("username")
+				},
+				success:function(obj){ 
+					var myAccountInfo;
+					if(obj.attributes){
+					 
+						myAccountInfo= obj.attributes.myAccountInfo[0];
+					}else{
+						myAccountInfo= obj.myAccountInfo[0];
+					}
+					 
+					self.$el.find(".yulu_kefu").eq(0).html("客服电话："+myAccountInfo.customerPhone);
 				},
 				error:function(){
 					self.showToast("请求错误.....");
