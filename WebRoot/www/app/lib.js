@@ -18,8 +18,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			limit:20
 			
 		},
-		//actionUrl:'http://192.168.1.106:8090/',
-		actionUrl:'http://jinriwuliu.cn:8080/',
+		actionUrl:'http://192.168.1.103:8090/',
+		//actionUrl:'http://jinriwuliu.cn:8080/',
 		isLogin:function(){ 
 			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 
 				return true;

@@ -46,6 +46,7 @@ require.config({
 		'askQuestions':'app/ctrl/askQuestions',
 		'commonProblems':'app/ctrl/commonProblems',
 		'resetPassword':'app/ctrl/resetPassword',
+		'adPerview':'app/ctrl/adPerview',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -82,7 +83,8 @@ require.config({
 		'TemplateWelcome':'app/view/welcome.html',
 		'TemplateAskQuestions':'app/view/askQuestions.html',
 		'TemplateCommonProblems':'app/view/commonProblems.html',
-		'TemplateResetPassword':'app/view/resetPassword.html'
+		'TemplateResetPassword':'app/view/resetPassword.html',
+		'TemplateAdPerview':'app/view/adPerview.html'
 			
 			
 	}

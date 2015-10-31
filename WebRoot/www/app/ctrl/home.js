@@ -1,12 +1,18 @@
 define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateHome','basePageView','userModel','unslider','move','swipe'],function(jquery,_,Backbone,TemplateBottomNav,TemplateHome,basePageView,userModel,unslider,move,swipe){
-	
+	umodel=new userModel();
 	var myView=basePageView.extend({
 		events:{
 			"click #yulu":"yulu",
 			"click #chongzhi":"chongzhi",
 			"click #xhyz":"xhyz",
 			"click #jgcx":"jgcx",
-			"click #smyl":"smyl"
+			"click #smyl":"smyl",
+			"click li [name='ad']":"gotoAdPerview"
+		},
+		gotoAdPerview:function(e){
+			var $this=$(e.currentTarget);
+			var url=$this.data('actionurl');
+			UC.go('adPerview',{anim:true,url:url,height:$(document).height()});
 		},
 		yulu:function(e){
 			 var $this=$(e.currentTarget);
@@ -29,7 +35,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			//UC.go('yulu',{anim:false});
 		},
 		chongzhi:function(e){
-			var $this=$(e.currentTarget);
+			 var $this=$(e.currentTarget);
 			 $this.addClass("click-scale").on("webkitTransitionEnd",function(e){
 				 var i = $(e.currentTarget);
 				 $this.removeClass("click-scale").css({
@@ -80,14 +86,35 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			home:true 
 	   			
 	   		});
-	       	$(function() {
-	       	    $('.banner').unslider({
-	       	    	//arrows: true,
-	       	    	height:$('.banner').eq(0).height(),
-					fluid: true,
-					dots: true
-	       	    });
-	       	});
+	       	umodel.fetch({
+				url:UC.actionUrl+"appAdvertisement/getAdvertisement",
+				success:function(obj){ 
+					
+					if(obj.attributes){
+						for(var i=0;i<obj.attributes.rows.length;i++){
+							$(" <li><img name='ad' data-actionurl='"+obj.attributes.rows[i].hrefUrl+"' src='"+obj.attributes.rows[i].imageUrl+"'></li>").appendTo($("#adBanner"));
+						}
+						 
+					}else{
+						for(var i=0;i<obj.rows.length;i++){
+							$(" <li><img name='ad data-actionurl='"+obj.rows[i].hrefUrl+"' src='"+obj.rows[i].imageUrl+"'></li>").appendTo($("#adBanner"));
+						}
+						
+					} 
+					$(function() {
+			       	    $('.banner').unslider({
+			       	    	//arrows: true,
+			       	    	height:$('.banner').eq(0).height(),
+							fluid: true,
+							dots: true
+			       	    });
+			       	}); 
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			}); 
+	       	
         },
         onShow:function(){
         	

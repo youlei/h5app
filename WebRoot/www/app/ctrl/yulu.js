@@ -44,6 +44,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			}
 			self.refresh();
 		},
+		
 		dail:function(e){
 			var $this=$(e.srcElement);
 			 

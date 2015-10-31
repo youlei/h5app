@@ -1,6 +1,7 @@
-#Sat Oct 31 09:41:24 CST 2015
+#Sat Oct 31 18:07:38 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/basePageView.js=UTF-8
+encoding//WebRoot/www/app/ctrl/adPerview.js=UTF-8
 encoding//WebRoot/www/app/ctrl/askQuestions.js=utf-8
 encoding//WebRoot/www/app/ctrl/commonProblems.js=utf-8
 encoding//WebRoot/www/app/ctrl/containerQuery.js=UTF-8
