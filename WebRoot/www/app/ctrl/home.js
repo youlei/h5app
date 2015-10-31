@@ -55,7 +55,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 		},
 		jgcx:function(e){
-			UC.go('yulu',{anim:true});
+			UC.go('shippingDateQuery',{anim:true});
 		},
 		smyl:function(){
 			//UC.go('yulu',{anim:true});
@@ -83,6 +83,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	       	$(function() {
 	       	    $('.banner').unslider({
 	       	    	//arrows: true,
+	       	    	height:$('.banner').eq(0).height(),
 					fluid: true,
 					dots: true
 	       	    });

@@ -22,8 +22,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				success:function(data){
 					if(data.attributes){
 						if(data.attributes.flag){
-							   self.showAlert("保持成功");
-							   UC.go("find");
+							   self.showAlert("保存成功");
+							   //UC.go("find");
 							}else{
 								//alert(data.attributes.errorMessage);
 								self.showAlert("保持失败！！");
@@ -31,12 +31,12 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					}else{
 						
 						if(data.flag){
-								self.showAlert("保持成功");
-							   UC.go("find");
-							}else{
-								//alert(data.attributes.errorMessage);
-								self.showAlert("保持失败！！");
-							}
+							self.showAlert("保存成功");
+							   //UC.go("find");
+						}else{
+							//alert(data.attributes.errorMessage);
+							self.showAlert("保持失败！！");
+						}
 					}
 					
 					 

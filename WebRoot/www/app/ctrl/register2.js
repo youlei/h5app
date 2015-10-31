@@ -11,7 +11,11 @@ define(['jquery','underscore','backbone','text!TemplateRegister2','basePageView'
 			 	password=$.trim(self.$el.find("#password").val()),
 			 	repassword=$.trim(self.$el.find("#repassword").val());
 			if(password!==repassword){
-				self.showAlert("���벻һ��");
+				self.showAlert("密码不一致");
+				return false;
+			}
+			if(password.length<6){
+				self.showAlert("必须大于六位");
 				return false;
 			}
 			return true;
@@ -41,12 +45,26 @@ define(['jquery','underscore','backbone','text!TemplateRegister2','basePageView'
 					//console.log(data);
 					self.hideLoading();
 					self.flag=false;
-					if(data.attributes.flag){
-						self.showAlert("注册成功");
-						UC.go("home");
+					if(data.attributes){
+						if(data.attributes.flag){
+							localStorage.setItem("username",username);
+							localStorage.setItem("password",password);
+							self.showAlert("注册成功");
+							UC.go("home");
+						}else{
+							self.showAlert("注册失败");
+						}
 					}else{
-						self.showAlert("注册失败");
+						if(data.flag){
+							localStorage.setItem("username",username);
+							localStorage.setItem("password",password);
+							self.showAlert("注册成功");
+							UC.go("home");
+						}else{
+							self.showAlert("注册失败");
+						}
 					}
+					
 				},
 				error:function(){
 					self.hideLoading();

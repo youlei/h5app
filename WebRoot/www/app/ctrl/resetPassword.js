@@ -1,4 +1,4 @@
-define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateModifyPassword','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateModifyPassword,basePageView,userModel){
+define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateResetPassword','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,templateResetPassword,basePageView,userModel){
 	
 	var myView=basePageView.extend({
 		events:{
@@ -28,17 +28,19 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					//console.log(data);
 					if(data.attributes){
 						if(data.attributes.flag){
-							localStorage.clear();
-							self.showAlert("修改成功");
-							UC.go("login");
+							localStorage.setItem("username",username);
+	  						localStorage.setItem("password",password);
+	  						self.showAlert("设置成功");
+							UC.go("home");
 						}else{
 							self.showAlert("原密码错误");
 						}
 					}else{
 						if(data.flag){
-							localStorage.clear();
-							self.showAlert("修改成功");
-							UC.go("login");
+							localStorage.setItem("username",username);
+	  						localStorage.setItem("password",password);
+	  						self.showAlert("设置成功");
+							UC.go("home");
 						}else{
 							self.showAlert("原密码错误");
 						}
@@ -56,7 +58,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             return _.template(template);
         },
         render: function (data) {
-            var tplYulu = this.initTemplate(TemplateModifyPassword), 
+            var tplYulu = this.initTemplate(templateResetPassword), 
            		self=this;  
        		self.$el.html(tplYulu()); 
        		
@@ -65,13 +67,13 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	   this.render();
 	       	this.header.set({
-	   			title:'修改密码',
+	   			title:'设置密码',
 	   			view:true,
 	   			back:true,
 	   			home:true,
 	   			events:{
 	   				returnHandler:function(){
-	   					UC.go('my');
+	   					UC.go('forget');
 	   				},
 	   				homeHandler:function(){
 	   					

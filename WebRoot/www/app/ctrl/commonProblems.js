@@ -5,7 +5,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			 'click #search':'search'
 		},
 		currentPage:1,
-		 
+		selectPar:'',
 		initTemplate: function (template) {
             return _.template(template);
         },
@@ -15,6 +15,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
     		var $list=$("<div></div>").appendTo( self.$el);
     		self.currentPage=1;
     		self.showLoading();
+    		self.selectPar=self.$el.find("#searchTxt").val();
         	model.fetch({
         		url:UC.actionUrl+"appCommonProblem/view",
         		params:{
@@ -117,6 +118,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			    	model.fetch({
 		        		url:UC.actionUrl+"appCommonProblem/view",
 		        		params:{
+		        			selectPar:self.selectPar,
 		        			limit:UC.pageInfo.limit, 
 		        			start:self.currentPage*UC.pageInfo.limit
 		        		},

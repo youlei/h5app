@@ -15,7 +15,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         },
         render: function (data) {
         	
-       		
         	var model=new selectCategoryModel(),
         		self=this;
          
@@ -29,14 +28,14 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         		error:function(data){
         			
         		}
-        		});
-         
-        
-       		
+        	});
         },
         onCreate:function(){
-        
+       	    var self= this,
+       	    	height=$(document).height();
+       	   
        	    this.render();
+       	    self.$el.find(".index_body").eq(0).css("height",height);
 	       	this.header.set({
 	       		title:'今日物流',
 	   			view:true,
@@ -56,7 +55,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	        
         },
         onShow:function(){
-        	
+        	 
        	  
         }
 	});

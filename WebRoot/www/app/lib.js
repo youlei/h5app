@@ -18,7 +18,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			limit:20
 			
 		},
-		actionUrl:'http://192.168.1.106:8090/',
+		//actionUrl:'http://192.168.1.106:8090/',
+		actionUrl:'http://jinriwuliu.cn:8080/',
 		isLogin:function(){ 
 			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 
 				return true;
@@ -317,8 +318,11 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	    	**/
 	    	//alert(UC.PageViewMgr.mapping["yulu"]);
 	    	//alert(UC.PageViewMgr.mapping["yulu"].hideLoading);
-	    	UC.PageViewMgr.mapping["yulu"].hideLoading("");
-	    	UC.PageViewMgr.mapping["yulu"].showAlert("上传成功.....");
+	    	var pg=UC.PageViewMgr.mapping["yulu"];
+	    	pg.hideLoading("");
+	    	var count= parseInt( pg.$el.find("#prerecordCount").val())-1;
+	    	pg.$el.find("#prerecordCount").val("count");
+	    	pg.showAlert("上传成功.....");
 	    	return;
 	    },
 	    removeYL:function(id){
@@ -326,7 +330,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	    },
 	    hide:function(){
 	    	
-	    },
+	    }
 			
 	};
 	

@@ -10,12 +10,14 @@ require.config({
 		'unslider':'lib/unsilder',
 		'move':'lib/jquery.event.move',
 		'swipe':'lib/jquery.event.swipe',
+		'scroll':'lib/scroll',
 		'basePageView':'app/basePageView',
 		'index':'app/ctrl/index',
 		'login':'app/ctrl/login',
 		'lib':'app/lib',
 		'alert':'app/alert', 
 		'boot':'app/boot',
+		
 		 
 		'register1':'app/ctrl/register1',
 		'register2':'app/ctrl/register2',
@@ -43,6 +45,7 @@ require.config({
 		'welcome':'app/ctrl/welcome',
 		'askQuestions':'app/ctrl/askQuestions',
 		'commonProblems':'app/ctrl/commonProblems',
+		'resetPassword':'app/ctrl/resetPassword',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -78,7 +81,9 @@ require.config({
 		'TemplateRoadStatus':'app/view/roadStatus.html',
 		'TemplateWelcome':'app/view/welcome.html',
 		'TemplateAskQuestions':'app/view/askQuestions.html',
-		'TemplateCommonProblems':'app/view/commonProblems.html'
+		'TemplateCommonProblems':'app/view/commonProblems.html',
+		'TemplateResetPassword':'app/view/resetPassword.html'
+			
 			
 	}
 });

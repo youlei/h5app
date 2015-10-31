@@ -29,6 +29,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         },
         onCreate:function(){
         
+        	
+        },
+        onShow:function(){
         	var self=this;
 	       	this.header.set({
 	   			title:UC.goParam.text,
@@ -46,9 +49,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   			}
 	   			
 	   		});
-        },
-        onShow:function(){
-        	
     	    this.render();
         }
 	});

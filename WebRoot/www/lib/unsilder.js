@@ -28,6 +28,7 @@
 			items: '>ul',   // slides container selector
 			item: '>li',    // slidable items selector
 			easing: 'swing',// easing function to use for animation
+			//height:_.el.height(),
 			autoplay: true  // enable autoplay on initialisation
 		};
 
@@ -175,7 +176,7 @@
 
 			var speed = callback ? 5 : o.speed | 0,
 				easing = o.easing,
-				obj = {height: target.outerHeight()};
+				obj = {height: _.el.height()};
 
 			if (!ul.queue('fx').length) {
 				//  Handle those pesky dots

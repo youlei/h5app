@@ -15,7 +15,7 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		Alert.prototype.alert=function(param){
 			var self=this,
 				param=param||"";
-			self.maskHTML="<div class='error'><div class='error_text'>"+param+"</div><div class='error_button'></div></div>";
+			self.maskHTML="<div class='error' style='overflow-y:hidden'><div class='error_text'>"+param+"</div><div class='error_button'></div></div>";
 			if(self.$alert){
 				return;
 			}
@@ -25,7 +25,10 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 				self.$alert.remove();
 				self.$alert=null;
 			});
-			setTimeout(function(){},5000);
+			setTimeout(function(){
+				self.$alert.remove();
+				self.$alert=null;
+			},3000);
 		};
 		
 		
@@ -92,7 +95,7 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 				self.$confirm.addClass("bounceOut");
 				
 			});
-			setTimeout(function(){},5000);
+			
 		}
 		/**
 		 * param.content
@@ -115,7 +118,9 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 				self.$toast.remove();
 			});
 			 
-			setTimeout(function(){},5000);
+			setTimeout(function(){
+				
+			},3000);
 			 
 		}
 		/**
@@ -124,8 +129,9 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		 * */
 		Alert.prototype.loading=function(param){
 			var self=this,
+				height=$(document).height(),
 				param=param||"";
-			self.maskHTML="<div class='loading'> <div class='loading_icon'><img src='res/images/loading.gif'></div><div class='loading_text'>"+param+"</div> </div>";
+			self.maskHTML="<div class='loading' style='height:"+height+"px'> <div class='loading_icon'><img src='res/images/loading.gif'></div><div class='loading_text'>"+param+"</div> </div>";
 			 
 			self.$loading=$(this.maskHTML).appendTo($("body"));
 			
@@ -139,7 +145,7 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 			*/
 			self.$loading.on("click",function(){
 				//self.$loading.addClass("animated").addClass("bounceOut");
-				self.$loading.remove();
+				//self.$loading.remove();
 			});
 			//setTimeout(function(){},5000);
 			 
@@ -147,8 +153,11 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 		}
 		Alert.prototype.hideLoading=function(param){
 			var self=this;
-			self.$loading.addClass("animated").addClass("bounceOut");
-			self.$loading.remove();
+			if(self.$loading){
+				self.$loading.addClass("animated").addClass("bounceOut");
+				self.$loading.remove();
+			}
+			
 		}
 		Alert.prototype.hide=function(){
 			var self=this;

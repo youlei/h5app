@@ -123,7 +123,8 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		},		
 		onHide:function(){
 			
-			
+			var self=this;
+			self.hideLoading();
 		},
 		showAlert:function(param){
 			this.alert.alert(param);
@@ -162,7 +163,14 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		// 关闭所有提示
 		hideTips:function(){
 			this.alert.hide();
-		}
+		}, 
+	    // 填满背景高度
+	    fullBGHeight:function(){
+	    	var self=this,
+	    		height=$(document).height();
+	    	 
+	    	console.log($(document).height());
+	    }
 		
 	});
 	return BasePageView;

@@ -1,4 +1,4 @@
-#Sun Oct 25 18:48:07 CST 2015
+#Sat Oct 31 09:41:24 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/basePageView.js=UTF-8
 encoding//WebRoot/www/app/ctrl/askQuestions.js=utf-8
@@ -13,6 +13,7 @@ encoding//WebRoot/www/app/ctrl/my.js=UTF-8
 encoding//WebRoot/www/app/ctrl/myInfo.js=UTF-8
 encoding//WebRoot/www/app/ctrl/register1.js=UTF-8
 encoding//WebRoot/www/app/ctrl/register2.js=UTF-8
+encoding//WebRoot/www/app/ctrl/resetPassword.js=utf-8
 encoding//WebRoot/www/app/ctrl/roadStatus.js=UTF-8
 encoding//WebRoot/www/app/ctrl/shippingDateQuery.js=UTF-8
 encoding//WebRoot/www/app/ctrl/telDetailList.js=UTF-8
@@ -33,6 +34,7 @@ encoding//WebRoot/www/app/view/my.html=UTF-8
 encoding//WebRoot/www/app/view/myInfo.html=UTF-8
 encoding//WebRoot/www/app/view/register1.html=utf-8
 encoding//WebRoot/www/app/view/register2.html=utf-8
+encoding//WebRoot/www/app/view/resetPassword.html=UTF-8
 encoding//WebRoot/www/app/view/shippingDateQuery.html=UTF-8
 encoding//WebRoot/www/app/view/telDetailList.html=UTF-8
 encoding//WebRoot/www/app/view/telList.html=gbk

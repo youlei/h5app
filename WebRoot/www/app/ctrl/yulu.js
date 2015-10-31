@@ -1,4 +1,4 @@
-define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateYulu','basePageView','userModel'],function(jquery,_,Backbone,TemplateBottomNav,TemplateYulu,basePageView,userModel){
+define(['jquery','underscore','backbone','text!TemplateBottomNav','text!TemplateYulu','basePageView','userModel','scroll'],function(jquery,_,Backbone,TemplateBottomNav,TemplateYulu,basePageView,userModel,scroll){
 	var umodel=new userModel();
 	var yuluView=basePageView.extend({
 		events:{
@@ -15,14 +15,15 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			"click #yl4 img":"previewImg",
 			"click #yl2 [name='cancel']":"cancelYulu",
 			"click #yl2 [name='jiaji']":"jiajiYulu",
-			"click #dclUl button":"confirmDCL"
+			"click #dclUl button":"confirmDCL",
+			"click #dail":'dail'
 			
 			
 		},
 		$canvas:null,
 		$perview:null,
 		$tmpview:null,
-		
+		prerecordCount:0,
 		switchTab:function(e){
 			
 			$("[name='tab']").removeClass("hover");
@@ -42,6 +43,12 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				$("#yl4").show();
 			}
 			self.refresh();
+		},
+		dail:function(e){
+			var $this=$(e.srcElement);
+			 
+			location='tel:'+$this.data('tel');
+			//Native.call($this.data('tel'));
 		},
 	    getBase64Image:function(img) {
 	    	  
@@ -72,23 +79,35 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			var self=this,
 				$this=$(e.srcElement),
 				id=$this.data("id"); 
-			self.showLoading();  
-	       	umodel.fetch({
-				url:UC.actionUrl+"appAppPrerecordInfo/confirmPrerecordCount",
-				params:{
-					id:id,
-					accountName:localStorage.getItem("username")
+			self.showConfirm({
+				title:'请再次仔细核对小票信息，一旦确认提交，概不负责',
+				sure:'确认',
+				cancel:'取消',
+				sureCallback:function(){
+					self.showLoading();  
+			       	umodel.fetch({
+						url:UC.actionUrl+"appAppPrerecordInfo/confirmPrerecordCount",
+						params:{
+							id:id,
+							accountName:localStorage.getItem("username")
+						},
+						success:function(obj){   
+							self.hideLoading();
+							self.showAlert("确认成功"); 
+							self.refresh();
+							 
+						},
+						error:function(){
+							self.showToast("确认失败");
+						}
+					});
 				},
-				success:function(obj){   
-					self.hideLoading();
-					self.showAlert("确认成功"); 
-					self.refresh();
-					 
-				},
-				error:function(){
-					self.showToast("确认失败");
+				cancelCallback:function(){
+					//self.getImageFormAlbum();
 				}
-			});
+				
+			}); 
+			
 		},
 		cancelYulu:function(e){
 			var self=this,
@@ -120,6 +139,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		submitYulu:function(){
 			//var image=$("#previewImg");
 			var self=this;
+			if(!self.prerecordCount>0){
+				self.showAlert("你已没有预录，请先充值");
+				return ;
+			}
 			if($("#photograph").data("url")){
 				if(self.img==$("#photograph").data("url")){
 					self.showAlert("不能重复提交同一张图片");
@@ -390,14 +413,14 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				},
 				success:function(obj){ 
 					
-					var prerecordCount;
-					if(obj.attributes){
-						prerecordCount= obj.attributes.prerecordCount;
-					}else{
-						prerecordCount= obj.prerecordCount;
-					}
 					 
-					self.$el.find("#prerecordCount").text(prerecordCount);
+					if(obj.attributes){
+						self.prerecordCount= obj.attributes.prerecordCount;
+					}else{
+						self.prerecordCount= obj.prerecordCount;
+					}
+					self
+					self.$el.find("#prerecordCount").text(self.prerecordCount);
 				},
 				error:function(){
 					self.showToast("请求错误.....");
@@ -418,40 +441,53 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					}
 					 
 					self.$el.find(".yulu_kefu").eq(0).html("客服电话："+myAccountInfo.customerPhone);
+					self.$el.find(".yulu_kefu").eq(0).data("tel",myAccountInfo.customerPhone);
+					//href="tel:139xxxxxxxx"
 				},
 				error:function(){
 					self.showToast("请求错误.....");
 				}
 			});
-	    	setInterval(function(){
-	    		umodel.fetch({
-					url:UC.actionUrl+"appAppPrerecordInfo/queryRechargeRecords",
-					params:{
-						accountName:localStorage.getItem("username")
-					},
-					success:function(obj){ 
-						//var prerecordCount= obj.attributes.prerecordCount;
-						//self.$el.find("#prerecordCount").text(prerecordCount);
-						var str="";
-						if(obj.attributes.rows){
-							 
-							for(var i=0;i<obj.attributes.rows.length;i++){
-								str=str+"<li><span class='yulu_gundong_right'>"+obj.attributes.rows[i].recordDate+"</span>用户"+obj.attributes.rows[i].phone+"充值了"+obj.attributes.rows[i].recordMoney+"元</li>";
-							}
-						}else{
-							
-							for(var i=0;i<obj.rows.length;i++){
-								str=str+"<li><span class='yulu_gundong_right'>"+obj.rows[i].recordDate+"</span>用户"+obj.rows[i].phone+"充值了"+obj.rows[i].recordMoney+"元</li>";
-							}
+	    	 
+    		umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/queryRechargeRecords",
+				params:{
+					accountName:localStorage.getItem("username")
+				},
+				success:function(obj){ 
+					//var prerecordCount= obj.attributes.prerecordCount;
+					//self.$el.find("#prerecordCount").text(prerecordCount);
+					var str="";
+					if(obj.attributes.rows){
+						 
+						for(var i=0;i<obj.attributes.rows.length;i++){
+							str=str+"<li><span class='yulu_gundong_right'>"+obj.attributes.rows[i].recordDate+"</span>用户"+obj.attributes.rows[i].phone+"充值了"+obj.attributes.rows[i].recordMoney+"元</li>";
 						}
-						self.$el.find("#yuluSrcoll").html(str);
-					},
-					error:function(){
-						self.showToast("请求错误.....");
+					}else{
+						
+						for(var i=0;i<obj.rows.length;i++){
+							str=str+"<li><span class='yulu_gundong_right'>"+obj.rows[i].recordDate+"</span>用户"+obj.rows[i].phone+"充值了"+obj.rows[i].recordMoney+"元</li>";
+						}
 					}
-				});
-	    		
-	    	},2000);
+					 self.$el.find("#yuluSrcoll").html(str);
+					//self.$el.find("#yuluSrcoll2").hide().html(str);
+					  
+					 
+					$("div.yulu_gundong").myScroll({
+						speed:40, //数值越大，速度越慢
+						rowHeight:25 //li的高度
+					});
+					 
+
+				 
+					   
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
+    		
+	    	 
 	    
 		 
         },

@@ -5,6 +5,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			 //'click li':'gotoTelDetail'
 			"click #search":"search"
 		},
+		selectPar:"",
 		currentPage:1,
 		gotoTelDetail:function(){ 
 			UC.go('telDetail');
@@ -17,7 +18,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         	 
     		var $list=$("<div></div>").appendTo( self.$el);
     		self.currentPage=1;
-    		self.showLoading();
+    		self.selectPar=self.$el.find("#searchTxt").val();
+    		self.showLoading(); 
         	model.fetch({
         		url:UC.actionUrl+'appariticle/getAriticleByCategoryId', 
         		params:{
@@ -99,6 +101,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         		url:UC.actionUrl+'appariticle/getAriticleByCategoryId',
         		params:{
         			cid:UC.goParam.id,
+        			selectPar:self.selectPar,
         			limit:10,
         			start:0
         		},
