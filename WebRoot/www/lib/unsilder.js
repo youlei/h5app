@@ -41,8 +41,9 @@
 			_.max = [el.outerWidth() | 0, el.outerHeight() | 0];
 			_.li = _.ul.find(_.o.item).each(function(index) {
 				var me = $(this),
-					width = me.outerWidth(),
-					height = me.outerHeight();
+					width = me.outerWidth(), 
+					//height = me.outerHeight();
+					height = _.o.height;
 
 				//  Set the max values
 				if (width > _.max[0]) _.max[0] = width;
@@ -60,7 +61,7 @@
 			_.i = 0;
 
 			//  Set the main element
-			el.css({width: _.max[0], height: li.first().outerHeight(), overflow: 'hidden'});
+			el.css({width: _.max[0], height:_.o.height, overflow: 'hidden'});
 
 			//  Set the relative widths
 			ul.css({position: 'relative', left: 0, width: (len * 100) + '%'});
@@ -107,20 +108,7 @@
 			//  Arrows support
 			o.arrows && nav('arrow');
 
-			//  Patch for fluid-width sliders. Screw those guys.
-			o.fluid && $(window).resize(function() {
-				_.r && clearTimeout(_.r);
-
-				_.r = setTimeout(function() {
-					var styl = {height: li.eq(_.i).outerHeight()},
-						width = el.outerWidth();
-
-					ul.css(styl);
-					styl['width'] = Math.min(Math.round((width / el.parent().width()) * 100), 100) + '%';
-					el.css(styl);
-					li.css({ width: width + 'px' });
-				}, 50);
-			}).resize();
+		 
 
 			//  Move support
 			if ($.event.special['move'] || $.Event('move')) {

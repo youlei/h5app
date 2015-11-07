@@ -10,7 +10,7 @@ define(['lib','jquery','underscore','backbone','text!TemplateHeader','alert'],fu
 		this.$homeBt=null;
 		this.events={
 			returnHandler:function(){
-			 
+				
 			},
 			homeHandler:function(){
 				 

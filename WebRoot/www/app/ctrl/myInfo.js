@@ -15,23 +15,23 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					params:{
 						accountName:localStorage.getItem("username"),
 						email:self.$el.find("#email").val(),
-						theFleet:self.$el.find("#theFleet").val()	
+						theFleet:encodeURI(encodeURI(self.$el.find("#theFleet").val()))	
 					},
 					success:function(obj){ 
 						 
 						if(obj.attributes){
 							
 						  if(obj.attributes.flag){
-							  self.showAlert("保持成功");
+							  self.showAlert("更新成功");
 						  }else{
-							  self.showAlert("保持失败");
+							  self.showAlert("更新失败");
 						  }
 						  
 						}else{
 							 if(obj.flag){
-								 self.showAlert("保持成功");
+								 self.showAlert("更新成功");
 							  }else{
-								  self.showAlert("保持失败");
+								  self.showAlert("更新失败");
 							  }
 						}
 						 

@@ -4,8 +4,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		events:{
 			 'click #search':'search'
 		},
-		currentPage:1,
+		currentPage:0,
 		selectPar:'',
+		hasDate:true,
 		initTemplate: function (template) {
             return _.template(template);
         },
@@ -29,7 +30,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         			var html="";
         			if(data.attributes){
         				if(data.attributes.rows.length>0){
+        					self.hasDate=true;
             				self.currentPage++;
+            			}else{
+            				self.hasDate=false;
+            				return;
             			}
         				for(var i=0;i<data.attributes.rows.length;i++){
         					var str="	<li>"
@@ -46,6 +51,13 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             			}
         				
         			}else{
+        				if(data.rows.length>0){
+        					self.hasDate=true;
+            				self.currentPage++;
+            			}else{
+            				self.hasDate=false;
+            				return;
+            			}
         				for(var i=0;i<data.rows.length;i++){
         					var str="	<li>"
 								 +"<div class='duix_box'>"
@@ -83,6 +95,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         		},
         		success:function(me,data){
         			var tpl = self.initTemplate(TemplateCommonProblems);
+        			if(data.rows.length=0){ 
+        				self.hasDate=false;
+        			}
         			$list.html(tpl({data:data.rows}));
         			 
         		},
@@ -113,7 +128,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   		});
 	       	
 	    	$(window).scroll(function () {
-			    if ($(document).scrollTop() + $(window).height() >= $(document).height()) {  
+			    if ($(document).scrollTop() + $(window).height() >= $(document).height()) { 
+			    	if(	!self.hasDate){
+			    		return;
+			    	}
 			    	self.showLoading();
 			    	model.fetch({
 		        		url:UC.actionUrl+"appCommonProblem/view",
@@ -128,8 +146,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		        			var html="";
 		        			if(data.attributes){
 		        				
-		        				if(data.attributes.rows.length>0){
+		        				if(data.attributes.rows.length==0){
 			        				self.currentPage++;
+			        				self.hasDate=false;
 			        			}
 			        			
 			        			for(var i=0;i<data.attributes.rows.length;i++){
@@ -146,8 +165,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			        				html+=str;
 			        			}
 		        			}else{
-		        				if(data.rows.length>0){
+		        				if(data.rows.length==0){
 			        				self.currentPage++;
+			        				self.hasDate=false;
 			        			}
 			        			
 			        			for(var i=0;i<data.rows.length;i++){

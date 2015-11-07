@@ -18,8 +18,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			limit:20
 			
 		},
-		actionUrl:'http://192.168.1.103:8090/',
-		//actionUrl:'http://jinriwuliu.cn:8080/',
+		//actionUrl:'http://192.168.1.105:8090/',
+		actionUrl:'http://jinriwuliu.cn:8080/',
 		isLogin:function(){ 
 			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 
 				return true;
@@ -67,7 +67,24 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 					}
 				}
 				return page;
-			}
+			}, 
+		    //销毁指定的pageView
+		    destroyPageView:function(pageView){
+		    	var index=-1;
+		    	delete this.mapping[pageView.name];
+		    	for(var i=0;i<this.pageViewStack.length;i++){
+					if(this.pageViewStack[i].name==pageView.name){
+						index=i;
+					}
+					 
+				}
+		    	if(index!=-1){
+		    		this.pageViewStack.splice(index,1);
+		    	}
+		    	
+		    	pageView.$pageEl.remove();
+		    	
+		    },
 			
 			
 		}, 

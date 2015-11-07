@@ -101,20 +101,24 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						}
 						
 					} 
-					$(function() {
-			       	    $('.banner').unslider({
-			       	    	//arrows: true,
-			       	    	height:$('.banner').eq(0).height(),
-							fluid: true,
-							dots: true
-			       	    });
-			       	}); 
+				 
+		       	    $('.banner').unslider({
+		       	    	//arrows: true,
+		       	    	height:130,
+						fluid: true,
+						dots: true
+		       	    });
+		       	    //$('.banner').eq(0).attr("style","height:155px;");
+			        
 				},
 				error:function(){
 					self.showToast("请求错误.....");
 				}
 			}); 
 	       	
+        },
+        onHide:function(){
+        	
         },
         onShow:function(){
         	

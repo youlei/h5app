@@ -6,7 +6,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			"click #search":"search"
 		},
 		selectPar:"",
-		currentPage:1,
+		currentPage:0,
+		hasDate:true,
 		gotoTelDetail:function(){ 
 			UC.go('telDetail');
 		},
@@ -108,6 +109,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         		success:function(me,data){
         			self.hideLoading();
         			var tpl = self.initTemplate(TemplateTelDetailList);
+        			if(data.rows.length==0){
+        				self.hasDate=false;
+        			}
         			$list.html(tpl({data:data.rows}));
         			
         			//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
@@ -137,6 +141,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	   		});
 	       	$(window).scroll(function () {
 			    if ($(document).scrollTop() + $(window).height() >= $(document).height()) { 
+			    	if(!self.hasDate){
+			    		return;
+			    	}
 			    	self.showLoading();
 			    	model.fetch({
 		        		url:UC.actionUrl+'appariticle/getAriticleByCategoryId',
@@ -148,6 +155,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		        		success:function(me,data){
 		        			//var tpl = self.initTemplate(TemplateTelDetailList);
 		        			self.hideLoading();
+		        			if(data.rows.length==0){
+		        				self.hasDate=false;
+		        			}
 		        			self.currentPage++;
 		        			var html="";
 		        			for(var i=0;i<data.rows.length;i++){
@@ -180,8 +190,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			});
         },
         onHide:function(){
+        	var self=this;
         	$(window).unbind("scroll");
-        	 
+        	UC.PageViewMgr.destroyPageView(self);
         	
         },
         onShow:function(){

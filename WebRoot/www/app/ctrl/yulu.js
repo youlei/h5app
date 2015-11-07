@@ -24,23 +24,33 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		$perview:null,
 		$tmpview:null,
 		prerecordCount:0,
+		currentPage:0,
+		currentTab:0,
+		hasData:true,
 		switchTab:function(e){
-			
+			var self=this;
 			$("[name='tab']").removeClass("hover");
 			$(e.srcElement).addClass("hover");
 			if($(e.srcElement).text()=="预录"){
 				$("[name='tabContent']").hide();
 				$("#yl1").show(); 
+				self.currentTab=0;
 				//$("#yiwancheng").hide();
 			}else if($(e.srcElement).text()=="待预录"){
 				$("[name='tabContent']").hide();
+				self.refreshDYL();
 				$("#yl2").show();
+				self.currentTab=1;
 			}else if($(e.srcElement).text()=="待确认"){
 				$("[name='tabContent']").hide();
+				self.refreshDCL();
 				$("#yl3").show();
+				self.currentTab=2;
 			}else if($(e.srcElement).text()=="已完成"){
 				$("[name='tabContent']").hide();
+				self.refreshYWC();
 				$("#yl4").show();
+				self.currentTab=3;
 			}
 			self.refresh();
 		},
@@ -72,9 +82,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		      return dataURL; 
 		},
 		jiajiYulu:function(e){
-			var $this=$(e.srcElement),
+			var self=this,
+				$this=$(e.srcElement),
 				id=$this.data("id");
-			
+			this.showAlert("加急成功");
 		},
 		confirmDCL:function(e){
 			var self=this,
@@ -95,7 +106,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						success:function(obj){   
 							self.hideLoading();
 							self.showAlert("确认成功"); 
-							self.refresh();
+							self.refreshDCL();
 							 
 						},
 						error:function(){
@@ -123,9 +134,18 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					accountName:localStorage.getItem("username")
 				},
 				success:function(obj){   
-					self.hideLoading();
-					self.showAlert("取消成功"); 
-					self.refresh();
+					if(obj.attributes){
+						if(obj.attributes.flag){
+							self.hideLoading();
+							self.showAlert("取消成功"); 
+							self.refreshDYL();
+						}else{
+							self.hideLoading();
+							self.showAlert(obj.attributes.errorMessage); 
+							self.refreshDYL();
+						}
+					}
+					
 					 
 				},
 				error:function(){
@@ -135,7 +155,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		},
 		previewImg:function(e){
 			var $this=$(e.srcElement); 
-			window.Native.gotoPreviewImage($this.attr("name"));
+			window.Native.gotoPreviewImage($this.data("src"));
 		},
 		submitYulu:function(){
 			//var image=$("#previewImg");
@@ -255,77 +275,176 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		},
 		refreshGrid:function(result){
 			var self=this;   
-			self.refreshDYL(result.DYL);
-			self.refreshDCL(result.DCL);
-			self.refreshYWC(result.YWC);
+			//self.refreshDYL(result.DYL);
+			//self.refreshDCL(result.DCL);
+			//self.refreshYWC(result.YWC);
 			 
 			
 		},
-		refreshDYL:function(data){
-			 
-			var self=this,
-				html=""; 
-		    for(var i=0;i<data.length;i++){ 
-		    	var bakFile=data[i].fileBak; 
-		    	html+=" <li id='"+data[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
-		              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+data[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+data[i].id+" name='cancel'>取消</a> </div>"
-		              +"<div class='daiyulu_img'><img style='width: 130px;height: 110px;border:0;' name='"+data[i].fileName+"'  src='"+bakFile+"' alt=''></div>"
-		              +"</div>"
-		              +"<div class='daiyulu_line'></div> </li>";
-		    } 
-		    $("#dylUl").empty(); 
-		    $(html).appendTo(self.$el.find("#dylUl")); 
-		    
+		refreshDYL:function(){
+			var self=this;
+			umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/queryDylByAccountName",
+				params:{
+					accountName:localStorage.getItem("username")
+				},
+				success:function(obj){ 
+					 
+					if(obj.attributes){
+						html=""; 
+					    for(var i=0;i<obj.attributes.DYL.length;i++){ 
+					    	 
+					    	html+=" <li id='"+obj.attributes.DYL[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
+					              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+obj.attributes.DYL[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+obj.attributes.DYL[i].id+" name='cancel'>取消</a> </div>"
+					              +"<div class='daiyulu_img'><img style='width: 130px;height: 110px;border:0;' name='"+obj.attributes.DYL[i].fileName+"' data-src='"+obj.attributes.DYL[i].zxdImageUrl+"' src='"+obj.attributes.DYL[i].zxdThumbnailImageUrl+"' alt=''></div>"
+					              +"</div>"
+					              +"<div class='daiyulu_line'></div> </li>";
+					    } 
+					    $("#dylUl").empty(); 
+					    $(html).appendTo(self.$el.find("#dylUl")); 
+					}else{
+						html=""; 
+					    for(var i=0;i<obj.DYL.length;i++){  
+					    	html+=" <li id='"+obj.DYL[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
+					              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+obj.DYL[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+obj.DYL[i].id+" name='cancel'>取消</a> </div>"
+					              +"<div class='daiyulu_img'><img style='width: 130px;height: 110px;border:0;' name='"+obj.DYL[i].fileName+"' data-src='"+obj.DYL[i].zxdImageUrl+"'  src='"+obj.DYL[i].zxdThumbnailImageUrl+"' alt=''></div>"
+					              +"</div>"
+					              +"<div class='daiyulu_line'></div> </li>";
+					    } 
+					    $("#dylUl").empty(); 
+					    $(html).appendTo(self.$el.find("#dylUl")); 
+					}
+					 
+					 
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
+			/**
+			
+			
+		    */
 		},
-		refreshDCL:function(data){
-			var self=this,
-				html=""; 
-		    for(var i=0;i<data.length;i++){ 
-		    	var bakFile=data[i].fileBak; 
-		    	html+="<li>"
-		            +"<div class='yiwancheng_button'>"
-		            +"<ul>"
-		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></li>"
-		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].xpImageUrl+"' src='"+data[i].xpImageUrl+"' alt=''></li>"
-		            +"</ul>"
-		            +"</div>"
-		            +"<div class='yiwancheng_button'>"
-		            +"<button data-id='"+data[i].id+"' style=' width: 100%;height: 30px;border-radius: 100; border-radius: 4px;opacity: 0.7;background: #93e246;'>预录确认</button>"
-		            +"</div>"
-		            +"<div class='yiwancheng_line'></div>"
-		            +"</li>";
-		    	
-			    } 
-		    $("#dclUl").empty(); 
-		    $(html).appendTo(self.$el.find("#dclUl")); 
+		refreshDCL:function(){
+			var self=this;
+			var html=""; 
+			umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/queryDqrByAccountName",
+				params:{
+					accountName:localStorage.getItem("username")
+				},
+				success:function(obj){ 
+					 
+					if(obj.attributes){
+						 for(var i=0;i<obj.attributes.DQR.length;i++){ 
+						    	 
+						    	html+="<li>"
+						            +"<div class='yiwancheng_button'>"
+						            +"<ul>"
+						            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.DQR[i].fileName+"' data-src='"+obj.attributes.DQR[i].zxdImageUrl+"' src='"+obj.attributes.DQR[i].zxdThumbnailImageUrl+"' alt=''></li>"
+						            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.DQR[i].xpImageUrl+"' data-src='"+obj.attributes.DQR[i].xpImageUrl+"' src='"+obj.attributes.DQR[i].xpThumbnailImageUrl+"' alt=''></li>"
+						            +"</ul>"
+						            +"</div>"
+						            +"<div class='yiwancheng_button'>"
+						            +"<button data-id='"+obj.attributes.DQR[i].id+"' style=' width: 100%;height: 30px;border-radius: 100; border-radius: 4px;opacity: 0.7;background: #93e246;'>预录确认</button>"
+						            +"</div>"
+						            +"<div class='yiwancheng_line'></div>"
+						            +"</li>";
+						    	
+							    } 
+						$("#dclUl").empty(); 
+						$(html).appendTo(self.$el.find("#dclUl")); 
+					}else{
+						for(var i=0;i<data.DQR.length;i++){ 
+						  	html+="<li>"
+					            +"<div class='yiwancheng_button'>"
+					            +"<ul>"
+					            +"  <li><img style='width:160px;height:120px;' name='"+obj.DQR[i].fileName+"' data-src='"+obj.DQR[i].zxdImageUrl+"' src='"+obj.DQR[i].zxdThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' name='"+obj.DQR[i].xpImageUrl+"' data-src='"+obj.DQR[i].xpImageUrl+"' src='"+obj.DQR[i].xpThumbnailImageUrl+"' alt=''></li>"
+					            +"</ul>"
+					            +"</div>"
+					            +"<div class='yiwancheng_button'>"
+					            +"<button data-id='"+obj.DQR[i].id+"' style=' width: 100%;height: 30px;border-radius: 100; border-radius: 4px;opacity: 0.7;background: #93e246;'>预录确认</button>"
+					            +"</div>"
+					            +"<div class='yiwancheng_line'></div>"
+					            +"</li>";
+						}
+						$("#dclUl").empty(); 
+						$(html).appendTo(self.$el.find("#dclUl")); 
+					}
+					 
+					 
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
+			 
+		   
+		  
 		
 		},
-		refreshYWC:function(data){
-			
-			var self=this,
-			html=""; 
-		    for(var i=0;i<data.length;i++){
-		    	 
-		    	var bakFile=data[i].fileBak; 
-			    	html+="<li>"
-		            +"<div class='yiwancheng_button'>"
-		            +"<ul>"
-		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].fileName+"' src='"+bakFile+"' alt=''></li>"
-		            +"  <li><img style='width:160px;height:120px;' name='"+data[i].xpImageUrl+"' src='"+data[i].xpImageUrl+"' alt=''></li>"
-		            +"</ul>"
-		            +"</div>"
-		            +"<div class='yiwancheng_button'>"
-		            +"<ul>"
-		            +"  <li>申请:"+data[i].createDate+"</li>"
-		            +"  <li>完成:"+data[i].wcDate+"</li>"
-		            +"</ul>"
-		            +"</div>"
-		            +"<div class='yiwancheng_line'></div>"
-		            +"</li>";
-		    	
-			    } 
-	    	$("#ywcUl").empty(); 
-	    	$(html).appendTo(self.$el.find("#ywcUl")); 
+		refreshYWC:function(){
+			var self=this;
+			var html=""; 
+			self.currentPage=0,
+			umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/queryYwcByAccountName",
+				params:{
+					accountName:localStorage.getItem("username"),
+					limit:10,
+					start:self.currentPage*5
+				},
+				success:function(obj){
+					if(obj.attributes){
+						for(var i=0;i<obj.attributes.YWC.length;i++){
+							html+="<li>"
+					            +"<div class='yiwancheng_button'>"
+					            +"<ul>"
+					            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.YWC[i].fileName+"' data-src='"+obj.attributes.YWC[i].zxdImageUrl+"'  src='"+obj.attributes.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.YWC[i].xpImageUrl+"' data-src='"+obj.attributes.YWC[i].xpImageUrl+"'  src='"+obj.attributes.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
+					            +"</ul>"
+					            +"</div>"
+					            +"<div class='yiwancheng_button'>"
+					            +"<ul>"
+					            +"  <li>申请:"+obj.attributes.YWC[i].createDate+"</li>"
+					            +"  <li>完成:"+obj.attributes.YWC[i].wcDate+"</li>"
+					            +"</ul>"
+					            +"</div>"
+					            +"<div class='yiwancheng_line'></div>"
+					            +"</li>";
+						}
+						$("#ywcUl").empty(); 
+				    	$(html).appendTo(self.$el.find("#ywcUl")); 
+					}else{
+						for(var i=0;i<obj.YWC.length;i++){
+							html+="<li>"
+					            +"<div class='yiwancheng_button'>"
+					            +"<ul>"
+					            +"  <li><img style='width:160px;height:120px;' name='"+obj.YWC[i].fileName+"' data-src='"+obj.DYL[i].zxdImageUrl+"' src='"+obj.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' name='"+obj.YWC[i].xpImageUrl+"' data-src='"+obj.DYL[i].xpImageUrl+"' src='"+obj.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
+					            +"</ul>"
+					            +"</div>"
+					            +"<div class='yiwancheng_button'>"
+					            +"<ul>"
+					            +"  <li>申请:"+obj.YWC[i].createDate+"</li>"
+					            +"  <li>完成:"+obj.YWC[i].wcDate+"</li>"
+					            +"</ul>"
+					            +"</div>"
+					            +"<div class='yiwancheng_line'></div>"
+					            +"</li>";
+						}
+						$("#ywcUl").empty(); 
+				    	$(html).appendTo(self.$el.find("#ywcUl")); 
+					}
+				},
+				error:function(){
+					
+				},
+			});
+		     
+	    
 		},
 		getImageFormCamera:function(){ 
 			 
@@ -366,7 +485,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
             return arr.join('');  
         },
         onCreate:function(){
-        
+        	var self=this;
        	    this.render();
 	       	this.header.set({
 	   			title:'今日物流',
@@ -489,8 +608,92 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			});
     		
 	    	 
-	    
+    		$(window).scroll(function () {
+    			if(self.currentTab!=3){
+    				return ;
+    			}
+			    if ($(document).scrollTop() + $(window).height() >= $(document).height()) { 
+			    	if(!self.hasData){
+						return;
+					}
+			    	self.showLoading();
+			    	var html=""; 
+					umodel.fetch({
+						url:UC.actionUrl+"appAppPrerecordInfo/queryYwcByAccountName",
+						params:{
+							accountName:localStorage.getItem("username"),
+							limit:10,
+							start:(self.currentPage+1)*5
+						},
+						success:function(obj){
+							
+							self.hideLoading();
+		        			self.currentPage++;
+							if(obj.attributes){
+								if(obj.attributes.YWC.length==0){
+									self.hasData=false;
+									self.showAlert("没有数据啦");
+									return;
+								}
+								for(var i=0;i<obj.attributes.YWC.length;i++){
+									html+="<li>"
+							            +"<div class='yiwancheng_button'>"
+							            +"<ul>"
+							            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.YWC[i].fileName+"' src='"+obj.attributes.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
+							            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.YWC[i].xpImageUrl+"' src='"+obj.attributes.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
+							            +"</ul>"
+							            +"</div>"
+							            +"<div class='yiwancheng_button'>"
+							            +"<ul>"
+							            +"  <li>申请:"+obj.attributes.YWC[i].createDate+"</li>"
+							            +"  <li>完成:"+obj.attributes.YWC[i].wcDate+"</li>"
+							            +"</ul>"
+							            +"</div>"
+							            +"<div class='yiwancheng_line'></div>"
+							            +"</li>";
+								}
+								 
+						    	$(html).appendTo(self.$el.find("#ywcUl")); 
+							}else{
+								if(obj.YWC.length==0){
+									self.hasData=false
+									self.showAlert("没有数据啦");
+									return;
+								}
+								for(var i=0;i<obj.YWC.length;i++){
+									html+="<li>"
+							            +"<div class='yiwancheng_button'>"
+							            +"<ul>"
+							            +"  <li><img style='width:160px;height:120px;' name='"+obj.YWC[i].fileName+"' src='"+obj.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
+							            +"  <li><img style='width:160px;height:120px;' name='"+obj.YWC[i].xpImageUrl+"' src='"+obj.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
+							            +"</ul>"
+							            +"</div>"
+							            +"<div class='yiwancheng_button'>"
+							            +"<ul>"
+							            +"  <li>申请:"+obj.YWC[i].createDate+"</li>"
+							            +"  <li>完成:"+obj.YWC[i].wcDate+"</li>"
+							            +"</ul>"
+							            +"</div>"
+							            +"<div class='yiwancheng_line'></div>"
+							            +"</li>";
+								}
+								 
+						    	$(html).appendTo(self.$el.find("#ywcUl")); 
+							}
+						},
+						error:function(){
+							self.hideLoading();
+						},
+					});
+			    	 
+			    }
+			});
 		 
+        },
+        onHide:function(){
+        	$(window).unbind("scroll");
+        	 
+        	
         },
         onShow:function(){
         	

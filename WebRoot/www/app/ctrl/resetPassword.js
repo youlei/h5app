@@ -8,20 +8,25 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 			var self=this,
 				umodel=new userModel(),
-				phoneNumber=localStorage.getItem("username"),
-				password=self.$el.find("#password").val(),
+				phoneNumber=UC.goParam.phoneNumber, 
 				newPassword=self.$el.find("#newPassword").val(),
 				reNewPassword=self.$el.find("#reNewPassword").val();
 			if(newPassword!==reNewPassword){
+				 
 				self.showAlert("密码不一致");
 				return ;
+			}else{
+				if(newPassword.length<6){
+					self.showAlert("密码必须六位以上");
+					return ;
+				}
 			}
+			
 				
 			umodel.fetch({
-				url:UC.actionUrl+"appRegister/modifyPassword",
+				url:UC.actionUrl+"appRegister/backPassword",
 				params:{
-					phoneNumber:phoneNumber,
-					oldPassword:password,
+					phoneNumber:phoneNumber, 
 					newPassword:newPassword
 				},
 				success:function(data){
@@ -33,7 +38,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	  						self.showAlert("设置成功");
 							UC.go("home");
 						}else{
-							self.showAlert("原密码错误");
+							self.showAlert("重置失败");
 						}
 					}else{
 						if(data.flag){
@@ -42,7 +47,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 	  						self.showAlert("设置成功");
 							UC.go("home");
 						}else{
-							self.showAlert("原密码错误");
+							self.showAlert("重置失败");
 						}
 					}
 					

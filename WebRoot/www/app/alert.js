@@ -26,8 +26,11 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 				self.$alert=null;
 			});
 			setTimeout(function(){
-				self.$alert.remove();
-				self.$alert=null;
+				if(self.$alert){
+					self.$alert.remove();
+					self.$alert=null;
+				}
+				
 			},3000);
 		};
 		
@@ -89,8 +92,11 @@ define(['jquery','underscore','backbone','basePageView'],function(jquery,_,Backb
 			});
 			self.$confirm.on("click",function(){
 				self.$confirm.one('webkitAnimationEnd',function(){
-					self.$confirm.remove();
-					self.$confirm=null;
+					if(self.$confirm){
+						self.$confirm.remove();
+						self.$confirm=null;
+					}
+					
 				});
 				self.$confirm.addClass("bounceOut");
 				

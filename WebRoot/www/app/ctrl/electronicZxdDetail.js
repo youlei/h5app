@@ -27,6 +27,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
        		
         },
+        onHide:function(){
+        	var self=this;
+        	UC.PageViewMgr.destroyPageView(self); 
+        },
         onCreate:function(){
         
         	

@@ -1,23 +1,70 @@
 define(['jquery','underscore','backbone','text!TemplateForget','basePageView','userModel'],function(jquery,_,Backbone,TemplateForget,basePageView,userModel){
-	
+	var umodel=new userModel();
 	var loginView=basePageView.extend({
 		flag:false,
 		next:false,
 		phoneReg : /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/,
-		events:{
-			"click #getPassword":"getPassword",
+		events:{ 
 			"click #getCode":"getCode",
-			"click #next":"next"
+			"click #gotoNext":"gotoNext"
 			
 		},
-		next:function(){
-			UC.go('resetPassword',{anim:true});
+		gotoNext:function(){
+			var self=this, 
+				phoneNumber=self.$el.find("#phoneNumber").val(),
+				code=self.$el.find("#code").val();
+			if(!self.next){
+				self.showAlert("验证没有通过");
+				return ;
+			}
+			self.showLoading();
+			umodel.fetch({
+				url:UC.actionUrl+"appRegister/validateBackPasswordCode",
+				params:{
+					validateCode:code,
+					phoneNumber:phoneNumber
+				},
+				success:function(data){
+					//console.log(data);
+					self.hideLoading();
+					if(data.attributes){
+						if(data.attributes.flag){
+							UC.go("resetPassword",{
+								phoneNumber:phoneNumber,
+								code:code
+							});
+							
+						}else{
+							self.showAlert("验证码有误！！");
+							
+						}
+						
+					}else{
+						
+						if(data.flag){
+							UC.go("resetPassword",{
+								phoneNumber:phoneNumber,
+								code:code
+							});
+							
+						}else{
+							self.showAlert("验证码有误！！");
+							
+						}
+					}
+					
+				},
+				error:function(){
+					
+				}
+			});
+		 
 		},
 		getCode:function(){
 			 
 			 
 			 var self=this, 
-			     umodel=new userModel(),
+			     
 			     timer=60,
 		   	     data={
 				   phoneNumber:self.$el.find("#phoneNumber").val()
@@ -54,7 +101,7 @@ define(['jquery','underscore','backbone','text!TemplateForget','basePageView','u
 		   }
 		   self.flag=true;
 		   umodel.fetch({
-				url:UC.actionUrl+"appRegister/sendCode",
+				url:UC.actionUrl+"appRegister/sendBackPasswordCode",
 				params:data,
 				success:function(data){
 					//console.log(data);
@@ -93,70 +140,6 @@ define(['jquery','underscore','backbone','text!TemplateForget','basePageView','u
 				}
 			});
 		 
-		},
-		getPassword:function(){
-			 var self=this, 
-			     umodel=new userModel(),
-			     timer=60;
-		   	     data={
-				   phoneNumber:self.$el.find("#phoneNumber").val()
-				   
-		   	     };
-			// $("#getPassword").css("background","#EDECE8")
-		   	if(self.flag){
-		   		return ;
-		   	}
-		   	$("#getPassword").css("background","#EDECE8").html("正在获取"); 
-			var timerInterval=  setInterval(function(){
-				if(timer>0){
-					 timer--;
-					   $("#getPassword").html("等待"+timer);  
-					
-				}else{
-					  clearInterval(timerInterval);
-					  self.flag=false;
-					   $("#getPassword").css("background","#205975").html("获取密码"); 
-					
-				}
-				
-			},1000);
-	   	  	if(!self.flag){
-	   	  		self.flag=true;
-		   	  	umodel.fetch({
-					url:UC.actionUrl+"appRegister/backPassword",
-					params:data,
-					success:function(data){
-						//console.log(data);
-						if(data.attributes){
-							if(data.attributes.flag){
-								self.showAlert("新密码已经发送至手机");
-								 
-							}else{
-								self.flag=false;
-								clearInterval(timerInterval);
-							    $("#getPassword").css("background","#93e246").html("获取密码"); 
-								self.showAlert("不存在该账户！！");
-							}
-						}else{
-							if(data.flag){ 
-								self.showAlert("新密码已经发送至手机"); 
-							}else{
-								self.flag=false;
-								clearInterval(timerInterval);
-							    $("#getPassword").css("background","#93e246").html("获取密码"); 
-								self.showAlert("不存在该账户！！");
-							}
-						}
-						
-					},
-					error:function(){
-						self.showAlert("服务器错误！！");
-					}
-				});
-	   	  		
-	   	  	}
-		    
-			 
 		},
 		initTemplate: function () {
             return _.template(TemplateForget);

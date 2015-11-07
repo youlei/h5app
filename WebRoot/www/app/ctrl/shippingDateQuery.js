@@ -4,7 +4,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		events:{
 			 'click #search':'search'
 		},
-		currentPage:1,
+		currentPage:0,
 		selectPar:'',
 		initTemplate: function (template) {
             return _.template(template);
