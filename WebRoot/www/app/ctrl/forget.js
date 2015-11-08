@@ -114,7 +114,7 @@ define(['jquery','underscore','backbone','text!TemplateForget','basePageView','u
 						}else{
 							self.next=false;
 							self.flag=false;
-							self.showAlert("电话已经被注册");
+							self.showAlert(data.attributes.errorMessage);
 							clearInterval(timerInterval);
 						    $("#getCode").css("background","#205975").html("获取验证码"); 
 						}
@@ -126,7 +126,7 @@ define(['jquery','underscore','backbone','text!TemplateForget','basePageView','u
 						}else{
 							self.next=false;
 							self.flag=false;
-							self.showAlert("电话已经被注册");
+							self.showAlert(data.errorMessage);
 							clearInterval(timerInterval);
 						    $("#getCode").css("background","#205975").html("获取验证码"); 
 						}

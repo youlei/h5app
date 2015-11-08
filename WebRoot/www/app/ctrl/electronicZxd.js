@@ -45,7 +45,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	   this.render();
 	       	this.header.set({
-	   			title:'违章查询',
+	   			title:'电子装箱单',
 	   			view:true,
 	   			back:true,
 	   			home:true,

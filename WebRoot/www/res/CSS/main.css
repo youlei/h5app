@@ -563,10 +563,11 @@ i {
 	padding: 15px 0 10px 0;
 }
 .yulu_photo_photo {
-	border-radius: 100%;
-	-moz-border-radius: 100%;
-	-webkit-border-radius: 100%;
-	width: 70%;
+	/**border-radius: 100%;*/
+	/**-moz-border-radius: 100%;*/
+	/**-webkit-border-radius: 100%;*/
+	border-radius: 20px;
+	width: 90%;
 	background-color: #ccebf7;
 	margin: 0 auto;
 	position: relative;

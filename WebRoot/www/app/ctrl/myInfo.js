@@ -59,7 +59,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         
        	    this.render();
 	       	this.header.set({
-	   			title:"我的",
+	   			title:"修改资料",
 	   			view:true,
 	   			back:true,
 	   			home:true, 

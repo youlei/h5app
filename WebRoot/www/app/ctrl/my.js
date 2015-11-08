@@ -72,7 +72,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		       	  	self.$el.find("#company").html(myAccountInfo.theFleet);
 		       	  	self.$el.find("#integral").html(myAccountInfo.integral);
 		       	  	self.$el.find("#accountMoney").html(myAccountInfo.accountMoney);
-		        	self.$el.find("#yqm").html(myAccountInfo.invitationCode);
+		        	self.$el.find("#yqm").html(myAccountInfo.accountName);
 		        
 		       	  	localStorage.setItem("username",myAccountInfo.accountName);
 		       	  	localStorage.setItem("email",myAccountInfo.email);

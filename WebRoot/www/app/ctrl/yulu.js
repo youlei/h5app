@@ -26,7 +26,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		prerecordCount:0,
 		currentPage:0,
 		currentTab:0,
-		hasData:true,
 		switchTab:function(e){
 			var self=this;
 			$("[name='tab']").removeClass("hover");
@@ -50,7 +49,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				$("[name='tabContent']").hide();
 				self.refreshYWC();
 				$("#yl4").show();
-				self.currentTab=3;
 			}
 			self.refresh();
 		},
@@ -85,7 +83,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			var self=this,
 				$this=$(e.srcElement),
 				id=$this.data("id");
-			this.showAlert("加急成功");
+			
+			self.showAlert("加急成功"); 
+			$this.hide();
+			localStorage.setItem(id,true); 
 		},
 		confirmDCL:function(e){
 			var self=this,
@@ -160,49 +161,66 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		submitYulu:function(){
 			//var image=$("#previewImg");
 			var self=this;
-			if(!self.prerecordCount>0){
-				self.showAlert("你已没有预录，请先充值");
-				return ;
-			}
-			if($("#photograph").data("url")){
-				if(self.img==$("#photograph").data("url")){
-					self.showAlert("不能重复提交同一张图片");
-					return;
-				}
-				self.showLoading("提交图片请等候......"); 
-				setTimeout(function(){ 
-					//var serverUrl="http://192.168.1.106:8080/UCAPPService/UCService?accountName=youlei&password=123456&fileName="+$("#photograph").data("url");
-					var serverUrl=UC.actionUrl+"appAppPrerecordInfo/savePrerecordInfo?accountName="+localStorage.getItem('username')+"&password="+localStorage.getItem("password")+"&fileName="+$("#photograph").data("url")+"&fileBak="+$("#photograph").data("bakUrl");
-					self.img=$("#photograph").data("url");  
-					window.Native.uploadFile(serverUrl,$("#photograph").data("url"),$("#photograph").data("bakUrl")); 
-				},1000);
-				setInterval(function(){ 
+			umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/queryPrerecordCount",
+				params:{
+					accountName:localStorage.getItem("username")
+				},
+				success:function(obj){ 
 					 
-			       	umodel.fetch({
-						url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
-						params:{
-							accountName:localStorage.getItem('username')
-						},
-						success:function(obj){   
-							if(obj.attributes){
-								var resultArray= obj.attributes; 
-								self.refreshGrid(resultArray);
-							}else{
-								var resultArray= obj; 
-								self.refreshGrid(resultArray);
+					if(obj.prerecordCount==0){
+						self.showAlert("你已没有预录，请先充值");
+						self.$el.find("#prerecordCount").text(obj.prerecordCount);
+						return ;
+					}else{
+						if($("#photograph").data("url")){
+							if(self.img==$("#photograph").data("url")){
+								self.showAlert("不能重复提交同一张图片");
+								return;
 							}
+							self.showLoading("提交图片请等候......"); 
+							setTimeout(function(){ 
+								//var serverUrl="http://192.168.1.106:8080/UCAPPService/UCService?accountName=youlei&password=123456&fileName="+$("#photograph").data("url");
+								var serverUrl=UC.actionUrl+"appAppPrerecordInfo/savePrerecordInfo?accountName="+localStorage.getItem('username')+"&password="+localStorage.getItem("password")+"&fileName="+$("#photograph").data("url")+"&fileBak="+$("#photograph").data("bakUrl");
+								self.img=$("#photograph").data("url");  
+								window.Native.uploadFile(serverUrl,$("#photograph").data("url"),$("#photograph").data("bakUrl")); 
+							},1000);
+							setInterval(function(){ 
+								 
+						       	umodel.fetch({
+									url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
+									params:{
+										accountName:localStorage.getItem('username')
+									},
+									success:function(obj){   
+										if(obj.attributes){
+											var resultArray= obj.attributes; 
+											self.refreshGrid(resultArray);
+										}else{
+											var resultArray= obj; 
+											self.refreshGrid(resultArray);
+										}
+										
+									},
+									error:function(){
+										self.showToast("请求错误.....");
+									}
+								});
+							},20000);
 							
-						},
-						error:function(){
-							self.showToast("请求错误.....");
+							
+						}else{
+							self.showAlert("请先拍照");
 						}
-					});
-				},20000);
-				
-				
-			}else{
-				self.showAlert("请先拍照");
-			}
+					}
+					
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
+			
+			
 			
 			
 		},
@@ -293,9 +311,14 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					if(obj.attributes){
 						html=""; 
 					    for(var i=0;i<obj.attributes.DYL.length;i++){ 
-					    	 
+					    	var isShow="block";
+					    	if(localStorage.getItem(obj.attributes.DYL[i].id)){
+					    		isShow="none";
+					    	}
 					    	html+=" <li id='"+obj.attributes.DYL[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
-					              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+obj.attributes.DYL[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+obj.attributes.DYL[i].id+" name='cancel'>取消</a> </div>"
+					              +"<div class='daiyulu_button'> <a href='javascript:void(0);' style='display:"+isShow+"' class='daiyulu_jiaji' data-id='"+obj.attributes.DYL[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+obj.attributes.DYL[i].id+" name='cancel'>取消</a> " 
+					              +"<span>提交时间："+obj.attributes.DYL[i].createDate+"</span>"
+					              +"</div>"
 					              +"<div class='daiyulu_img'><img style='width: 130px;height: 110px;border:0;' name='"+obj.attributes.DYL[i].fileName+"' data-src='"+obj.attributes.DYL[i].zxdImageUrl+"' src='"+obj.attributes.DYL[i].zxdThumbnailImageUrl+"' alt=''></div>"
 					              +"</div>"
 					              +"<div class='daiyulu_line'></div> </li>";
@@ -305,8 +328,13 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					}else{
 						html=""; 
 					    for(var i=0;i<obj.DYL.length;i++){  
+					    	var isShow="block";
+					    	if(localStorage.getItem(obj.DYL[i].id)){
+					    		isShow="none";
+					    	}
 					    	html+=" <li id='"+obj.DYL[i].id+"'><div class='daiyulu_li'  name='dyl' style=''>"
-					              +"<div class='daiyulu_button'> <a href='javascript:void(0);' class='daiyulu_jiaji' data-id='"+obj.DYL[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+obj.DYL[i].id+" name='cancel'>取消</a> </div>"
+					              +"<div class='daiyulu_button'> <a href='javascript:void(0);' style='"+isShow+"' class='daiyulu_jiaji' data-id='"+obj.DYL[i].id+"' name='jiaji'>加急</a> <a href='javascript:void(0);' class='daiyulu_quxiao' data-id="+obj.DYL[i].id+" name='cancel'>取消</a>" +
+					              		"<span>提交时间："+obj.DYL[i].createDate+"</span> </div>"
 					              +"<div class='daiyulu_img'><img style='width: 130px;height: 110px;border:0;' name='"+obj.DYL[i].fileName+"' data-src='"+obj.DYL[i].zxdImageUrl+"'  src='"+obj.DYL[i].zxdThumbnailImageUrl+"' alt=''></div>"
 					              +"</div>"
 					              +"<div class='daiyulu_line'></div> </li>";
@@ -609,13 +637,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
     		
 	    	 
     		$(window).scroll(function () {
-    			if(self.currentTab!=3){
+    			if(self.currentTab!=2){
     				return ;
     			}
 			    if ($(document).scrollTop() + $(window).height() >= $(document).height()) { 
-			    	if(!self.hasData){
-						return;
-					}
 			    	self.showLoading();
 			    	var html=""; 
 					umodel.fetch({
@@ -626,12 +651,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 							start:(self.currentPage+1)*5
 						},
 						success:function(obj){
-							
 							self.hideLoading();
 		        			self.currentPage++;
 							if(obj.attributes){
 								if(obj.attributes.YWC.length==0){
-									self.hasData=false;
 									self.showAlert("没有数据啦");
 									return;
 								}
@@ -656,7 +679,6 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						    	$(html).appendTo(self.$el.find("#ywcUl")); 
 							}else{
 								if(obj.YWC.length==0){
-									self.hasData=false
 									self.showAlert("没有数据啦");
 									return;
 								}

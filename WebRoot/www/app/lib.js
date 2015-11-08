@@ -307,9 +307,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	    	
 	    },
 	    previewImage:function(url,bakUrl){   
-	    	$("#photograph").css({
-	    		background:"url("+bakUrl+")"
-	    	}); 
+	    	$("#photograph").find("img").eq(0).attr("src",bakUrl);
+	    	$("#photographIcon").hide();
 	    	$("#photograph").data("url",url); 
 	    	$("#photograph").data("bakUrl",bakUrl); 
 	    	//UC.go('imageView',{url:url});
@@ -339,6 +338,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	    	pg.hideLoading("");
 	    	var count= parseInt( pg.$el.find("#prerecordCount").val())-1;
 	    	pg.$el.find("#prerecordCount").val("count");
+	    	$("#photograph").find("img").eq(0).attr("src","");
+	    	$("#photographIcon").show();
+	    	$("#photograph").data("url",""); 
+	    	$("#photograph").data("bakUrl",""); 
 	    	pg.showAlert("上传成功.....");
 	    	return;
 	    },

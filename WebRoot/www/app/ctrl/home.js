@@ -61,7 +61,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 		},
 		jgcx:function(e){
-			UC.go('shippingDateQuery',{anim:true});
+			UC.go('shippingDateQuery/from/home',{anim:true});
 		},
 		smyl:function(){
 			//UC.go('yulu',{anim:true});
