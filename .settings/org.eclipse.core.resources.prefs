@@ -1,6 +1,7 @@
-#Sat Nov 07 17:12:01 CST 2015
+#Sun Nov 08 16:28:43 CST 2015
 eclipse.preferences.version=1
 encoding//WebRoot/www/app/basePageView.js=UTF-8
+encoding//WebRoot/www/app/ctrl/EDIPreview.js=utf-8
 encoding//WebRoot/www/app/ctrl/adPerview.js=UTF-8
 encoding//WebRoot/www/app/ctrl/askQuestions.js=utf-8
 encoding//WebRoot/www/app/ctrl/commonProblems.js=utf-8
@@ -13,6 +14,7 @@ encoding//WebRoot/www/app/ctrl/login.js=UTF-8
 encoding//WebRoot/www/app/ctrl/modifyPassword.js=UTF-8
 encoding//WebRoot/www/app/ctrl/my.js=UTF-8
 encoding//WebRoot/www/app/ctrl/myInfo.js=UTF-8
+encoding//WebRoot/www/app/ctrl/recharge.js=utf-8
 encoding//WebRoot/www/app/ctrl/register1.js=UTF-8
 encoding//WebRoot/www/app/ctrl/register2.js=UTF-8
 encoding//WebRoot/www/app/ctrl/resetPassword.js=utf-8
@@ -24,6 +26,7 @@ encoding//WebRoot/www/app/ctrl/validateContainerCode.js=UTF-8
 encoding//WebRoot/www/app/ctrl/violations.js=UTF-8
 encoding//WebRoot/www/app/ctrl/yulu.js=UTF-8
 encoding//WebRoot/www/app/lib.js=utf-8
+encoding//WebRoot/www/app/view/EDIPreview.html=utf-8
 encoding//WebRoot/www/app/view/askQuestions.html=utf-8
 encoding//WebRoot/www/app/view/commonProblems.html=UTF-8
 encoding//WebRoot/www/app/view/containerQuery.html=UTF-8
@@ -34,6 +37,7 @@ encoding//WebRoot/www/app/view/login.html=UTF-8
 encoding//WebRoot/www/app/view/modifyPassword.html=UTF-8
 encoding//WebRoot/www/app/view/my.html=UTF-8
 encoding//WebRoot/www/app/view/myInfo.html=UTF-8
+encoding//WebRoot/www/app/view/recharge.html=utf-8
 encoding//WebRoot/www/app/view/register1.html=utf-8
 encoding//WebRoot/www/app/view/register2.html=utf-8
 encoding//WebRoot/www/app/view/resetPassword.html=UTF-8

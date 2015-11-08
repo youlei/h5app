@@ -42,7 +42,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			            "-webkit-transition": "all 0.2s ease-out"
 			     }) .on("webkitTransitionEnd",function(e){
 			    	 
-			    	 UC.go('yulu',{anim:false});
+			    	 UC.go('recharge',{anim:false});
 			     });
 				 
 			 });

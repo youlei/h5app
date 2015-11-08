@@ -11,8 +11,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			"click [name='tab']":"switchTab",
 			"click #photograph":"photograph",
 			"click #yl2 img":"previewImg",
-			"click #yl3 img":"previewImg",
-			"click #yl4 img":"previewImg",
+			"click #yl3 img[name='edi']":"previewTextImg",
+			"click #yl3 img[name='image']":"previewImg",
+			"click #yl4 img[name='edi']":"previewTextImg",
+			"click #yl4 img[name='image']":"previewImg",
 			"click #yl2 [name='cancel']":"cancelYulu",
 			"click #yl2 [name='jiaji']":"jiajiYulu",
 			"click #dclUl button":"confirmDCL",
@@ -154,6 +156,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				}
 			});
 		},
+		previewTextImg:function(e){
+			$this=$(e.currentTarget);
+			UC.go("EDIPreview",{anmi:true,content:$this.data("txt")});
+		},
 		previewImg:function(e){
 			var $this=$(e.srcElement); 
 			window.Native.gotoPreviewImage($this.data("src"));
@@ -168,51 +174,61 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				},
 				success:function(obj){ 
 					 
-					if(obj.prerecordCount==0){
-						self.showAlert("你已没有预录，请先充值");
-						self.$el.find("#prerecordCount").text(obj.prerecordCount);
-						return ;
-					}else{
-						if($("#photograph").data("url")){
-							if(self.img==$("#photograph").data("url")){
-								self.showAlert("不能重复提交同一张图片");
-								return;
-							}
-							self.showLoading("提交图片请等候......"); 
-							setTimeout(function(){ 
-								//var serverUrl="http://192.168.1.106:8080/UCAPPService/UCService?accountName=youlei&password=123456&fileName="+$("#photograph").data("url");
-								var serverUrl=UC.actionUrl+"appAppPrerecordInfo/savePrerecordInfo?accountName="+localStorage.getItem('username')+"&password="+localStorage.getItem("password")+"&fileName="+$("#photograph").data("url")+"&fileBak="+$("#photograph").data("bakUrl");
-								self.img=$("#photograph").data("url");  
-								window.Native.uploadFile(serverUrl,$("#photograph").data("url"),$("#photograph").data("bakUrl")); 
-							},1000);
-							setInterval(function(){ 
-								 
-						       	umodel.fetch({
-									url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
-									params:{
-										accountName:localStorage.getItem('username')
-									},
-									success:function(obj){   
-										if(obj.attributes){
-											var resultArray= obj.attributes; 
-											self.refreshGrid(resultArray);
-										}else{
-											var resultArray= obj; 
-											self.refreshGrid(resultArray);
-										}
-										
-									},
-									error:function(){
-										self.showToast("请求错误.....");
-									}
-								});
-							},20000);
-							
-							
-						}else{
-							self.showAlert("请先拍照");
+					if(obj.attributes){
+						if(obj.attributes.prerecordCount==0){
+							self.showAlert("你已没有预录，请先充值");
+							self.$el.find("#prerecordCount").text(obj.prerecordCount);
+							return ;
 						}
+					
+					}else{
+						if(obj.prerecordCount==0){
+							self.showAlert("你已没有预录，请先充值");
+							self.$el.find("#prerecordCount").text(obj.prerecordCount);
+							return ;
+						}
+					} 
+					
+					if($("#photograph").data("url")){
+						if(self.img==$("#photograph").data("url")){
+							self.showAlert("不能重复提交同一张图片");
+							return;
+						}
+						self.showLoading("提交图片请等候......"); 
+						setTimeout(function(){ 
+							//var serverUrl="http://192.168.1.106:8080/UCAPPService/UCService?accountName=youlei&password=123456&fileName="+$("#photograph").data("url");
+							var serverUrl=UC.actionUrl+"appAppPrerecordInfo/savePrerecordInfo?accountName="+localStorage.getItem('username')+"&password="+localStorage.getItem("password")+"&fileName="+$("#photograph").data("url")+"&fileBak="+$("#photograph").data("bakUrl");
+							self.img=$("#photograph").data("url");  
+							window.Native.uploadFile(serverUrl,$("#photograph").data("url"),$("#photograph").data("bakUrl")); 
+						},1000);
+						setInterval(function(){ 
+							 
+					       	umodel.fetch({
+								url:UC.actionUrl+"appAppPrerecordInfo/queryPendingByAccountName",
+								params:{
+									accountName:localStorage.getItem('username')
+								},
+								success:function(obj){   
+									if(obj.attributes){
+										var resultArray= obj.attributes; 
+										self.refreshGrid(resultArray);
+									}else{
+										var resultArray= obj; 
+										self.refreshGrid(resultArray);
+									}
+									
+								},
+								error:function(){
+									self.showToast("请求错误.....");
+								}
+							});
+						},20000);
+						
+						
+					}else{
+						self.showAlert("请先拍照");
 					}
+					 
 					
 				},
 				error:function(){
@@ -370,8 +386,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						    	html+="<li>"
 						            +"<div class='yiwancheng_button'>"
 						            +"<ul>"
-						            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.DQR[i].fileName+"' data-src='"+obj.attributes.DQR[i].zxdImageUrl+"' src='"+obj.attributes.DQR[i].zxdThumbnailImageUrl+"' alt=''></li>"
-						            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.DQR[i].xpImageUrl+"' data-src='"+obj.attributes.DQR[i].xpImageUrl+"' src='"+obj.attributes.DQR[i].xpThumbnailImageUrl+"' alt=''></li>"
+						            +"  <li><img style='width:160px;height:120px;' name='image' data-src='"+obj.attributes.DQR[i].zxdImageUrl+"' src='"+obj.attributes.DQR[i].zxdThumbnailImageUrl+"' alt=''></li>"
+						            +"  <li><img name='edi' style='width:160px;height:120px;' data-txt='"+obj.attributes.DQR[i].xpcontent+"'   data-src='"+obj.attributes.DQR[i].xpImageUrl+"' src='"+obj.attributes.DQR[i].xpThumbnailImageUrl+"' alt=''></li>"
 						            +"</ul>"
 						            +"</div>"
 						            +"<div class='yiwancheng_button'>"
@@ -388,8 +404,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						  	html+="<li>"
 					            +"<div class='yiwancheng_button'>"
 					            +"<ul>"
-					            +"  <li><img style='width:160px;height:120px;' name='"+obj.DQR[i].fileName+"' data-src='"+obj.DQR[i].zxdImageUrl+"' src='"+obj.DQR[i].zxdThumbnailImageUrl+"' alt=''></li>"
-					            +"  <li><img style='width:160px;height:120px;' name='"+obj.DQR[i].xpImageUrl+"' data-src='"+obj.DQR[i].xpImageUrl+"' src='"+obj.DQR[i].xpThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' name='image' data-src='"+obj.DQR[i].zxdImageUrl+"' src='"+obj.DQR[i].zxdThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img name='edi' style='width:160px;height:120px;' data-txt='"+obj.attributes.DQR[i].xpcontent+"'   data-src='"+obj.DQR[i].xpImageUrl+"' src='"+obj.DQR[i].xpThumbnailImageUrl+"' alt=''></li>"
 					            +"</ul>"
 					            +"</div>"
 					            +"<div class='yiwancheng_button'>"
@@ -430,8 +446,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 							html+="<li>"
 					            +"<div class='yiwancheng_button'>"
 					            +"<ul>"
-					            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.YWC[i].fileName+"' data-src='"+obj.attributes.YWC[i].zxdImageUrl+"'  src='"+obj.attributes.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
-					            +"  <li><img style='width:160px;height:120px;' name='"+obj.attributes.YWC[i].xpImageUrl+"' data-src='"+obj.attributes.YWC[i].xpImageUrl+"'  src='"+obj.attributes.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' name='image' data-src='"+obj.attributes.YWC[i].zxdImageUrl+"'  src='"+obj.attributes.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' data-txt='"+obj.attributes.YWC[i].xpcontent+"' name='edi' data-src='"+obj.attributes.YWC[i].xpImageUrl+"'  src='"+obj.attributes.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
 					            +"</ul>"
 					            +"</div>"
 					            +"<div class='yiwancheng_button'>"
@@ -450,8 +466,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 							html+="<li>"
 					            +"<div class='yiwancheng_button'>"
 					            +"<ul>"
-					            +"  <li><img style='width:160px;height:120px;' name='"+obj.YWC[i].fileName+"' data-src='"+obj.DYL[i].zxdImageUrl+"' src='"+obj.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
-					            +"  <li><img style='width:160px;height:120px;' name='"+obj.YWC[i].xpImageUrl+"' data-src='"+obj.DYL[i].xpImageUrl+"' src='"+obj.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' name='image' data-src='"+obj.DYL[i].zxdImageUrl+"' src='"+obj.YWC[i].zxdThumbnailImageUrl+"' alt=''></li>"
+					            +"  <li><img style='width:160px;height:120px;' data-txt='"+obj.YWC[i].xpcontent+"' name='edi' data-src='"+obj.DYL[i].xpImageUrl+"' src='"+obj.YWC[i].xpThumbnailImageUrl+"' alt=''></li>"
 					            +"</ul>"
 					            +"</div>"
 					            +"<div class='yiwancheng_button'>"

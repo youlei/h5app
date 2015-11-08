@@ -47,6 +47,8 @@ require.config({
 		'commonProblems':'app/ctrl/commonProblems',
 		'resetPassword':'app/ctrl/resetPassword',
 		'adPerview':'app/ctrl/adPerview',
+		'recharge':'app/ctrl/recharge',
+		'EDIPreview':'app/ctrl/EDIPreview',
 		
 		'selectCategoryModel':'app/model/selectCategoryModel',
 		'appAriticleModel':'app/model/appAriticleModel',
@@ -84,7 +86,9 @@ require.config({
 		'TemplateAskQuestions':'app/view/askQuestions.html',
 		'TemplateCommonProblems':'app/view/commonProblems.html',
 		'TemplateResetPassword':'app/view/resetPassword.html',
-		'TemplateAdPerview':'app/view/adPerview.html'
+		'TemplateAdPerview':'app/view/adPerview.html',
+		'TemplateRecharge':'app/view/recharge.html',
+		'TemplateEDIPreview':'app/view/EDIPreview.html'
 			
 			
 	}

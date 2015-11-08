@@ -5,9 +5,15 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			
 			"click #modifyPassword":"gotoModifyPassword",
 			"click #myInfo":"gotoMyInfo",
-			"click #loginOut":"loginOut"
+			"click #loginOut":"loginOut",
+			"click #myYQM":"clickYQM"
 			
 			
+		},
+		clickYQM:function(e){
+			var $this=$(e.currentTarget);
+			var text= $("#yqm").text();
+			window.Native.ctrlC(text);
 		},
 		loginOut:function(){
 			localStorage.clear();
