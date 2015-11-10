@@ -7,19 +7,19 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			FadingEntrances:"fadeIn fadeInDown fadeInDownBig fadeInLeft fadeInLeftBig fadeInRight fadeInRightBig fadeInUp fadeInUpBig".split(" "),
 			FadingExits:"fadeOut fadeOutDown fadeOutDownBig fadeOutLeft fadeOutLeftBig fadeOutRight fadeOutRightBig fadeOutUp fadeOutUpBig".split(" ")
 			
-			
-			
 	};
 	
 	var UC={
 		params:[],//���ÿ��hash ��תʱ����еĲ���	
+		
 		// ȫ��
 		pageInfo:{
 			limit:20
 			
 		},
-		actionUrl:'http://192.168.1.104:8090/',
-		//actionUrl:'http://jinriwuliu.cn:8080/',
+		//actionUrl:'http://192.168.1.104:8090/',
+		actionUrl:'http://jinriwuliu.cn:8080/',
+		 
 		isLogin:function(){ 
 			if(localStorage.getItem("username")&&localStorage.getItem("password")){ 
 				return true;

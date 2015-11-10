@@ -37,7 +37,9 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         onCreate:function(){
         
        	   this.render();
-	       	this.header.set({
+       	   var version=window.Native.getAppVersion();
+       	   $("#currentVersionSpan").text(version);
+	       this.header.set({
 	   			title:"我的",
 	   			view:true,
 	   			back:false,

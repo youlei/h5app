@@ -28,7 +28,7 @@ define(['jquery','underscore','backbone','text!TemplateRegister2','basePageView'
 			   	   accountName:this.$el.find("#userName").val(),
 				   password:this.$el.find("#password").val(),
 				   email:this.$el.find("#email").val(),
-				   theFleet:this.$el.find("#theFleet").val(),
+				   theFleet:encodeURI(encodeURI(this.$el.find("#theFleet").val())),
 				   userName:this.$el.find("#userName").val(),
 				   invitationCode:this.$el.find("#invitationCode").val()
 		   	   };
