@@ -1171,3 +1171,37 @@ width: 170px;
     height: 56px;
  width: 200px;}
  .welcome{ width:100% ; height:100%;}
+ .my_list .dingdan_right{ float:right;}
+ .icon_jian{     background-position: -347px -347px;
+    display: inline-block;
+    background-image: url(../images/icon.png );
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 33px;
+    vertical-align: middle;
+    margin-right: 10px;}
+	 .icon_jia{    background-position: -408px -347px;
+    display: inline-block;
+    background-image: url(../images/icon.png );
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 33px;
+    vertical-align: middle;
+    margin-left: 10px;}
+	.dd_input{    height: 31px;
+    line-height: 31px;
+    width: 44px;
+    vertical-align: middle;text-align: center;}
+	.text_red_dd{color: #DF5D20;}
+	
+	.icon_dd_jt{      background-position: -303px -350px;
+    display: inline-block;
+    background-image: url(../images/icon.png );
+    background-repeat: no-repeat;
+    width: 21px;
+    height: 33px;
+    vertical-align: middle;
+    margin-left: 10px;}
+	.bd_phone{    padding: 10px 0 10px 20px;
+    color: #767676;}
+ 
