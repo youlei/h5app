@@ -90,7 +90,7 @@ define(['jquery','underscore','backbone','text!TemplateRecharge','basePageView',
        		});
        },
        onShow:function(){
-       		
+    	   this.render();
        	 
        }
 	});

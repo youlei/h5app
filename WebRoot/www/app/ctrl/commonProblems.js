@@ -42,7 +42,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 								 +"<div class='duix_box_1' style='text-align: center;'>"+data.rows[i].title+"</div>"
 								 +"<div class='duix_box_2'>"
 								 +" <div class='duix_box_2_l'></div>"
-								 +" <div class='duix_box_2_r'>"+data.rows[i].title+"</div>"
+								 +" <div class='duix_box_2_r'>"+data.rows[i].content+"</div>"
 								 +"</div>" 
 								 
 								 +"</div>"
@@ -64,7 +64,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 								 +"<div class='duix_box_1' style='text-align: center;'>"+data.rows[i].title+"</div>"
 								 +"<div class='duix_box_2'>"
 								 +" <div class='duix_box_2_l'></div>"
-								 +" <div class='duix_box_2_r'>"+data.rows[i].title+"</div>"
+								 +" <div class='duix_box_2_r'>"+data.rows[i].content+"</div>"
 								 +"</div>" 
 								 
 								 +"</div>"
@@ -157,7 +157,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 									 +"<div class='duix_box_1' style='text-align: center;'>"+data.attributes.rows[i].title+"</div>"
 									 +"<div class='duix_box_2'>"
 									 +" <div class='duix_box_2_l'></div>"
-									 +" <div class='duix_box_2_r'>"+data.attributes.rows[i].title+"</div>"
+									 +" <div class='duix_box_2_r'>"+data.attributes.rows[i].content+"</div>"
 									 +"</div>" 
 									 
 									 +"</div>"
@@ -176,7 +176,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 									 +"<div class='duix_box_1' style='text-align: center;'>"+data.rows[i].title+"</div>"
 									 +"<div class='duix_box_2'>"
 									 +" <div class='duix_box_2_l'></div>"
-									 +" <div class='duix_box_2_r'>"+data.rows[i].title+"</div>"
+									 +" <div class='duix_box_2_r'>"+data.rows[i].content+"</div>"
 									 +"</div>" 
 									 
 									 +"</div>"

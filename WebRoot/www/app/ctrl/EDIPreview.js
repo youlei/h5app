@@ -2,7 +2,11 @@
 	var umodel=new userModel();
 	var myView=basePageView.extend({
 		events:{
-			"click #ctrlC":"clickCtrlC"
+			"click #ctrlC":"clickCtrlC",
+			"click #doubt":"dail"
+		},
+		dail:function(){
+			location='tel:'+localStorage.getItem("servicePhone");
 		},
 		clickCtrlC:function(){
 			var content= $("#ediConent").text();
@@ -20,6 +24,11 @@
         onHide:function(){
         	var self=this;
         	UC.PageViewMgr.destroyPageView(self);
+        },
+        onShow:function(){
+        	if(UC.goParam.from=="dqr"){
+        		this.$el.find("#doubt").show();
+        	}
         },
         onCreate:function(){
         

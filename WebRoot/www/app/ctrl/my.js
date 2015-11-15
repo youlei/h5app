@@ -17,6 +17,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		},
 		loginOut:function(){
 			localStorage.clear();
+			//localStorage.removeItem("username");
+			//localStorage.removeItem("password");
 			UC.go("login");
 		},
 		gotoModifyPassword:function(){

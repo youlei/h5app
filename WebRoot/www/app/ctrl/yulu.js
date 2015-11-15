@@ -11,7 +11,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 			"click [name='tab']":"switchTab",
 			"click #photograph":"photograph",
 			"click #yl2 img":"previewImg",
-			"click #yl3 img[name='edi']":"previewTextImg",
+			"click #yl3 img[name='edi']":"previewDqrTextImg",
 			"click #yl3 img[name='image']":"previewImg",
 			"click #yl4 img[name='edi']":"previewTextImg",
 			"click #yl4 img[name='image']":"previewImg",
@@ -156,6 +156,10 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				}
 			});
 		},
+		previewDqrTextImg:function(e){
+			$this=$(e.currentTarget);
+			UC.go("EDIPreview",{anmi:true,content:$this.data("txt"),from:'dqr'});
+		},
 		previewTextImg:function(e){
 			$this=$(e.currentTarget);
 			UC.go("EDIPreview",{anmi:true,content:$this.data("txt")});
@@ -251,18 +255,23 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 		},
 		photograph:function(){
 			var self=this;
-			self.showConfirm({
-				title:'请选择',
-				sure:'拍照',
-				cancel:'相册',
-				sureCallback:function(){
-					self.getImageFormCamera();
-				},
-				cancelCallback:function(){
-					self.getImageFormAlbum();
-				}
-				
-			});
+			if(self.prerecordCount>0){
+				self.showConfirm({
+					title:'请选择',
+					sure:'拍照',
+					cancel:'相册',
+					sureCallback:function(){
+						self.getImageFormCamera();
+					},
+					cancelCallback:function(){
+						self.getImageFormAlbum();
+					}
+					
+				});
+			}else{
+				self.showAlert("请先充值");
+			}
+			
 			
 		}, 
 		refresh:function(){
@@ -326,6 +335,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					 
 					if(obj.attributes){
 						html=""; 
+						if(obj.attributes.DYL.length==0){
+							 $("#dylUl").empty(); 
+							 $("#dylUl").html("没有数据！！！"); 
+							return ;
+						}
 					    for(var i=0;i<obj.attributes.DYL.length;i++){ 
 					    	var isShow="block";
 					    	if(localStorage.getItem(obj.attributes.DYL[i].id)){
@@ -343,6 +357,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					    $(html).appendTo(self.$el.find("#dylUl")); 
 					}else{
 						html=""; 
+						if(obj.DYL.length==0){
+							 $("#dylUl").empty(); 
+							 $("#dylUl").html("没有数据！！！"); 
+							return ;
+						}
 					    for(var i=0;i<obj.DYL.length;i++){  
 					    	var isShow="block";
 					    	if(localStorage.getItem(obj.DYL[i].id)){
@@ -381,6 +400,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				success:function(obj){ 
 					 
 					if(obj.attributes){
+						if(obj.attributes.DQR.length==0){
+							 $("#dclUl").empty(); 
+							 $("#dclUl").html("没有数据！！！"); 
+							return ;
+						}
 						 for(var i=0;i<obj.attributes.DQR.length;i++){ 
 						    	 
 						    	html+="<li>"
@@ -400,6 +424,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						$("#dclUl").empty(); 
 						$(html).appendTo(self.$el.find("#dclUl")); 
 					}else{
+						if(obj.DQR.length==0){
+							 $("#dclUl").empty(); 
+							 $("#dclUl").html("没有数据！！！"); 
+							return ;
+						}
 						for(var i=0;i<data.DQR.length;i++){ 
 						  	html+="<li>"
 					            +"<div class='yiwancheng_button'>"
@@ -442,6 +471,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				},
 				success:function(obj){
 					if(obj.attributes){
+						if(obj.attributes.YWC.length==0){
+							 $("#ywcUl").empty(); 
+							 $("#ywcUl").html("没有数据！！！"); 
+							return ;
+						}
 						for(var i=0;i<obj.attributes.YWC.length;i++){
 							html+="<li>"
 					            +"<div class='yiwancheng_button'>"
@@ -462,6 +496,11 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 						$("#ywcUl").empty(); 
 				    	$(html).appendTo(self.$el.find("#ywcUl")); 
 					}else{
+						if(obj.YWC.length==0){
+							 $("#ywcUl").empty(); 
+							 $("#ywcUl").html("没有数据！！！"); 
+							return ;
+						}
 						for(var i=0;i<obj.YWC.length;i++){
 							html+="<li>"
 					            +"<div class='yiwancheng_button'>"
@@ -569,27 +608,7 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 				}
 			});
 	        
-	       	 
-	    	umodel.fetch({
-				url:UC.actionUrl+"appAppPrerecordInfo/queryPrerecordCount",
-				params:{
-					accountName:localStorage.getItem("username")
-				},
-				success:function(obj){ 
-					
-					 
-					if(obj.attributes){
-						self.prerecordCount= obj.attributes.prerecordCount;
-					}else{
-						self.prerecordCount= obj.prerecordCount;
-					}
-					self
-					self.$el.find("#prerecordCount").text(self.prerecordCount);
-				},
-				error:function(){
-					self.showToast("请求错误.....");
-				}
-			});
+	     
 	    	umodel.fetch({
 				url:UC.actionUrl+"appAccountInfo/myAccountInfo",
 				params:{
@@ -606,6 +625,8 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
 					 
 					self.$el.find(".yulu_kefu").eq(0).html("客服电话："+myAccountInfo.customerPhone);
 					self.$el.find(".yulu_kefu").eq(0).data("tel",myAccountInfo.customerPhone);
+					localStorage.setItem("servicePhone",myAccountInfo.customerPhone);
+					
 					//href="tel:139xxxxxxxx"
 				},
 				error:function(){
@@ -734,11 +755,32 @@ define(['jquery','underscore','backbone','text!TemplateBottomNav','text!Template
         	
         },
         onShow:function(){
-        	
+        	var self=this;
         	if(!UC.isLogin()){
         		UC.go('login');
+        		
         	}
-        	
+         	 
+	    	umodel.fetch({
+				url:UC.actionUrl+"appAppPrerecordInfo/queryPrerecordCount",
+				params:{
+					accountName:localStorage.getItem("username")
+				},
+				success:function(obj){ 
+					
+					 
+					if(obj.attributes){
+						self.prerecordCount= obj.attributes.prerecordCount;
+					}else{
+						self.prerecordCount= obj.prerecordCount;
+					}
+				 
+					self.$el.find("#prerecordCount").text(self.prerecordCount);
+				},
+				error:function(){
+					self.showToast("请求错误.....");
+				}
+			});
         	
 			 
         }
